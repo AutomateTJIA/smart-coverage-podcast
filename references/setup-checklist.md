@@ -16,8 +16,8 @@ Owner key: **Billy** = only Billy can do it (his accounts, his voice, his licens
 
 | Account | Plan | Why | After creating |
 |---|---|---|---|
-| Transistor.fm | Professional, $49/mo (14-day trial) | Hosting for both shows, API, YouTube auto-post | Settings → API → copy the API key |
-| ElevenLabs | Creator, ~$22/mo | Billy's voice clone + podcast API | Profile → API key; Voice Lab → note the voice IDs |
+| Transistor.fm | **Professional**, $49/mo or $490/yr (start the 14-day trial) | Hosting for both shows, API, YouTube auto-post, auto intro/outro | Account → API Access → copy key → add as n8n Header Auth credential (`x-api-key`) |
+| ElevenLabs | **already have it** | Billy's voice + Rachel, Text to Dialogue API | Profile → API key → add as n8n Header Auth credential (`xi-api-key`); My Voices → copy Billy's voice ID |
 | Apple Podcasts Connect | free (Apple ID) | Submit the show, owner verification, transcripts setting | Submit the Transistor RSS feed |
 | Spotify for Creators | free (existing login) | Claim the show, export old analytics, redirect old feed | See section 4 |
 | Amazon Music for Podcasters | free | Directory listing | Submit RSS |
@@ -29,7 +29,12 @@ Owner key: **Billy** = only Billy can do it (his accounts, his voice, his licens
 **API keys:** Billy adds them to n8n credentials and to this cloud environment's secrets.
 Never paste a key into chat.
 
-## 3. Billy's voice (ElevenLabs Professional Voice Clone)
+## 3. Billy's voice (ElevenLabs)
+
+The n8n workflow "AI Coverage Coach — Blog to Podcast (Host + Guest)" already expects Billy's
+voice and uses Rachel as host. First check ElevenLabs → My Voices: if Billy's voice is already a
+**Professional** clone, skip to step 5. If it's an **Instant** clone, it's fine for testing; do
+steps 1–3 before the public launch.
 
 1. Record **at least 30 minutes** of Billy talking naturally, ideally 1–2 hours. Read old blog posts out loud and explain things like you would to a client. Use a quiet room and a decent USB mic held at a steady distance. No music, no other voices.
 2. Upload in ElevenLabs → Voices → Professional Voice Clone. Billy completes the voice verification (he reads a short phrase so ElevenLabs knows it's really his voice).
@@ -57,6 +62,9 @@ Claude does **not** need Billy's Spotify login. Two separate things:
 - [ ] Billy's NC and TN license numbers for show notes, if we include them
 
 ## 6. Brand assets
+
+- [ ] **Original high-resolution avatar file** (the Pixar-style image from the website) for the avatar cover
+- [ ] 8–12 second intro jingle (+ short outro) made in ElevenLabs Music, exported as MP3 44.1 kHz / 128 kbps
 
 - [ ] Vector logo (Webflow `Logo Image.svg`) for crisper cover art
 - [ ] Decision on the avatar's gray beard vs. the brand image rule

@@ -7,7 +7,8 @@
 - website: https://thejordaninsuranceagency.com/podcast
 - offices_line: ", with offices in Charlotte, North Carolina and Nashville, Tennessee"
 - host_name: Billy Jordan (ElevenLabs Professional Voice Clone — ID: TBD after consent + recording)
-- cohost_name / role: Maya / "our producer" (stock voice — ID: TBD). Role, not a fake expert.
+- cohost_name / role: Rachel / host (ElevenLabs premade voice 21m00Tcm4TlvDq8ikWAM, already set in the n8n workflow). Billy appears as the licensed-agent guest.
+- existing workflow: n8n "AI Coverage Coach — Blog to Podcast (Host + Guest)" (id ngXftJaRk1b1oiL9). Rename the show inside it once the name is final.
 - audience: individuals, families, self-employed people, and adults approaching 65 in NC and TN
 - lanes: Medicare · Health · Life · Home & Auto · Retirement
 - cta: "Book a free coverage review at thejordaninsuranceagency.com, or call our office." (no "free" in Medicare product claims; "free review" of our service is allowed — CONFIRM with compliance)
@@ -17,6 +18,6 @@
 - ai_disclosure_written: This episode uses AI-generated voices, including a digital replica of Billy's voice, from a script reviewed by a licensed agent.
 - compliance level: STRICT — see references/compliance.md; Medicare/health always pass the approval gate
 - colors: navy #163A70, royal #1F5AA6 (dominant) · gold #E0B43B (accent only) · white, #E9EDF2
-- art: assets/src/the-jordan-insurance-agency-cover.html, assets/src/the-jordan-insurance-agency-episode-thumb.html
+- art: assets/src/the-jordan-insurance-agency-cover-avatar.html (recommended, needs hi-res avatar), assets/src/the-jordan-insurance-agency-cover.html, assets/src/the-jordan-insurance-agency-episode-thumb.html
 - categories: Business › Investing; Education › How To
 - pronunciation: ACA (A-C-A), HMO, PPO, EPO, HSA, MAPD, Medigap, IRMAA ("ur-muh"), Mecklenburg, Davidson County

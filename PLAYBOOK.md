@@ -1,6 +1,6 @@
 # The Podcast Engine Playbook — The Jordan Insurance Agency (then Breakpoint Systems)
 
-Version 1.1 · October 10, 2026 · Owner: Billy Jordan
+Version 1.2 · October 10, 2026 · Owner: Billy Jordan
 
 This is the operating playbook for launching and running an AI-assisted podcast for
 The Jordan Insurance Agency, modeled on the show run by our AEO partner, then cloned for
@@ -142,6 +142,15 @@ The thumbnail's footer shows **thejordaninsuranceagency.com** (not a city), so e
 points people back to the site. Still to produce: a 1200×630 social/OG image per episode
 (same template, different crop).
 
+**Avatar cover (Oct 10):** Billy asked why the cover doesn't use the same Pixar-style avatar
+the website and episode thumbnails use. He's right. One face across the site, cover, and
+thumbnails is stronger branding, and a face looking straight at the viewer reads well at small
+sizes. Concept built: `assets/the-jordan-insurance-agency-podcast-cover-avatar-concept.jpg`.
+**Recommendation: make the avatar version the official cover** once we have the original
+high-resolution avatar file. The only copy we have is 1184×666, which looks soft at 3000×3000.
+The brand-image skill's "no gray beard" rule is for generated agent scenes; the avatar is Billy
+himself, so treat it as an approved exception.
+
 ### Voice
 
 - Host: **Billy (cloned voice)**. Co-host: **one** consistent stock voice — give the co-host a
@@ -160,12 +169,13 @@ points people back to the site. Still to produce: a 1200×630 social/OG image pe
 |---|---|---|---|
 | Script | Claude (skill prompt in `references/script-prompt.md`) | existing | Built from our own pages; compliance rules baked in |
 | Compliance gate | Human approval step (n8n "wait for approval") | $0 | Required for Medicare |
-| Audio | **ElevenLabs Creator** — Studio Podcast API + Professional Voice Clone of Billy | ~$22/mo | Real API, choose voices, Billy's voice is the brand |
+| Audio | **ElevenLabs** (Billy already has an account) — Text to Dialogue API, `eleven_v3` model, Billy's voice + Rachel as host | existing plan | Already wired in our n8n workflow; natural two-person delivery with emotion tags |
+| Intro/outro music | One 8–12 second jingle made once in ElevenLabs Music (paid plan = commercial license), stitched onto every episode in n8n | $0 extra | Same sound every episode = brand recognition |
 | Backup audio | Gemini 3.8 Flash TTS (multi-speaker, consent-gated clone) | ~1.4¢/min | Cheapest fallback |
 | Drafting / B2B tests | NotebookLM (now **Gemini Notebook**) | free/Pro | Fast, but no API, can't pick voices, unclear commercial terms |
 | Hosting + distribution | **Transistor Professional** | $49/mo | API, unlimited shows (both brands), YouTube auto-post, transcripts |
 | Transcripts | Transistor AI transcripts or upload our own script as transcript | $5/mo | Our script = a perfect transcript, free |
-| Automation | n8n (already running our blog engine) | existing | Start from n8n template #11897 |
+| Automation | n8n: **existing "AI Coverage Coach — Blog to Podcast (Host + Guest)" workflow**, extended | existing | Half-built already (see below) |
 | Thumbnails | HTML template → Playwright render | $0 | Already built |
 
 **Total ≈ $75–90/month for both shows.**
@@ -217,13 +227,100 @@ Everything left is an account, a recording, or a decision only Billy can make. T
 with who does what, is in `references/setup-checklist.md`. The short version:
 
 1. **Confirm the partner's show** (re-paste the Spotify link).
-2. **Create Transistor and ElevenLabs accounts**; put the API keys in n8n and the environment secrets (never in chat).
-3. **Record 30–120 minutes of Billy talking** for the voice clone, and sign a consent form.
+2. **Start the Transistor Professional trial.** In ElevenLabs (account exists): confirm Billy's voice is in My Voices and copy its voice ID. Add the ElevenLabs and Transistor API keys as n8n credentials yourself (never in chat). The voice ID is not a secret; it can be shared.
+3. **If Billy's voice in ElevenLabs is an Instant clone**, upgrade it to a Professional clone (30–120 minutes of clean audio) for the public show. Sign the consent form either way.
 4. **Get the TPMO counts and the TN ad rules** from the FMO/carrier compliance contact.
 5. **Pick the YouTube channel** and the booking link.
 6. **Spotify:** no login needed for research. Allowing `open.spotify.com` in this environment's
    network settings lets Claude read public pages. Billy uses his own Spotify for Creators login
    only to check the old show and redirect it.
+
+### What we already have (found Oct 10)
+
+Billy's n8n already contains **"AI Coverage Coach — Blog to Podcast (Host + Guest)"** (built
+July 10, never run). It does most of what the partner does:
+
+| Step | Status |
+|---|---|
+| Pull the latest blog post from the website | ✅ built |
+| GPT-4.1-mini writes a two-person dialogue: **Rachel** (host, ElevenLabs stock voice) interviews **Billy** (guest, Billy's own ElevenLabs voice) | ✅ built |
+| Compliance gate: blocks "best plan," "guaranteed," "risk-free," missing disclosures, missing Medicare non-affiliation line, NPN statement | ✅ built |
+| ElevenLabs Text to Dialogue (`eleven_v3`) → stitch chunks into one MP3 | ✅ built, **not connected** |
+| ElevenLabs credential in n8n | ❌ missing (no ElevenLabs credential exists in n8n) |
+| Billy's voice ID | ❌ placeholder `REPLACE_WITH_BILLY_ELEVENLABS_VOICE_ID` |
+| Brand-name gate, human approval step, intro music, Transistor publish, episode page, YouTube | ❌ to add |
+
+Changes it needs to match this playbook:
+- **Show name:** it says "AI Coverage Coach." This playbook says "Smart Coverage. Real Advice."
+  Pick one (recommendation: Smart Coverage. Real Advice., because it matches the website).
+- **Two states:** its scripted intro says "licensed North Carolina insurance agent." Add
+  Tennessee once TN rules are confirmed.
+- **Co-host:** keep Rachel. She's already built in, and she's a host role, not a fake expert.
+  (This replaces the "Maya" placeholder used elsewhere in this playbook.)
+
+### How the partner makes theirs (and the intro music)
+
+- Their site says episodes are scripted by their team, run through "the automation pipeline
+  the company sells," and **"narrated in Vijay's voice"** with "proprietary voice technology."
+  They don't name the tool. The most likely setup is a voice-clone text-to-speech API, the same
+  kind of thing as our ElevenLabs workflow. **Not confirmed.**
+- They don't say how they add intro music. The usual ways: a jingle file glued onto the front
+  of every episode, or the host's ad-insertion feature (Transistor "Campaigns") adding it
+  automatically when someone plays the episode.
+- **NotebookLM never let anyone pick or change the host voices** (2024–2026). People who
+  "changed the voices" ran the finished NotebookLM audio through ElevenLabs Voice Changer or a
+  similar tool afterward.
+- For context: AEO Engine sells this as part of managed plans at **$5,000–$10,000/month**.
+  We're building the same thing for under $100/month in tools.
+
+**Our intro plan:** make one 8–12 second jingle in ElevenLabs Music, export it as MP3 at the
+same settings as the episode audio (44.1 kHz, 128 kbps), and prepend it in the workflow's
+existing "Stitch Audio" step. Same trick for a short outro. No extra software.
+
+### Transistor: which plan, and how it fits our website
+
+**How it works:** we upload each episode (by API from n8n) → Transistor adds it to our RSS feed
+→ Apple, Spotify, Amazon and the other apps check that feed and publish the episode on their
+own. We submit the feed once; after that every app updates itself. YouTube is the exception;
+Transistor pushes episodes there for us on Professional.
+
+**What it does for the website:**
+- **Embeddable players** (single episode, latest episode, full playlist) for `/podcast` and every
+  episode page. The playlist player updates itself when a new episode publishes.
+- **A webhook** fires when an episode publishes → n8n creates the episode page in Webflow
+  automatically (Webflow is already connected in n8n).
+- Transistor also gives a free hosted podcast website. **We won't use it as the main home.** Our
+  domain gets the pages, the transcripts, and the AI-search value.
+
+| | Starter $19/mo | Professional $49/mo |
+|---|---|---|
+| Shows | Unlimited (both brands) | Unlimited (both brands) |
+| Downloads/month (shared by all shows) | 20,000 | 100,000 |
+| API for n8n | Probably; **confirm with Transistor support before buying** | Yes |
+| YouTube auto-posting | ❌ | ✅ |
+| Campaigns (auto-insert intro/outro or sponsor spots) | ❌ | ✅ |
+| Video podcasts (Apple, beta) | ❌ | ✅ |
+| Your own transcript upload / AI transcripts add-on | ✅ / $5 | ✅ / $5 |
+| Overage fees | None | None |
+
+**Recommendation: Professional, $49/mo** ($490/yr saves about $98). The extra $30 a month buys
+YouTube auto-posting, which is the channel that matters most for AI visibility, and the
+automatic intro/outro option. Starter is only cheaper if we build YouTube uploading ourselves,
+and that costs Billy more in build time than it saves. 20,000 downloads is far more than we'll
+use in year one on either plan. **Start on the 14-day free trial.**
+
+### Why not just post on Spotify for Creators (free)?
+
+Spotify for Creators is free and fine for a manual hobby show. For us it fails on one thing:
+**there's no public API, so nothing can be automated.** Someone uploads every episode by hand in
+a browser, three times a week. That's exactly the busy work this system exists to remove. Also:
+- Its stats only cover Spotify listeners, not Apple, YouTube, or anyone else.
+- It doesn't post to YouTube.
+- One brand per login, no team roles.
+- It **does** have one plus: native video on Spotify and the Spotify Partner Program
+  (money starts at 1,000 engaged listeners). Neither matters for a lead-generation show.
+
+Transistor still sends every episode to Spotify. Listeners on Spotify see no difference.
 
 ### Spotify → Transistor move
 
