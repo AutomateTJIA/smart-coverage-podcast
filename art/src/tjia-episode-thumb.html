@@ -1,0 +1,27 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  /* Episode thumbnail template — 1280x720 (YouTube). Change data-* text per episode. */
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { width:1280px; height:720px; font-family:"Inter","Inter Display",sans-serif; overflow:hidden; }
+  .t { position:relative; width:1280px; height:720px; background:#163A70; overflow:hidden; }
+  .photo { position:absolute; right:-150px; top:0; height:720px; }
+  .shade { position:absolute; inset:0; background:linear-gradient(90deg, #163A70 0%, #163A70 46%, rgba(22,58,112,.85) 58%, rgba(22,58,112,0) 78%); }
+  .lane { position:absolute; left:56px; top:56px; background:#E0B43B; color:#0B2145; font-weight:900; font-size:30px;
+          letter-spacing:3px; padding:12px 26px; border-radius:10px; text-transform:uppercase; }
+  .ep { position:absolute; left:56px; top:118px; margin-top:14px; color:#E9EDF2; font-weight:700; font-size:28px; letter-spacing:2px; }
+  .hook { position:absolute; left:52px; top:200px; width:720px; color:#fff; font-family:"Inter Display","Inter",sans-serif;
+          font-weight:900; font-size:84px; line-height:1.0; letter-spacing:-2px; }
+  .hook em { font-style:normal; color:#E0B43B; }
+  .bar { position:absolute; left:0; right:0; bottom:0; height:84px; background:#fff; display:flex; align-items:center; padding-left:56px; gap:24px; }
+  .bar img { height:56px; }
+  .bar span { font-weight:700; font-size:24px; color:#163A70; letter-spacing:1px; }
+</style></head>
+<body><div class="t">
+  <img class="photo" src="tjia-cover-1184x666.jpg" alt="">
+  <div class="shade"></div>
+  <div class="lane">Medicare · AEP 2026</div>
+  <div class="ep">EPISODE 01 · SMART COVERAGE. REAL ADVICE.</div>
+  <div class="hook">Medicare Advantage or Medigap? <em>Know before Dec&nbsp;7.</em></div>
+  <div class="bar"><img src="tjia-logo-cropped.png" alt=""><span>Charlotte, NC</span></div>
+</div></body></html>
