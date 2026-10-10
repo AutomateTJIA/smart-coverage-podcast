@@ -56,6 +56,12 @@ Billy has an ElevenLabs account but never set it up deliberately. Do these once:
    My Voices, check its type and whether it shows any "upgrade to use" notice. If it's locked,
    upgrade to Creator before the test. The 90,000 credits may partly be unused Creator credits
    carried over; either way, use them before the Nov 2 renewal.
+0b. **Fine-tune the Professional clone for Eleven v4 (required).** A Professional clone has to
+   be trained separately for each model before it can use that model. Upgrading the plan alone
+   doesn't unlock v4. In **My Voices**, hover over **Billy Jordan Clone Voice 2.0** to see the
+   training status per model, click the **+ next to Eleven v4**, and wait **6–24 hours**.
+   ElevenLabs says Professional clone support for v4 is still rolling out, so if there's no
+   v4 option yet, check back in a day or two or email team@elevenlabs.io.
 1. **Plan and credits.** Current: Starter ($6/mo, 30,000 credits/mo, Instant clone only), 90,000 unused credits. **Upgrade to Creator ($22/mo, 121,000 credits/mo, Professional Voice Cloning) before launch**, after confirming the unused balance carries over. Background: One 10–12 minute episode is roughly 9,000–10,000 characters of script.
    At 3 episodes a week (~13 a month) that's roughly **120,000–130,000 characters a month**,
    plus retakes. Check Subscription → your plan's monthly credits and how many credits v4 uses
