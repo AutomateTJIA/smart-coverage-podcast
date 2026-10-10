@@ -393,6 +393,18 @@ later and watch usage; move to Pro only if both shows outgrow 121,000. Ten-minut
 would burn the 90,000 in about 10 episodes. Short and frequent also matches the partner's
 7–13 minute format. Write tight; every extra minute is ~900 credits.
 
+**Verified from Billy's ElevenLabs API pricing page (Oct 10):** v4 lists at **$0.08 per 1,000
+characters** (same as v3 and v2 Multilingual), **72% off ($0.022) until Oct 12**. v4 Turbo is
+$0.04 ($0.011 on promo). v4 supports **audio tags** (our [warmly]-style cues) and 90+
+languages. The account shows **0 / 90,000 credits used** on Starter, **renewing Nov 2**.
+90,000 is 3× Starter's normal 30,000, which looks like the v4 launch bonus. Treat it as this
+cycle's allowance: **use it before Nov 2**, don't count on it rolling over.
+
+In dollars, a standard 7–8 minute episode (~6,500 characters) is about **$0.52 at list
+price**; a month of 13 episodes is about **$5–6**. The real limit is the plan's monthly
+allowance, not the per-episode cost. Episode length is set mainly for listeners (short wins),
+with credits as a guardrail.
+
 **Credit-saving rules:** test a 60-second excerpt before generating a full new format; fix the
 script before audio (never regenerate a whole episode for one line; regenerate only that
 chunk); keep stage-direction tags minimal.
