@@ -67,3 +67,33 @@ OG image: 1200×630 render of the thumbnail template. Add to sitemap. Link from 
 
 The `/podcast` hub gets the `PodcastSeries` block on its own, with `sameAs` links to the Apple,
 Spotify, YouTube, and Amazon show pages.
+
+## Webflow CMS collection (created Oct 10, unpublished)
+
+**Podcast Episodes** — collection id `6acace0ef8f59eaf26c608c1`, slug `podcast`, so pages live at
+`/podcast/{slug}` next to the static `/podcast` hub (same pattern as `/blog` + Blog Posts).
+n8n fills one item per approved episode. Field slugs:
+
+| Field | Slug | Type |
+|---|---|---|
+| Name (episode question / title) | `name` | Plain text |
+| Slug | `slug` | Plain text |
+| Episode Number | `episode-number` | Number |
+| Publish Date | `publish-date` | Date |
+| Duration | `duration` | Plain text, e.g. 7:12 |
+| Quick Answer | `quick-answer` | Plain text, 150–200 chars |
+| Show Notes | `show-notes` | Rich text |
+| Full Transcript | `full-transcript` | Rich text |
+| Transistor Player URL | `transistor-player-url` | Link |
+| Spotify Link | `spotify-link` | Link |
+| Apple Podcasts Link | `apple-podcasts-link` | Link |
+| YouTube Video | `youtube-video` | Video link |
+| Episode Thumbnail | `episode-thumbnail` | Image |
+| SEO Title | `seo-title` | Plain text, < 60 chars |
+| Meta Description | `meta-description` | Plain text, < 160 chars |
+| Lane | `lane` | Option: Medicare, Health, Life, Home & Auto, Retirement |
+| Related Blog Post | `related-blog-post` | Reference → Blog Posts |
+
+Still to do: design the template page (layout above), bind SEO title/description, add PodcastEpisode
+schema, and at launch swap the hub: remove the 4 old Spotify embeds and add the new show player plus
+an episode grid. The old Spotify show is redirected to the Transistor feed the same day.
