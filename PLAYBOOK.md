@@ -318,6 +318,10 @@ Conditions before paying:
    14-day trial). If Starter has no API, n8n can't publish and the plan doesn't work.
 2. Check whether the Google Cloud project behind our YouTube access is already audited.
 
+Billing: start the free trial on Starter monthly, prove the API and the bench episode, then
+switch to **Starter annual, $190/yr** (saves $38 vs. $228 monthly). Starter annual vs.
+Professional annual ($490) is a $300/yr difference.
+
 Fallback: if the YouTube audit drags on for weeks and the manual Public click becomes a chore,
 upgrade to Professional for those months and drop back later. Plans change month to month.
 
