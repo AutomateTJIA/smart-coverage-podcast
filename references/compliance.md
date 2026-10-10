@@ -30,8 +30,12 @@ has both intent to influence enrollment and content about benefits/costs (42 CFR
 - No benefits that may not exist in the listener's area
 - Medicare Supplement, LTC, annuity, interest-sensitive life: keep educational (NC prior-approval categories)
 - State the agent is licensed; general-education disclaimer in outro and description
-- AI-voice disclosure spoken + written: "This episode uses AI-generated voices, including a
-  digital replica of Billy's voice, from a script reviewed by a licensed agent."
+- AI voices (Billy's decision, Oct 10): no separate spoken disclaimer. On air, the cohost always
+  introduces herself as "your AI host." In writing, every description and episode page carries
+  `ai_disclosure_written` from the brand file, and every YouTube upload ticks the "altered or
+  synthetic content" box. No federal rule requires spoken labels; the FTC test is whether
+  listeners are misled, and the written note plus the "AI host" intro covers that.
+- License/NPN numbers go in the description (credentials line), not on air.
 - Billy's written voice-clone consent on file
 
 ## Tennessee

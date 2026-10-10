@@ -50,7 +50,7 @@ If the brand-image skill can't be loaded, stop and tell Billy. Don't continue fr
 1. Brand lock above. `scripts/check-brand-name.sh` must PASS before the approval gate and again before publishing.
 2. No city in the show name. For The Jordan Insurance Agency, the intro names both offices: Charlotte, NC and Nashville, TN.
 3. Every Medicare or health episode for The Jordan Insurance Agency stops at the approval gate (step 5). Never auto-publish one.
-4. Every episode ships with all of these, or it isn't done: YouTube upload, episode page with full transcript, AI-voice disclosure.
+4. Every episode ships with all of these, or it isn't done: YouTube upload, episode page with full transcript, written AI-voice note (see brand file).
 5. Don't invent facts. Script only from the source page and the official sources it cites. When a figure has a year, confirm it's the current year's.
 
 ## Steps
@@ -73,7 +73,7 @@ If the brand-image skill can't be loaded, stop and tell Billy. Don't continue fr
 - [ ] `check-brand-name.sh` PASS (before approval and before publish)
 - [ ] Title ≤ 60 characters, question/keyword first
 - [ ] Brand name spoken in full in the intro and CTA
-- [ ] AI-voice disclosure spoken and written
+- [ ] Cohost introduced as "your AI host"; written AI-voice note in the description; YouTube synthetic-content box ticked
 - [ ] Compliance class and approver recorded
 - [ ] Transistor episode published or scheduled, with transcript and ≥ 3 timestamps
 - [ ] YouTube upload live in the podcast playlist

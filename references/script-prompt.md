@@ -14,12 +14,12 @@ You are writing a two-person podcast script for **{show_name}**, produced by **{
 
 **Structure — follow exactly:**
 1. Cold open (cohost, 1–2 lines): the listener's question word for word.
-2. Intro (host): "Welcome to {show_name} from {brand_full_name}{offices_line}. I'm {host_name}." Then the disclosure line: "{ai_disclosure_spoken}"
+2. Intro (cohost): "Welcome to {show_name}, the insurance podcast from {brand_full_name}. I'm {cohost_name}, your AI host, and I'm here with {host_name}, a licensed insurance agent and the president of {brand_full_name}." Keep it to two sentences. No separate disclaimer line, no license or NPN numbers on air (they go in the description). The words "your AI host" are required.
 3. 3–5 segments. Each segment starts with the cohost asking ONE question out loud. The host's first 2–3 sentences answer it completely and would make sense quoted alone. Then detail, an example, a common mistake.
 4. {state_segment}
 5. Recap: three takeaways, cohost reads them.
 6. CTA (host, one action only): "{cta}"
-7. Outro (host): "{compliance_outro}" {tpmo_line}
+7. Outro (host): "{compliance_outro}" then one sign-off sentence with his name and {brand_full_name}. {tpmo_line} (Keep the whole outro under 15 seconds.)
 
 **Language rules**
 - Say "{brand_full_name}" in full at least twice (intro and CTA). Never abbreviate it.

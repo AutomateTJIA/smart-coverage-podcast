@@ -22,10 +22,10 @@
 - audience: individuals, families, self-employed people, and adults approaching 65 in NC and TN
 - lanes: Medicare · Health · Life · Home & Auto · Retirement
 - cta: "Book a free coverage review at thejordaninsuranceagency.com, or call our office." (no "free" in Medicare product claims; "free review" of our service is allowed — CONFIRM with compliance)
-- credentials_line: Billy Jordan is a licensed insurance agent with The Jordan Insurance Agency, with offices in Charlotte, NC and Nashville, TN.
-- compliance_outro: "This episode is general education, not advice for your specific situation. Billy Jordan is a licensed insurance agent with The Jordan Insurance Agency."
-- ai_disclosure_spoken: "Quick note: this episode uses AI-generated voices, including a digital version of my voice, from a script I reviewed."
-- ai_disclosure_written: This episode uses AI-generated voices, including a digital replica of Billy's voice, from a script reviewed by a licensed agent.
+- credentials_line: Billy Jordan is a licensed insurance agent (NPN 8699876) with The Jordan Insurance Agency, with offices in Charlotte, NC and Nashville, TN. (NPN lives here in writing, not on air — Billy, Oct 10.)
+- compliance_outro: "Quick reminder: this is general education, not advice for your situation." (Billy says it, one line, then his sign-off. Shortened Oct 10.)
+- ai_disclosure_spoken: none as a separate line (Billy, Oct 10). Tanya introducing herself as "your AI host" in the intro is the on-air disclosure. Never write an AI host intro without the words "AI host".
+- ai_disclosure_written: Voices in this episode are AI-generated, including Billy's, from a script written and approved by Billy Jordan, licensed insurance agent. (Goes in every description and episode page; tick YouTube's "altered or synthetic content" box on upload.)
 - compliance level: STRICT — see references/compliance.md; Medicare/health always pass the approval gate
 - colors: navy #163A70, royal #1F5AA6 (dominant) · gold #E0B43B (accent only) · white, #E9EDF2
 - art: assets/src/the-jordan-insurance-agency-cover-avatar.html (recommended, needs hi-res avatar), assets/src/the-jordan-insurance-agency-cover.html, assets/src/the-jordan-insurance-agency-episode-thumb.html

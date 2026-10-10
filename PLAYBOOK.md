@@ -414,7 +414,7 @@ chunk); keep stage-direction tags minimal.
 | Segment | Time | What happens |
 |---|---|---|
 | Cold open | 0:00–0:20 | The listener's question, word for word ("Should I switch to a Medicare Advantage plan this fall?") |
-| Intro | 0:20–0:45 | "Welcome to Smart Coverage. Real Advice. from The Jordan Insurance Agency, with offices in Charlotte and Nashville. I'm Billy Jordan." + AI disclosure (one line) |
+| Intro | 0:20–0:35 | Tanya: "Welcome to Smart Coverage. Real Advice., the insurance podcast from The Jordan Insurance Agency. I'm Tanya, your AI host, and I'm here with Billy Jordan, a licensed insurance agent and the president of The Jordan Insurance Agency." (No separate disclaimer or NPN on air — Billy, Oct 10.) |
 | 3–5 Q&A blocks | ~2–3 min each | **Spoken question → 2–3 sentence direct answer → detail.** Each answer must make sense quoted alone (that's what AI engines lift). |
 | State specifics | 1–2 min | What's different in North Carolina vs. Tennessee (state regulator, Medigap rules, marketplace, weather risks). Covering both is a feature, not a split. |
 | Recap | 30s | Three takeaways |
@@ -447,11 +447,11 @@ In this episode:
 Read the full guide: [matching blog/FAQ URL]
 Book a free coverage review: [booking URL]
 
-Billy Jordan is a licensed insurance agent with The Jordan Insurance Agency, with offices in
-Charlotte, NC and Nashville, TN.
-This episode uses AI-generated voices, including a digital replica of Billy's voice, from a
-script reviewed by a licensed agent. General education only — not advice for your specific
-situation. [TPMO disclaimer if triggered]
+Billy Jordan is a licensed insurance agent (NPN 8699876) with The Jordan Insurance Agency, with
+offices in Charlotte, NC and Nashville, TN.
+Voices in this episode are AI-generated, including Billy's, from a script written and approved
+by Billy Jordan, licensed insurance agent. General education only — not advice for your
+specific situation. [TPMO disclaimer if triggered]
 ```
 Timestamps (≥ 3, starting 00:00) give Apple our own chapters instead of auto-chapters.
 
@@ -514,8 +514,9 @@ interest-sensitive life materials require prior approval — keep those episodes
 FMO/compliance contact confirm TN requirements before the first Medicare episode publishes.**
 
 **AI voices:** no federal rule requires labeling, but the FTC deception standard applies if
-listeners would think a real person is speaking. Disclose in every intro + description (line in
-§5 template). Get **Billy's written consent** on file for the voice clone (ElevenLabs requires
+listeners would think a real person is speaking. **Billy's decision (Oct 10):** no separate
+spoken disclaimer; the cohost's "I'm Tanya, your AI host" intro plus the written note in every
+description and YouTube's synthetic-content label cover it. Get **Billy's written consent** on file for the voice clone (ElevenLabs requires
 verification anyway).
 
 **Human gate:** no Medicare or health episode publishes without Billy's (or a licensed agent's)
