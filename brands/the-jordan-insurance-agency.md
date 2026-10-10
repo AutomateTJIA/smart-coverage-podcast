@@ -10,6 +10,8 @@
 - elevenlabs_model: `eleven_v4` — **verified Oct 10:** API playground POST /v1/text-to-speech with voice `2dIruLdSTKfsYrmyR4YG` + `eleven_v4` returned 200, 15 s of audio in 3.7 s (playground showed character-cost 0).
 - (model notes) (Eleven v4, released Sept 28, 2026; works with the Text to Dialogue API the n8n workflow uses). Model is set per request, not per voice.  Only a Professional clone would need v4 fine-tuning (6–24 h); the current Instant clone does not.
 - cohost_name / role: Rachel / host (ElevenLabs premade voice 21m00Tcm4TlvDq8ikWAM, already set in the n8n workflow). Billy appears as the licensed-agent guest.
+- co-host status (Oct 10): Rachel is a placeholder; Billy is choosing a replacement (Voice Library or Voice Design). Swap the voice ID and the spoken name in the bench workflow.
+- bench workflow: n8n "Podcast Bench Test — ACA Special Enrollment (Eleven v4)" (id uTpTirYLpR0yIPYT), created Oct 10, not yet run.
 - existing workflow: n8n "AI Coverage Coach — Blog to Podcast (Host + Guest)" (id ngXftJaRk1b1oiL9). Rename the show inside it once the name is final.
 - audience: individuals, families, self-employed people, and adults approaching 65 in NC and TN
 - lanes: Medicare · Health · Life · Home & Auto · Retirement
