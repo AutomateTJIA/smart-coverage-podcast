@@ -16,12 +16,12 @@ Owner key: **Billy** = only Billy can do it (his accounts, his voice, his licens
 
 | Account | Plan | Why | After creating |
 |---|---|---|---|
-| Transistor.fm | **Professional**, $49/mo or $490/yr (start the 14-day trial) | Hosting for both shows, API, YouTube auto-post, auto intro/outro | Account → API Access → copy key → add as n8n Header Auth credential (`x-api-key`) |
+| Transistor.fm | **Starter**, $19/mo (start the 14-day trial; **confirm the API works on Starter**) | Hosting for both shows, RSS to all apps, API for n8n | Account → API Access → copy key → add as n8n Header Auth credential (`x-api-key`) |
 | ElevenLabs | **already have it** | Billy's voice + Rachel, Text to Dialogue API | Profile → API key → add as n8n Header Auth credential (`xi-api-key`); My Voices → copy Billy's voice ID |
 | Apple Podcasts Connect | free (Apple ID) | Submit the show, owner verification, transcripts setting | Submit the Transistor RSS feed |
 | Spotify for Creators | free (existing login) | Claim the show, export old analytics, redirect old feed | See section 4 |
 | Amazon Music for Podcasters | free | Directory listing | Submit RSS |
-| YouTube Studio | existing channel | Podcast playlist + auto-posts | Connect in Transistor (Professional plan) |
+| YouTube Studio | existing channel | Podcast playlist; n8n uploads episodes | Add a YouTube OAuth credential in n8n (none exists yet); check whether the Google Cloud project is audited (unaudited projects upload as Private) |
 | Google Workspace | existing | `podcast@` role email for the feed owner | Create alias |
 | Webflow (site CMS) | existing | Episode pages at `/podcast/{slug}` | Add a "Podcast Episodes" collection (Claude can spec the fields) |
 | n8n | existing | Automation and the approval step | Add Transistor + ElevenLabs credentials |

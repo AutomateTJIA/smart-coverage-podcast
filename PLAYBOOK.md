@@ -1,6 +1,6 @@
 # The Podcast Engine Playbook — The Jordan Insurance Agency (then Breakpoint Systems)
 
-Version 1.2 · October 10, 2026 · Owner: Billy Jordan
+Version 1.3 · October 10, 2026 · Owner: Billy Jordan
 
 This is the operating playbook for launching and running an AI-assisted podcast for
 The Jordan Insurance Agency, modeled on the show run by our AEO partner, then cloned for
@@ -173,12 +173,13 @@ himself, so treat it as an approved exception.
 | Intro/outro music | One 8–12 second jingle made once in ElevenLabs Music (paid plan = commercial license), stitched onto every episode in n8n | $0 extra | Same sound every episode = brand recognition |
 | Backup audio | Gemini 3.8 Flash TTS (multi-speaker, consent-gated clone) | ~1.4¢/min | Cheapest fallback |
 | Drafting / B2B tests | NotebookLM (now **Gemini Notebook**) | free/Pro | Fast, but no API, can't pick voices, unclear commercial terms |
-| Hosting + distribution | **Transistor Professional** | $49/mo | API, unlimited shows (both brands), YouTube auto-post, transcripts |
+| Hosting + distribution | **Transistor Starter** (confirm API access) | $19/mo | Unlimited shows (both brands), RSS to every app, embeddable players |
+| YouTube | n8n YouTube node + MP4 render (ffmpeg or Cloudinary) | $0 | We build it once instead of paying Transistor $30/mo |
 | Transcripts | Transistor AI transcripts or upload our own script as transcript | $5/mo | Our script = a perfect transcript, free |
 | Automation | n8n: **existing "AI Coverage Coach — Blog to Podcast (Host + Guest)" workflow**, extended | existing | Half-built already (see below) |
 | Thumbnails | HTML template → Playwright render | $0 | Already built |
 
-**Total ≈ $75–90/month for both shows.**
+**Total ≈ $45–60/month for both shows** (Transistor Starter + ElevenLabs + transcripts add-on, if used).
 
 ### Why not NotebookLM for the public show (honest take)
 
@@ -303,11 +304,22 @@ Transistor pushes episodes there for us on Professional.
 | Your own transcript upload / AI transcripts add-on | ✅ / $5 | ✅ / $5 |
 | Overage fees | None | None |
 
-**Recommendation: Professional, $49/mo** ($490/yr saves about $98). The extra $30 a month buys
-YouTube auto-posting, which is the channel that matters most for AI visibility, and the
-automatic intro/outro option. Starter is only cheaper if we build YouTube uploading ourselves,
-and that costs Billy more in build time than it saves. 20,000 downloads is far more than we'll
-use in year one on either plan. **Start on the 14-day free trial.**
+**Decision (Billy, Oct 10): Starter, $19/mo, with YouTube and intro music built in n8n.**
+We already own n8n for exactly this. Building the two Professional features ourselves saves
+$360 a year (one account covers both brands) and keeps everything in one workflow we control:
+
+| Professional feature | Our n8n replacement | One-time catch |
+|---|---|---|
+| YouTube auto-posting | n8n YouTube node uploads the episode as a video (thumbnail + audio) | (1) **No YouTube credential exists in n8n yet**; Billy connects it. (2) YouTube needs a video file, so n8n turns the MP3 + thumbnail into an MP4 (ffmpeg on our self-hosted n8n, or the Cloudinary account already connected). (3) **Google keeps videos uploaded through a new, unaudited API project private** until the project passes a free compliance audit. Until then, n8n uploads and Billy flips each video to Public (one click). |
+| Auto intro/outro | Prepend/append the jingle in the existing "Stitch Audio" step | None. The jingle must be exported at the episode's audio settings. |
+
+Conditions before paying:
+1. **Confirm Starter includes API access** (Transistor support, or test the API key during the
+   14-day trial). If Starter has no API, n8n can't publish and the plan doesn't work.
+2. Check whether the Google Cloud project behind our YouTube access is already audited.
+
+Fallback: if the YouTube audit drags on for weeks and the manual Public click becomes a chore,
+upgrade to Professional for those months and drop back later. Plans change month to month.
 
 ### Why not just post on Spotify for Creators (free)?
 
@@ -321,6 +333,15 @@ a browser, three times a week. That's exactly the busy work this system exists t
   (money starts at 1,000 engaged listeners). Neither matters for a lead-generation show.
 
 Transistor still sends every episode to Spotify. Listeners on Spotify see no difference.
+
+### Bench test (Oct 10)
+
+Billy's ACA Special Enrollment article is the bench: the same article run through NotebookLM
+(Path A, done by Billy) and through our script prompt for ElevenLabs (Path B). Our Path B
+script is in `bench/the-jordan-insurance-agency-bench-aca-sep-nc/script.md` and passes the
+brand-name gate and every rule in the existing n8n compliance check. Score both with
+`bench/.../SCORECARD.md`. Path B audio is blocked only by the ElevenLabs key in n8n and Billy's
+voice ID.
 
 ### Spotify → Transistor move
 
