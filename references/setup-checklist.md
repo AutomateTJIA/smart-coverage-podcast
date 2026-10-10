@@ -46,6 +46,32 @@ steps 1–3 before the public launch.
 
 Instant Voice Clone (1–2 minutes of audio) works for a test but sounds less like Billy. Use Professional for the public show.
 
+## 3b. Organize the ElevenLabs account (do this before the first real episode)
+
+Billy has an ElevenLabs account but never set it up deliberately. Do these once:
+
+1. **Plan and credits.** One 10–12 minute episode is roughly 9,000–10,000 characters of script.
+   At 3 episodes a week (~13 a month) that's roughly **120,000–130,000 characters a month**,
+   plus retakes. Check Subscription → your plan's monthly credits and how many credits v4 uses
+   per character, and pick the plan that covers it. A paid plan is also what grants
+   commercial-use rights.
+2. **One official voice.** In My Voices, keep **Billy Jordan Clone Voice 2.0**
+   (`2dIruLdSTKfsYrmyR4YG`) as the podcast voice. Rename or delete older test clones so nobody
+   picks the wrong one. Note whether it's an **Instant** or **Professional** clone; if
+   Instant, re-record 30+ minutes for a Professional clone before the public launch (v4 is
+   built to get more out of good clones).
+3. **Pick the co-host with v4.** Rachel is an older stock voice. Audition 2–3 voices from the
+   Voice Library with the v4 model on the same 30-second script excerpt; choose one clearly
+   different from Billy's and keep it forever.
+4. **A dedicated API key for n8n.** Create a key named "n8n podcast" with only the
+   permissions it needs (Text to Speech / Text to Dialogue) and **a monthly credit limit**, so
+   a broken loop can't run up a bill. (The "ElevenLabs API Key" credential already exists in
+   n8n; swap in the restricted key when it's made.)
+5. **Pronunciation dictionary.** ACA, HMO, PPO, EPO, HSA, IRMAA, Medigap, MAPD, Mecklenburg,
+   Davidson County, Novant, Atrium.
+6. **Consent on file.** One-page note that Billy authorizes his voice clone for The Jordan
+   Insurance Agency podcast and Breakpoint Systems.
+
 ## 4. Spotify
 
 Claude does **not** need Billy's Spotify login. Two separate things:
