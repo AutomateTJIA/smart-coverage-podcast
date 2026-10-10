@@ -18,6 +18,7 @@
   - Masters are 44.1 kHz / 128 kbps stereo, leveled a touch under the voices (-17 LUFS). Episode order: Tanya's hook → intro → conversation → outro.
   - The original ElevenLabs download of the outro was named with the agency's initials; never use that name — rename it in ElevenLabs to "Rhodes and Rust (Sign-Off)".
 - bench workflow: n8n "Podcast Bench Test — ACA Special Enrollment (Eleven v4)" (id uTpTirYLpR0yIPYT), created Oct 10, updated to Tanya Oct 10, not yet run.
+- episode factory: n8n "Smart Coverage. Real Advice. — Episode Factory (ElevenLabs + Transistor)" (id DWpa5JgtEn5eloux), created Oct 10 as a copy of AI Coverage Coach. Latest blog post → GPT-4.1 script (Tanya + Billy, new short intro/outro, 1,050–1,250 words) → compliance + brand gate → Eleven v4 with Tanya's hook as its own chunk → MP3 in Google Drive. Still to add: approval step, music, Transistor upload, episode page, schedule.
 - existing workflow: n8n "AI Coverage Coach — Blog to Podcast (Host + Guest)" (id ngXftJaRk1b1oiL9). Rename the show inside it once the name is final.
 - audience: individuals, families, self-employed people, and adults approaching 65 in NC and TN
 - lanes: Medicare · Health · Life · Home & Auto · Retirement

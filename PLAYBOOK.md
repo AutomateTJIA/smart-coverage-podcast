@@ -307,6 +307,8 @@ Transistor pushes episodes there for us on Professional.
 | Overage fees | None | None |
 
 **Decision (Billy, Oct 10): Starter, $19/mo, with YouTube and intro music built in n8n.**
+
+**Revisit (Oct 10, later):** what Professional's "video publishing" actually is — (1) **YouTube auto-posting**: every episode is uploaded to YouTube as a video (audio + a still image), including older episodes; (2) **video podcast beta** (on request): upload a real video file and Transistor posts it to a YouTube podcast playlist. We have no camera video, so (2) doesn't apply yet (it would if we made avatar videos later). (1) is what we planned to build in n8n — but YouTube locks uploads from an unaudited Google API project to **Private** until Google audits it, which can take weeks. Transistor's integration is already approved. So Professional (+$30/mo, +$300/yr on annual) buys YouTube from day one with no audit and no upkeep. Recommendation: Professional during launch if YouTube matters; drop to Starter + n8n later only if the audit is done.
 We already own n8n for exactly this. Building the two Professional features ourselves saves
 $360 a year (one account covers both brands) and keeps everything in one workflow we control:
 
