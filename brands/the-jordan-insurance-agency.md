@@ -6,7 +6,7 @@
 - author: Billy Jordan | The Jordan Insurance Agency
 - website: https://thejordaninsuranceagency.com/podcast
 - offices_line: ", with offices in Charlotte, North Carolina and Nashville, Tennessee"
-- host_name: Billy Jordan — ElevenLabs voice "Billy Jordan Clone Voice 2.0", voice ID `2dIruLdSTKfsYrmyR4YG` (confirm Instant vs. Professional clone in My Voices)
+- host_name: Billy Jordan — ElevenLabs voice "Billy Jordan Clone Voice 2.0", voice ID `2dIruLdSTKfsYrmyR4YG`, a **Professional** clone made while on Creator (per Billy, Oct 10). Professional clones need Creator or above; confirm it still plays on Starter before relying on it.
 - elevenlabs_model: `eleven_v4` (Eleven v4, released Sept 28, 2026; works with the Text to Dialogue API the n8n workflow uses). Model is set per request, not per voice.
 - cohost_name / role: Rachel / host (ElevenLabs premade voice 21m00Tcm4TlvDq8ikWAM, already set in the n8n workflow). Billy appears as the licensed-agent guest.
 - existing workflow: n8n "AI Coverage Coach — Blog to Podcast (Host + Guest)" (id ngXftJaRk1b1oiL9). Rename the show inside it once the name is final.
