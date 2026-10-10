@@ -12,6 +12,11 @@
 - cohost_name / role: **Tanya** / host. On-air name Tanya; ElevenLabs Voice Library voice **Tawny** `Rv3wiuHHQq0rSS4QVaQ8` (chosen Oct 10 over Claire; name changed from Tawny to Tanya by Billy the same day). Billy appears as the licensed-agent guest. Rachel (`21m00Tcm4TlvDq8ikWAM`) is retired; the original AI Coverage Coach workflow still has her until it's updated.
 - co-host status (Oct 10): finalists from the Voice Library (both English/American, conversational, middle-aged female, 2-year notice period): **Tawny** `Rv3wiuHHQq0rSS4QVaQ8` and **Claire** `7A85ufQZSEaTbZ5eQ4f4`. A/B workflow "Podcast Co-Host Voice Test — Tawny vs Claire (Eleven v4)" (id NmKgfRy4T8i48riT) makes the same 90-second opening with each. Rachel stays only until one is picked.
 - co-host sample: n8n "Podcast Co-Host Sample — Tanya, 2 min (Eleven v4)" (id uxjvsOTBdlmps3eD) — opening + wrap-up of the ACA bench script, ~2,000 credits, Tanya carries ~60% of the lines. Output: `the-jordan-insurance-agency-cohost-sample-tanya-2min.mp3` in Google Drive.
+- theme music (made Oct 10 in ElevenLabs Music, both saved as favorites in Billy's account):
+  - **Intro: "Rhodes and Rust"** — `assets/audio/the-jordan-insurance-agency-podcast-intro-rhodes-and-rust.mp3` (11.6 s). Soulful Rhodes keys with country grit — the Charlotte-to-Nashville sound.
+  - **Outro: "Rhodes and Rust (Sign-Off)"** — `assets/audio/the-jordan-insurance-agency-podcast-outro-rhodes-and-rust-sign-off.mp3` (12 s, faded). Full 28.8 s version (`...-sign-off-full.mp3`) is for the YouTube end screen.
+  - Masters are 44.1 kHz / 128 kbps stereo, leveled a touch under the voices (-17 LUFS). Episode order: Tanya's hook → intro → conversation → outro.
+  - The original ElevenLabs download of the outro was named with the agency's initials; never use that name — rename it in ElevenLabs to "Rhodes and Rust (Sign-Off)".
 - bench workflow: n8n "Podcast Bench Test — ACA Special Enrollment (Eleven v4)" (id uTpTirYLpR0yIPYT), created Oct 10, updated to Tanya Oct 10, not yet run.
 - existing workflow: n8n "AI Coverage Coach — Blog to Podcast (Host + Guest)" (id ngXftJaRk1b1oiL9). Rename the show inside it once the name is final.
 - audience: individuals, families, self-employed people, and adults approaching 65 in NC and TN

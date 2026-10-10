@@ -107,7 +107,7 @@ Claude does **not** need Billy's Spotify login. Two separate things:
 ## 6. Brand assets
 
 - [ ] **Original high-resolution avatar file** (the Pixar-style image from the website) for the avatar cover
-- [ ] 8–12 second intro jingle (+ short outro) made in ElevenLabs Music, exported as MP3 44.1 kHz / 128 kbps
+- [x] Intro "Rhodes and Rust" + outro "Rhodes and Rust (Sign-Off)" made in ElevenLabs Music (Oct 10); leveled masters in `assets/audio/`
 
 - [ ] Vector logo (Webflow `Logo Image.svg`) for crisper cover art
 - [ ] Decision on the avatar's gray beard vs. the brand image rule
