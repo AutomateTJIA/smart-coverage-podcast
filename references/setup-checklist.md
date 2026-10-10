@@ -50,6 +50,12 @@ Instant Voice Clone (1–2 minutes of audio) works for a test but sounds less li
 
 Billy has an ElevenLabs account but never set it up deliberately. Do these once:
 
+0. **Check Clone 2.0 still works on Starter.** Billy was on Creator ($22) for a long time
+   and downgraded to Starter ($6) only to cut costs. If "Billy Jordan Clone Voice 2.0" was made
+   as a **Professional** clone while on Creator, it may be locked or limited on Starter. In
+   My Voices, check its type and whether it shows any "upgrade to use" notice. If it's locked,
+   upgrade to Creator before the test. The 90,000 credits may partly be unused Creator credits
+   carried over; either way, use them before the Nov 2 renewal.
 1. **Plan and credits.** Current: Starter ($6/mo, 30,000 credits/mo, Instant clone only), 90,000 unused credits. **Upgrade to Creator ($22/mo, 121,000 credits/mo, Professional Voice Cloning) before launch**, after confirming the unused balance carries over. Background: One 10–12 minute episode is roughly 9,000–10,000 characters of script.
    At 3 episodes a week (~13 a month) that's roughly **120,000–130,000 characters a month**,
    plus retakes. Check Subscription → your plan's monthly credits and how many credits v4 uses
