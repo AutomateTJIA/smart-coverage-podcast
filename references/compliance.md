@@ -1,4 +1,4 @@
-# Compliance check (TJIA)
+# Compliance check — The Jordan Insurance Agency
 
 Run before the approval gate. Research date Oct 10, 2026; items marked CONFIRM need our FMO /
 carrier compliance contact before first use.

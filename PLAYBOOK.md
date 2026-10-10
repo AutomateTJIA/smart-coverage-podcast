@@ -1,10 +1,16 @@
 # The Podcast Engine Playbook — The Jordan Insurance Agency (then Breakpoint Systems)
 
-Version 1.0 · October 10, 2026 · Owner: Billy Jordan
+Version 1.1 · October 10, 2026 · Owner: Billy Jordan
 
 This is the operating playbook for launching and running an AI-assisted podcast for
 The Jordan Insurance Agency, modeled on the show run by our AEO partner, then cloned for
-Breakpoint Systems. The draft skill that automates it lives in [`skill/`](skill/SKILL.md).
+Breakpoint Systems. This playbook is part of the `podcast-engine` skill; the steps that
+automate it are in [`SKILL.md`](SKILL.md).
+
+> **Brand name, non-negotiable:** always **The Jordan Insurance Agency**, exactly, everywhere,
+> including file names (slug: `the-jordan-insurance-agency`). The skill invokes the
+> `the-jordan-insurance-agency-brand-image` skill first and runs `scripts/check-brand-name.sh`
+> before anything is approved or published.
 
 ---
 
@@ -88,7 +94,7 @@ Nashville, TN, so a city-named show tells half our market it isn't for them.
 - **It's already the H1 on our `/podcast` page.** Someone who hears the show and then lands on
   the site sees the same words. That's the brand-to-website connection.
 - **Our full brand name is in the show title itself.** Apple only searches show name, author,
-  and episode titles, so "Jordan Insurance Agency" and "Insurance Podcast" are both indexed.
+  and episode titles, so "The Jordan Insurance Agency" and "Insurance Podcast" are both indexed.
   Every AI engine that reads the feed sees our entity name attached to the show.
 - **No one else uses it.** Searches found no podcast with this name. The nearest is an
   unrelated "PolicyWise" show that uses "smart coverage choices" in its description.
@@ -113,14 +119,14 @@ Rebrand *now* if we're going to — we have zero subscribers, so it costs nothin
 - Type: **Episodic** · Explicit: **No** · Language: `en-us`
 - Episode numbers in the feed, **not** in titles
 
-### Look (done — see `art/`)
+### Look (done — see `assets/`)
 
 | Asset | Spec | File |
 |---|---|---|
-| Show cover | 3000×3000 JPG, RGB, 428 KB (Apple target < 512 KB) | `art/tjia-podcast-cover-3000.jpg` |
-| Episode thumbnail template (YouTube) | 1280×720 | `art/tjia-episode-thumb-template.jpg` |
-| YouTube podcast-playlist square | 1280×1280 | `art/tjia-youtube-playlist-1280.jpg` |
-| Editable sources | HTML → rendered with Playwright | `art/src/*.html` |
+| Show cover | 3000×3000 JPG, RGB, 428 KB (Apple target < 512 KB) | `assets/the-jordan-insurance-agency-podcast-cover-3000.jpg` |
+| Episode thumbnail template (YouTube) | 1280×720 | `assets/the-jordan-insurance-agency-episode-thumb-template.jpg` |
+| YouTube podcast-playlist square | 1280×1280 | `assets/the-jordan-insurance-agency-youtube-playlist-1280.jpg` |
+| Editable sources | HTML → rendered with Playwright | `assets/src/*.html` |
 
 Design rules used: navy/royal blue dominant, gold accent only, white logo band so the real logo
 stays legible, 3 big words readable at 55px. The thumbnail uses the Birdeye avatar of Billy — a
@@ -144,7 +150,7 @@ points people back to the site. Still to produce: a 1200×630 social/OG image pe
 - Tone: plain English, calm. Intro line: "…from The Jordan Insurance Agency, with offices in
   Charlotte, North Carolina and Nashville, Tennessee." Naming **both** offices on air gives AI
   engines a local signal for both markets without fencing out either one.
-- Always say the **full** brand name. Never "Jordan Insurance," "JIA," or "TJIA."
+- Always say and write the full brand name exactly: **The Jordan Insurance Agency**. Never shortened, never initials, never a lowercase "the" (full forbidden list: `references/brand-name-rules.md`; enforced by `scripts/check-brand-name.sh`).
 
 ---
 
@@ -152,7 +158,7 @@ points people back to the site. Still to produce: a 1200×630 social/OG image pe
 
 | Job | Tool | Cost | Why |
 |---|---|---|---|
-| Script | Claude (skill prompt in `skill/references/script-prompt.md`) | existing | Built from our own pages; compliance rules baked in |
+| Script | Claude (skill prompt in `references/script-prompt.md`) | existing | Built from our own pages; compliance rules baked in |
 | Compliance gate | Human approval step (n8n "wait for approval") | $0 | Required for Medicare |
 | Audio | **ElevenLabs Creator** — Studio Podcast API + Professional Voice Clone of Billy | ~$22/mo | Real API, choose voices, Billy's voice is the brand |
 | Backup audio | Gemini 3.8 Flash TTS (multi-speaker, consent-gated clone) | ~1.4¢/min | Cheapest fallback |
@@ -178,7 +184,7 @@ voice**, which is why their show sounds branded. NotebookLM's problems for us:
 
 Use it for: a fast first test, B2B episodes for Breakpoint, internal training. Its "Customize"
 box works best with one sentence naming audience, scope, and what to avoid (see
-`skill/references/notebooklm-prompts.md`).
+`references/notebooklm-prompts.md`).
 
 ### Spotify → Transistor move
 
@@ -265,7 +271,7 @@ section in this playbook.
 - **Full transcript** with each Q&A question as an H2
 - Key takeaways, links to the matching product page and the source blog/FAQ
 - `PodcastEpisode` + `VideoObject` JSON-LD tied to our site-wide organization `@id`
-  (template in `skill/references/episode-page-template.md`)
+  (template in `references/episode-page-template.md`)
 - Own 1200×630 OG image; in the sitemap
 - Link back from the source blog post ("Listen to this as a podcast")
 
@@ -327,7 +333,7 @@ Why not daily from day one like the partner: our bottleneck is the compliance ap
 production. Prove the pipeline at 3/week, then scale. The automation supports daily the moment
 approval is fast.
 
-The first 20 episodes are mapped in [`EPISODE-BACKLOG.md`](EPISODE-BACKLOG.md) — every one
+The first 20 episodes are mapped in [`references/episode-backlog-the-jordan-insurance-agency.md`](references/episode-backlog-the-jordan-insurance-agency.md) — every one
 built from a page we already have.
 
 ---
@@ -355,7 +361,7 @@ built from a page we already have.
 | Average listen-through | 50%+ |
 | YouTube views per episode / CTR | track; CTR 2–10% |
 | Episode-page organic sessions (GSC) | growing month over month |
-| **AI citations** — monthly ChatGPT / Perplexity / AI Overview prompt checks (use the existing TJIA AI-visibility evidence system) | brand named on ≥ 3 target prompts by Q1 2027 |
+| **AI citations** — monthly ChatGPT / Perplexity / AI Overview prompt checks (use the existing AI-visibility evidence system for The Jordan Insurance Agency) | brand named on ≥ 3 target prompts by Q1 2027 |
 | **Booked reviews attributed to podcast** (UTM + "how did you hear") | the number that actually matters |
 
 ---
@@ -370,20 +376,20 @@ built from a page we already have.
 - "Breakpoint: AI Automation for Business Owners" — brand-first, weaker search
 - "Automate the Grind" — catchy, no keyword
 
-**Differences from TJIA:**
+**Differences from the The Jordan Insurance Agency show:**
 - No CMS rules → **NotebookLM/Gemini Notebook is acceptable** for early episodes; move to
   Billy's voice clone for consistency.
 - Categories: **Technology** + Business › Entrepreneurship.
 - Topics: lead follow-up automation, AI receptionists, CRM/GoHighLevel, n8n workflows, AI search
   visibility for local businesses, "the tools exist but are implemented badly" case stories.
-- Proof engine: TJIA's own results are the case study.
+- Proof engine: The Jordan Insurance Agency's own results are the case study.
 - Cover art: **needs the Breakpoint brand kit** (logo, colors, fonts). We didn't have it in
-  this session; the HTML template in `art/src/` will be re-skinned once we do.
+  this session; the HTML template in `assets/src/` will be re-skinned once we do.
 
 **The bigger opportunity (this is the real ROI):** AEO Engine sells "AI Podcast Creation for
-Businesses." Once this engine runs for TJIA, Breakpoint can sell it as a done-for-you service —
+Businesses." Once this engine runs for The Jordan Insurance Agency, Breakpoint can sell it as a done-for-you service —
 to insurance agencies first (we know the compliance rules), then other local service businesses.
-TJIA is the live demo. Price it, package it, and use the Breakpoint show to sell it.
+The Jordan Insurance Agency is the live demo. Price it, package it, and use the Breakpoint show to sell it.
 
 ---
 
@@ -398,7 +404,7 @@ TJIA is the live demo. Price it, package it, and use the Breakpoint show to sell
 6. Exact TPMO counts (# organizations / # products) for the disclaimer.
 7. Breakpoint brand kit — where does it live?
 8. Where should this engine live long term? It's in the Cashville repo because that's this
-   session's working branch; it belongs in `tjia-blog-automation-system` or
+   session's working branch; it belongs in the agency's blog-automation repo or
    `breakpoint-agentic-os`.
 
 ---

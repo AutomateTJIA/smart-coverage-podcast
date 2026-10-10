@@ -17,6 +17,6 @@
 - ai_disclosure_written: This episode uses AI-generated voices, including a digital replica of Billy's voice, from a script reviewed by a licensed agent.
 - compliance level: STRICT — see references/compliance.md; Medicare/health always pass the approval gate
 - colors: navy #163A70, royal #1F5AA6 (dominant) · gold #E0B43B (accent only) · white, #E9EDF2
-- art: art/src/tjia-cover.html, art/src/tjia-episode-thumb.html
+- art: assets/src/the-jordan-insurance-agency-cover.html, assets/src/the-jordan-insurance-agency-episode-thumb.html
 - categories: Business › Investing; Education › How To
 - pronunciation: ACA (A-C-A), HMO, PPO, EPO, HSA, MAPD, Medigap, IRMAA ("ur-muh"), Mecklenburg, Davidson County
