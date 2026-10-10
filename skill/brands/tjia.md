@@ -1,0 +1,22 @@
+# Brand: The Jordan Insurance Agency
+
+- show_name: Smart Coverage. Real Advice.
+- feed_title: Smart Coverage. Real Advice. — The Insurance Podcast from The Jordan Insurance Agency
+- brand_full_name: The Jordan Insurance Agency (never abbreviate)
+- author: Billy Jordan | The Jordan Insurance Agency
+- website: https://thejordaninsuranceagency.com/podcast
+- offices_line: ", with offices in Charlotte, North Carolina and Nashville, Tennessee"
+- host_name: Billy Jordan (ElevenLabs Professional Voice Clone — ID: TBD after consent + recording)
+- cohost_name / role: Maya / "our producer" (stock voice — ID: TBD). Role, not a fake expert.
+- audience: individuals, families, self-employed people, and adults approaching 65 in NC and TN
+- lanes: Medicare · Health · Life · Home & Auto · Retirement
+- cta: "Book a free coverage review at thejordaninsuranceagency.com, or call our office." (no "free" in Medicare product claims; "free review" of our service is allowed — CONFIRM with compliance)
+- credentials_line: Billy Jordan is a licensed insurance agent with The Jordan Insurance Agency, with offices in Charlotte, NC and Nashville, TN.
+- compliance_outro: "This episode is general education, not advice for your specific situation. Billy Jordan is a licensed insurance agent with The Jordan Insurance Agency."
+- ai_disclosure_spoken: "Quick note: this episode uses AI-generated voices, including a digital version of my voice, from a script I reviewed."
+- ai_disclosure_written: This episode uses AI-generated voices, including a digital replica of Billy's voice, from a script reviewed by a licensed agent.
+- compliance level: STRICT — see references/compliance.md; Medicare/health always pass the approval gate
+- colors: navy #163A70, royal #1F5AA6 (dominant) · gold #E0B43B (accent only) · white, #E9EDF2
+- art: art/src/tjia-cover.html, art/src/tjia-episode-thumb.html
+- categories: Business › Investing; Education › How To
+- pronunciation: ACA (A-C-A), HMO, PPO, EPO, HSA, MAPD, Medigap, IRMAA ("ur-muh"), Mecklenburg, Davidson County
