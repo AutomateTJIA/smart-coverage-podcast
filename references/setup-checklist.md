@@ -56,7 +56,12 @@ Billy has an ElevenLabs account but never set it up deliberately. Do these once:
    My Voices, check its type and whether it shows any "upgrade to use" notice. If it's locked,
    upgrade to Creator before the test. The 90,000 credits may partly be unused Creator credits
    carried over; either way, use them before the Nov 2 renewal.
-0b. **Fine-tune the Professional clone for Eleven v4 (required).** A Professional clone has to
+0a. **Correction (Oct 10):** the My Voices hover label shows **Billy Jordan Clone Voice 2.0 is an
+   Instant Voice Clone**, not Professional. Instant clones work on any model without training, so
+   v4 should be usable now. Test it on the **Text to Speech** page (pick model Eleven v4, then
+   the voice); the small preview player in My Voices may not list v4. Step 0b applies only if
+   we later switch to a Professional clone (or if "Billy Jordan VC" turns out to be one).
+0b. **Fine-tune a Professional clone for Eleven v4 (Professional clones only).** A Professional clone has to
    be trained separately for each model before it can use that model. Upgrading the plan alone
    doesn't unlock v4. In **My Voices**, hover over **Billy Jordan Clone Voice 2.0** to see the
    training status per model, click the **+ next to Eleven v4**, and wait **6–24 hours**.
