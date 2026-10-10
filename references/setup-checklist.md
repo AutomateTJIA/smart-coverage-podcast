@@ -1,0 +1,70 @@
+# Setup checklist — everything needed before episode 1
+
+Owner key: **Billy** = only Billy can do it (his accounts, his voice, his license).
+**Claude** = can be done in a session once Billy's piece is in place.
+
+## 1. Decisions (Billy)
+
+- [ ] Confirm the partner show. Paste the Spotify link again (the first one had "okay" added by dictation), or confirm it's AEO Engine's "Answer Engine Optimization (AEO): The AI Search Podcast."
+- [ ] Are the 4 Spotify episodes linked on `/podcast` ours? Keep, replace, or remove.
+- [ ] Final yes on the name "Smart Coverage. Real Advice."
+- [ ] Voice path for The Jordan Insurance Agency show: **ElevenLabs with Billy's voice** (recommended) or **NotebookLM hosts** (see "How the voices work" below).
+- [ ] Which YouTube channel carries the podcast. The site links four (insurance, Medicare, health insurance, mortgage protection). Recommend the main insurance channel so subscribers build in one place. Note: the existing channel handles use initials, which the brand guidelines forbid in new names. Changing a handle is optional but worth deciding.
+- [ ] Booking link for the CTA (the site uses a cal.com link today).
+
+## 2. Accounts (Billy creates; Claude never needs your passwords)
+
+| Account | Plan | Why | After creating |
+|---|---|---|---|
+| Transistor.fm | Professional, $49/mo (14-day trial) | Hosting for both shows, API, YouTube auto-post | Settings → API → copy the API key |
+| ElevenLabs | Creator, ~$22/mo | Billy's voice clone + podcast API | Profile → API key; Voice Lab → note the voice IDs |
+| Apple Podcasts Connect | free (Apple ID) | Submit the show, owner verification, transcripts setting | Submit the Transistor RSS feed |
+| Spotify for Creators | free (existing login) | Claim the show, export old analytics, redirect old feed | See section 4 |
+| Amazon Music for Podcasters | free | Directory listing | Submit RSS |
+| YouTube Studio | existing channel | Podcast playlist + auto-posts | Connect in Transistor (Professional plan) |
+| Google Workspace | existing | `podcast@` role email for the feed owner | Create alias |
+| Webflow (site CMS) | existing | Episode pages at `/podcast/{slug}` | Add a "Podcast Episodes" collection (Claude can spec the fields) |
+| n8n | existing | Automation and the approval step | Add Transistor + ElevenLabs credentials |
+
+**API keys:** Billy adds them to n8n credentials and to this cloud environment's secrets.
+Never paste a key into chat.
+
+## 3. Billy's voice (ElevenLabs Professional Voice Clone)
+
+1. Record **at least 30 minutes** of Billy talking naturally, ideally 1–2 hours. Read old blog posts out loud and explain things like you would to a client. Use a quiet room and a decent USB mic held at a steady distance. No music, no other voices.
+2. Upload in ElevenLabs → Voices → Professional Voice Clone. Billy completes the voice verification (he reads a short phrase so ElevenLabs knows it's really his voice).
+3. Training takes a few hours. Test it with one paragraph of a real script.
+4. Choose the co-host voice from the ElevenLabs Voice Library. Pick one that's clearly different from Billy's, and keep it for every episode.
+5. Sign the one-page voice-clone consent (Claude can draft it) and keep it on file.
+6. Put both voice IDs in `brands/the-jordan-insurance-agency.md`.
+7. Build the pronunciation dictionary (ACA, HMO, PPO, IRMAA, Medigap, Mecklenburg, Davidson, carrier names if ever used).
+
+Instant Voice Clone (1–2 minutes of audio) works for a test but sounds less like Billy. Use Professional for the public show.
+
+## 4. Spotify
+
+Claude does **not** need Billy's Spotify login. Two separate things:
+
+- **Research (public pages):** Spotify was blocked by this cloud environment's network policy, not by Spotify. To let Claude read public Spotify and podcast pages, Billy opens the environment settings (cloud environment menu in the session's title bar → Edit → Network access) and adds `open.spotify.com`, `podcasts.apple.com`, `feeds.transistor.fm`, `aeoengine.ai`, and `thejordaninsuranceagency.com` under Allowed domains. Steps: https://code.claude.com/docs/en/cloud-environments#network-access
+- **Our own show (private dashboard):** Billy logs into creators.spotify.com himself to (a) check what's in the old show, (b) export analytics, and (c) after Transistor is set up, use Settings → Redirect your podcast. Screenshots are enough for Claude to read.
+
+## 5. Compliance (Billy + FMO/carrier compliance contact)
+
+- [ ] TPMO counts: number of organizations and products we represent, per state
+- [ ] Exact CY2027 TPMO disclaimer wording from the FMO/carrier
+- [ ] Tennessee Department of Commerce & Insurance advertising rules confirmed
+- [ ] Named backup approver (licensed) when Billy is unavailable
+- [ ] Billy's NC and TN license numbers for show notes, if we include them
+
+## 6. Brand assets
+
+- [ ] Vector logo (Webflow `Logo Image.svg`) for crisper cover art
+- [ ] Decision on the avatar's gray beard vs. the brand image rule
+- [ ] Host bio (3 sentences) + headshot for the show page and Apple
+- [ ] Breakpoint Systems brand kit (logo, colors, fonts) for the second show
+
+## 7. Content approvals for launch
+
+- [ ] Trailer script
+- [ ] Episodes 1–3 scripts (Medicare, educational)
+- [ ] Description template and CTA wording

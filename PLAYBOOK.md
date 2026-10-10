@@ -186,6 +186,45 @@ Use it for: a fast first test, B2B episodes for Breakpoint, internal training. I
 box works best with one sentence naming audience, scope, and what to avoid (see
 `references/notebooklm-prompts.md`).
 
+### How the voices actually work (NotebookLM vs. ElevenLabs)
+
+These are **two separate machines.** They don't plug into each other.
+
+| | NotebookLM (Gemini Notebook) | ElevenLabs |
+|---|---|---|
+| What you give it | Source pages + one short "Customize" instruction | A finished script we wrote (with Claude) |
+| Who writes the words | NotebookLM's AI writes them as it talks | We do, and Billy approves them first |
+| Voices | Its own two built-in hosts. **You can't load Billy's voice or anyone else's.** | Billy's cloned voice + one co-host we pick, same every episode |
+| Says our name right? | Not guaranteed. It may shorten the name, and we can only catch it by listening or transcribing afterward | Yes. The script passes the brand-name gate before audio is made |
+| Automation | None (no consumer API) | Full API, runs in n8n |
+| Best for | A free test this week, Breakpoint early episodes, internal drafts | The public show for The Jordan Insurance Agency |
+
+So the answer to "use the ElevenLabs voices inside NotebookLM" is **no**. If we want the show
+to sound like Billy (the way the partner's show sounds like their founder), the path is:
+**source page → Claude writes the script with our prompt → brand-name gate → Billy approves →
+ElevenLabs reads it in Billy's voice.**
+
+The prompts are what make this work, and they're already in the skill:
+- `references/script-prompt.md` tells Claude **what to talk about** (the source page from the
+  episode backlog), **who it's for**, **the exact structure**, and **the rules** (full brand
+  name, compliance words to avoid, AI disclosure).
+- `references/notebooklm-prompts.md` is the shorter "Customize" instruction for the NotebookLM
+  path, including a ready-to-paste prompt for episode 1.
+
+### What we still need
+
+Everything left is an account, a recording, or a decision only Billy can make. The full list,
+with who does what, is in `references/setup-checklist.md`. The short version:
+
+1. **Confirm the partner's show** (re-paste the Spotify link).
+2. **Create Transistor and ElevenLabs accounts**; put the API keys in n8n and the environment secrets (never in chat).
+3. **Record 30–120 minutes of Billy talking** for the voice clone, and sign a consent form.
+4. **Get the TPMO counts and the TN ad rules** from the FMO/carrier compliance contact.
+5. **Pick the YouTube channel** and the booking link.
+6. **Spotify:** no login needed for research. Allowing `open.spotify.com` in this environment's
+   network settings lets Claude read public pages. Billy uses his own Spotify for Creators login
+   only to check the old show and redirect it.
+
 ### Spotify → Transistor move
 
 We were on Spotify for Creators. To move without losing anyone:

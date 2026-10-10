@@ -12,6 +12,7 @@ Draft v0.2 (Oct 10, 2026).
 | File | Use |
 |---|---|
 | `PLAYBOOK.md` | The full strategy: partner teardown, show name, stack, episode formula, website, compliance, launch plan, KPIs, Breakpoint version. **Read it before the first episode of a session.** |
+| `references/setup-checklist.md` | Accounts, voice clone, compliance items, and decisions needed before episode 1 |
 | `references/brand-name-rules.md` | The binding name rule and the forbidden variants |
 | `scripts/check-brand-name.sh` | Brand-name gate. Fails on any forbidden variant in text or file names |
 | `references/script-prompt.md` | Two-voice script prompt + description template |
@@ -59,7 +60,7 @@ If the brand-image skill can't be loaded, stop and tell Billy. Don't continue fr
 3. **Script.** Use `references/script-prompt.md` with the brand file's values. Two speakers, 10–14 minutes (~1,500–2,000 words). Also output the description, chapter estimates, 3–5 clip candidates, and a pull quote.
 4. **Brand-name gate.** Save the script, title, and description to the episode folder (slug-named, e.g. `the-jordan-insurance-agency-ep-012/`) and run `scripts/check-brand-name.sh <episode folder>`. Fix every hit and re-run until PASS.
 5. **Approval gate.** Send the script, title, description, and compliance class to Billy (n8n "wait for approval" → Slack/email). Breakpoint episodes may skip; Medicare/health episodes for The Jordan Insurance Agency never skip. Apply edits, then repeat step 4.
-6. **Audio.** ElevenLabs Studio Podcast API (`POST /v1/studio/podcasts`, conversation mode): Billy's voice-clone ID as host, the brand's co-host voice ID, the approved script as source. Apply the pronunciation dictionary from the brand file. Wait for the webhook and download the MP3. Fallback: Gemini multi-speaker TTS. Listen to the first 30 seconds: the brand name must be spoken in full.
+6. **Audio.** ElevenLabs Studio Podcast API (`POST /v1/studio/podcasts`, conversation mode): Billy's voice-clone ID as host, the brand's co-host voice ID, the approved script as source. Apply the pronunciation dictionary from the brand file. Wait for the webhook and download the MP3. Fallback: Gemini multi-speaker TTS. If NotebookLM was used instead, transcribe its audio and run `scripts/check-brand-name.sh` on the transcript; regenerate on failure. Listen to the first 30 seconds: the brand name must be spoken in full.
 7. **Thumbnail.** Copy the brand's episode-thumbnail HTML from `assets/src/`, set the lane chip, episode number, and a 4–6 word hook taken from the title. Render 1280×720 with Playwright, plus 1200×630 for the episode page. Name files with the brand slug.
 8. **Publish to Transistor.** `references/transistor-api.md`: authorize upload → PUT MP3 → create draft (title, summary, description, transcript = approved script) → publish or schedule. YouTube auto-post is on at the show level.
 9. **Episode page.** Build `/podcast/{slug}` from `references/episode-page-template.md`. Add "Listen to this as a podcast" to the source page.
