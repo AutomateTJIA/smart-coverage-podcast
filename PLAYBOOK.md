@@ -250,6 +250,8 @@ July 10, never run). It does most of what the partner does:
 | ElevenLabs credential in n8n | ❌ missing (no ElevenLabs credential exists in n8n) |
 | Billy's voice ID | ❌ placeholder `REPLACE_WITH_BILLY_ELEVENLABS_VOICE_ID` |
 | Brand-name gate, human approval step, intro music, Transistor publish, episode page, YouTube | ❌ to add |
+| Model `eleven_v3` → `eleven_v4`; Billy's voice ID `2dIruLdSTKfsYrmyR4YG` | ❌ to set (needs Creator plan; Professional clone is locked on Starter) |
+| Compliance gate word range is 1,200–2,200 (10–14 min) | ❌ change to ~950–1,300 words for the 7–8 minute standard (and ~500–700 for quick answers), or it rejects every standard episode |
 
 Changes it needs to match this playbook:
 - **Show name:** it says "AI Coverage Coach." This playbook says "Smart Coverage. Real Advice."
