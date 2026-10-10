@@ -16,7 +16,7 @@ automate it are in [`SKILL.md`](SKILL.md).
 
 ## 0. The one-paragraph version
 
-Publish short (10–14 minute), two-voice, AI-produced episodes built from the 588 pages we
+Publish short (7–8 minute), two-voice, AI-produced episodes built from the 588 pages we
 already have on thejordaninsuranceagency.com. Host on **Transistor** (one account, both
 brands). Generate audio with **ElevenLabs using Billy's cloned voice** as host, not NotebookLM.
 Every episode gets three things that matter more than downloads: **a YouTube upload, a
@@ -363,7 +363,39 @@ If the Spotify show has no real episodes, skip the import and just start fresh i
 
 ## 5. Episode formula
 
-**Length:** 10–14 minutes. **Format:** two voices, Q&A-segmented.
+**Length:** **7–8 minutes standard** (about 1,100–1,200 words), **3–5 minute "quick answer"**
+episodes from FAQ pages. **Format:** two voices, Q&A-segmented.
+
+**Why this length (credits):** ElevenLabs charges about **1 credit per character** for v4 (same
+as v3; confirm on the account's usage page). Our bench script measured **~890 characters per
+minute** of audio, so:
+
+| Episode | Words | Credits (≈) |
+|---|---|---|
+| Quick answer, 4 min | ~600 | ~3,500 |
+| Standard, 7–8 min | ~1,150 | ~6,500 |
+| Long, 10–11 min (the ACA bench script) | ~1,500 | ~9,000 |
+
+Billy's account (Oct 10): **Starter plan, $6/mo = 30,000 credits/month**, Instant Voice
+Cloning only, with a **90,000-credit unused balance**. A month of 3 episodes a week (8 standard
++ 5 quick answers) is about **70,000 credits**, which leaves ~20,000 for retakes.
+
+| ElevenLabs plan | Credits/month | Episodes/month (standard ≈ 6,500) | Fits |
+|---|---|---|---|
+| Starter $6 (current) | 30,000 | ~4 | Testing only |
+| **Creator $22** | 121,000 | ~15–18 | **The Jordan Insurance Agency show at 3/week + retakes**; also unlocks **Professional Voice Cloning** and 192 kbps audio |
+| Pro $99 | 600,000 | ~90 | Both shows at daily volume; not needed yet |
+
+**Decision:** run the bench test on the existing 90,000 balance, then **upgrade to Creator
+before the public launch.** Creator is required anyway for a Professional clone of Billy's
+voice. Before upgrading, confirm the 90,000 unused credits carry over. Add Breakpoint episodes
+later and watch usage; move to Pro only if both shows outgrow 121,000. Ten-minute episodes every time
+would burn the 90,000 in about 10 episodes. Short and frequent also matches the partner's
+7–13 minute format. Write tight; every extra minute is ~900 credits.
+
+**Credit-saving rules:** test a 60-second excerpt before generating a full new format; fix the
+script before audio (never regenerate a whole episode for one line; regenerate only that
+chunk); keep stage-direction tags minimal.
 
 | Segment | Time | What happens |
 |---|---|---|

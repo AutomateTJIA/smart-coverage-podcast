@@ -10,7 +10,7 @@ You are writing a two-person podcast script for **{show_name}**, produced by **{
 
 **Source:** use ONLY the facts in the source material below (and the registered official sources it cites). If a fact isn't there, don't say it. If a number is tied to a year, use it only if it is the current year's figure; otherwise say "check the current figure on {official_source}".
 
-**Length:** 1,500–2,000 words of dialogue (10–14 minutes).
+**Length:** 1,100–1,200 words of dialogue (7–8 minutes) for a standard episode; 550–650 words (about 4 minutes) for a quick-answer episode. Every extra minute costs ~900 ElevenLabs credits.
 
 **Structure — follow exactly:**
 1. Cold open (cohost, 1–2 lines): the listener's question word for word.

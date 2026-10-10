@@ -50,7 +50,7 @@ Instant Voice Clone (1–2 minutes of audio) works for a test but sounds less li
 
 Billy has an ElevenLabs account but never set it up deliberately. Do these once:
 
-1. **Plan and credits.** One 10–12 minute episode is roughly 9,000–10,000 characters of script.
+1. **Plan and credits.** Current: Starter ($6/mo, 30,000 credits/mo, Instant clone only), 90,000 unused credits. **Upgrade to Creator ($22/mo, 121,000 credits/mo, Professional Voice Cloning) before launch**, after confirming the unused balance carries over. Background: One 10–12 minute episode is roughly 9,000–10,000 characters of script.
    At 3 episodes a week (~13 a month) that's roughly **120,000–130,000 characters a month**,
    plus retakes. Check Subscription → your plan's monthly credits and how many credits v4 uses
    per character, and pick the plan that covers it. A paid plan is also what grants
