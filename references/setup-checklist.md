@@ -17,7 +17,7 @@ Owner key: **Billy** = only Billy can do it (his accounts, his voice, his licens
 | Account | Plan | Why | After creating |
 |---|---|---|---|
 | Transistor.fm | **Starter**, $19/mo (start the 14-day trial; **confirm the API works on Starter**) | Hosting for both shows, RSS to all apps, API for n8n | Account → API Access → copy key → add as n8n Header Auth credential (`x-api-key`) |
-| ElevenLabs | **already have it** | Billy's voice + Rachel, Text to Dialogue API | Profile → API key → add as n8n Header Auth credential (`xi-api-key`); My Voices → copy Billy's voice ID |
+| ElevenLabs | **already have it** | Billy's voice + Tanya (co-host), Text to Dialogue API | Profile → API key → add as n8n Header Auth credential (`xi-api-key`); My Voices → copy Billy's voice ID |
 | Apple Podcasts Connect | free (Apple ID) | Submit the show, owner verification, transcripts setting | Submit the Transistor RSS feed |
 | Spotify for Creators | free (existing login) | Claim the show, export old analytics, redirect old feed | See section 4 |
 | Amazon Music for Podcasters | free | Directory listing | Submit RSS |
@@ -77,7 +77,7 @@ Billy has an ElevenLabs account but never set it up deliberately. Do these once:
    picks the wrong one. Note whether it's an **Instant** or **Professional** clone; if
    Instant, re-record 30+ minutes for a Professional clone before the public launch (v4 is
    built to get more out of good clones).
-3. **Pick the co-host with v4.** Rachel is an older stock voice. Audition 2–3 voices from the
+3. **Pick the co-host with v4.** ✅ Done Oct 10: **Tanya** (voice "Tawny" `Rv3wiuHHQq0rSS4QVaQ8`) replaced Rachel, an older stock voice. Audition 2–3 voices from the
    Voice Library with the v4 model on the same 30-second script excerpt; choose one clearly
    different from Billy's and keep it forever.
 4. **A dedicated API key for n8n.** Create a key named "n8n podcast" with only the

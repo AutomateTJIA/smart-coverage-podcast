@@ -7,7 +7,7 @@ that is accurate, on-brand, compliant, and cheap to repeat 3× a week?
 | | Path A: NotebookLM | Path B: our script → ElevenLabs |
 |---|---|---|
 | Who writes the words | NotebookLM, as it talks | Claude with our prompt; Billy approves |
-| Voices | NotebookLM's two built-in hosts | Rachel (host) + Billy's own voice |
+| Voices | NotebookLM's two built-in hosts | Tanya (host) + Billy's own voice |
 | Status | Billy generated it this morning | Script done (`script.md`); audio waits on the ElevenLabs key in n8n + Billy's voice ID |
 
 ## Score each version (Billy listens to both)

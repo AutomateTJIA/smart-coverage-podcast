@@ -258,7 +258,7 @@ Changes it needs to match this playbook:
   Pick one (recommendation: Smart Coverage. Real Advice., because it matches the website).
 - **Two states:** its scripted intro says "licensed North Carolina insurance agent." Add
   Tennessee once TN rules are confirmed.
-- **Co-host:** keep Rachel. She's already built in, and she's a host role, not a fake expert.
+- **Co-host:** **Tanya** (ElevenLabs voice "Tawny", picked Oct 10; replaced Rachel). She's a host role, not a fake expert.
   (This replaces the "Maya" placeholder used elsewhere in this playbook.)
 
 ### How the partner makes theirs (and the intro music)
