@@ -71,7 +71,7 @@ Tanya: Let's wrap it up. Three things to remember. One: a qualifying life event 
 
 Billy: And don't wait until day fifty-nine. If an employer letter needs fixing, you'll want the time.
 
-Tanya: For a personalized look at your situation, book a free fifteen-minute chat with Billy and his team at thejordaninsuranceagency.com/podcast. You'll also find the full written guide there.
+Tanya: For a personalized look at your situation, book a free thirty-minute chat with Billy and his team at thejordaninsuranceagency.com/podcast. You'll also find the full written guide there.
 
 Billy: Quick reminder: this is general education, not advice for your situation. I'm Billy Jordan with The Jordan Insurance Agency. Thanks for listening.
 
