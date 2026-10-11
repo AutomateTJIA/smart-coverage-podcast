@@ -1,6 +1,7 @@
 # Bench episode — standard-length cut (7–8 minutes)
 
 Trimmed from `script.md` to the 7–8 minute standard. Same source, same facts, nothing added.
+Updated Oct 11: short intro and outro (no spoken AI disclaimer or NPN; per Billy, Oct 10).
 
 - **Title (51 characters):** ACA Special Enrollment in NC: Beat the 60-Day Clock
 - **Voices:** Tanya (host; ElevenLabs voice "Tawny" `Rv3wiuHHQq0rSS4QVaQ8`) · Billy (guest) — "Billy Jordan Clone Voice 2.0" on `eleven_v4`
@@ -10,7 +11,7 @@ Trimmed from `script.md` to the 7–8 minute standard. Same source, same facts, 
 
 Tanya: [warmly] If you lose your job-based health insurance in the middle of the year, how long do you have to get new coverage? The answer is shorter than most people think.
 
-Tanya: Welcome to Smart Coverage. Real Advice., the insurance podcast from The Jordan Insurance Agency. I'm Tanya, your AI host, and I'm joined by Billy Jordan, a licensed insurance agent and the president of The Jordan Insurance Agency, National Producer Number 8699876. Quick note: this episode uses AI-generated voices, including a digital version of Billy's voice, from a script Billy reviewed. And this is education, not personalized advice.
+Tanya: Welcome to Smart Coverage. Real Advice., the insurance podcast from The Jordan Insurance Agency. I'm Tanya, your AI host, and I'm here with Billy Jordan, a licensed insurance agent and the president of The Jordan Insurance Agency.
 
 Billy: Thanks, Tanya. This one comes up in our office every week, and it's the topic where a few days can cost a family weeks of coverage.
 
@@ -72,6 +73,6 @@ Billy: And don't wait until day fifty-nine. If an employer letter needs fixing, 
 
 Tanya: For a personalized look at your situation, book a free fifteen-minute chat with Billy at thejordaninsuranceagency.com/podcast. You'll also find the full written guide there.
 
-Billy: This episode is general education, not advice for your specific situation. I'm Billy Jordan, a licensed insurance agent with The Jordan Insurance Agency. Thanks for listening.
+Billy: Quick reminder: this is general education, not advice for your situation. I'm Billy Jordan with The Jordan Insurance Agency. Thanks for listening.
 
 Tanya: Thanks for listening to Smart Coverage. Real Advice. from The Jordan Insurance Agency.
