@@ -23,6 +23,7 @@ You are writing a two-person podcast script for **{show_name}**, produced by **{
 
 **Language rules**
 - Say "{brand_full_name}" in full at least twice (intro and CTA). Never abbreviate it.
+- Booking and follow-up: always say "Billy and his team" (or "{host_name} and his team"). Never promise a meeting with {host_name} alone, because the appointment may be with a licensed member of his team. This applies to spoken lines, the description and the episode page.
 - Never use: free, best, lowest, #1, guaranteed, "government plan," or any claim of government affiliation.
 - {extra_rules}
 - Write numbers and acronyms how they should be spoken only when the pronunciation dictionary can't (e.g. "twenty twenty-seven"). Keep acronyms as letters in the description.

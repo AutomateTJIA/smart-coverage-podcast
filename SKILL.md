@@ -73,6 +73,7 @@ If the brand-image skill can't be loaded, stop and tell Billy. Don't continue fr
 - [ ] `check-brand-name.sh` PASS (before approval and before publish)
 - [ ] Title ≤ 60 characters, question/keyword first
 - [ ] Brand name spoken in full in the intro and CTA
+- [ ] Every booking or follow-up mention says "Billy and his team", never Billy alone
 - [ ] Cohost introduced as "your AI host"; written AI-voice note in the description; YouTube synthetic-content box ticked
 - [ ] Compliance class and approver recorded
 - [ ] Transistor episode published or scheduled, with transcript and ≥ 3 timestamps
