@@ -363,6 +363,8 @@ We were on Spotify for Creators. To move without losing anyone:
 
 If the Spotify show has no real episodes, skip the import and just start fresh in Transistor.
 
+**Decision (Billy, Oct 11):** the old Spotify show ("AI Coverage Coach") was never launched, has zero listeners, and its 4 episodes were NotebookLM tests. No import, no redirect. Order: (1) take the 4 old Spotify players off `/podcast`, (2) delete the old show in Spotify for Creators (Settings → Management → Delete podcast), (3) keep the Spotify for Creators login. It's used later to claim the new Transistor show on Spotify.
+
 ---
 
 ## 5. Episode formula
