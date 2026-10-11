@@ -230,7 +230,7 @@ with who does what, is in `references/setup-checklist.md`. The short version:
 1. **Confirm the partner's show** (re-paste the Spotify link).
 2. **Start the Transistor Professional trial.** In ElevenLabs (account exists): confirm Billy's voice is in My Voices and copy its voice ID. Add the ElevenLabs and Transistor API keys as n8n credentials yourself (never in chat). The voice ID is not a secret; it can be shared.
 3. **If Billy's voice in ElevenLabs is an Instant clone**, upgrade it to a Professional clone (30–120 minutes of clean audio) for the public show. Sign the consent form either way.
-4. **Get the TPMO counts and the TN ad rules** from the FMO/carrier compliance contact.
+4. **Get the TN ad rules** from the FMO/carrier compliance contact.
 5. **Pick the YouTube channel** and the booking link.
 6. **Spotify:** no login needed for research. Allowing `open.spotify.com` in this environment's
    network settings lets Claude read public pages. Billy uses his own Spotify for Creators login
@@ -423,7 +423,7 @@ chunk); keep stage-direction tags minimal.
 | State specifics | 1–2 min | What's different in North Carolina vs. Tennessee (state regulator, Medigap rules, marketplace, weather risks). Covering both is a feature, not a split. |
 | Recap | 30s | Three takeaways |
 | CTA | 20s | One action: book a review / call the office. Same CTA every episode in a lane. |
-| Compliance outro | 15–30s | Licensed agent statement; TPMO disclaimer **only if triggered** (see §7); "general education, not advice for your specific policy" |
+| Compliance outro | under 15s | "Quick reminder: this is general education, not advice for your situation." plus Billy's sign-off. No TPMO disclaimer (Billy, Oct 11; see §7) |
 
 **Titles:** question or keyword first, ≤ 60 characters, how people ask ChatGPT.
 - ✅ "Medicare Advantage vs. Medigap in North Carolina"
@@ -455,7 +455,7 @@ Billy Jordan is a licensed insurance agent (NPN 8699876) with The Jordan Insuran
 offices in Charlotte, NC and Nashville, TN.
 Voices in this episode are AI-generated, including Billy's, from a script written and approved
 by Billy Jordan, licensed insurance agent. General education only — not advice for your
-specific situation. [TPMO disclaimer if triggered]
+specific situation.
 ```
 Timestamps (≥ 3, starting 00:00) give Apple our own chapters instead of auto-chapters.
 
@@ -495,15 +495,7 @@ premiums/copays, no specific benefits, no steering. Under CMS's definition of ma
 (42 CFR 422.2260) content needs both **intent** to influence enrollment **and** **content**
 about benefits/costs to count as marketing. Pure education does not.
 
-**If an episode crosses into marketing** (mentions benefits like dental/vision/hearing in a way
-that steers, names plans, costs):
-- Read the **TPMO disclaimer verbatim** on air *before* the benefits discussion and put it in
-  the show notes. CY2027 rule (effective Oct 1, 2026) removed the SHIP reference. Working text —
-  **confirm exact wording with our FMO/carrier compliance before use**:
-  > "We do not offer every plan available in your area. Currently we represent [#]
-  > organizations which offer [#] products in your area. Please contact Medicare.gov or
-  > 1-800-MEDICARE to get information on all of your options."
-- Send it to the carrier for review before publishing.
+**Decision (Billy, Oct 11): no TPMO disclaimer in the podcast.** The show is general education. The TPMO conversation happens in appointments, not in episodes. What keeps that true: Medicare episodes stay general. No plan or carrier names, no premiums/copays/$0-premium or giveback claims, no specific plan benefits, and no push to enroll in a plan. The Episode Factory prompt and gate enforce this.
 
 **Always avoid:** "free," "best," "lowest," "#1" (superlatives need data on file), misuse of the
 Medicare name/logo, implying government affiliation, benefits not available in the listener's
@@ -613,7 +605,6 @@ The Jordan Insurance Agency is the live demo. Price it, package it, and use the 
 3b. **Tennessee compliance** — who confirms TN Department of Commerce & Insurance ad rules?
 4. **OK to clone your voice** with ElevenLabs (needs ~30 min of clean audio + consent)?
 5. Who is the licensed approver for scripts if you're unavailable?
-6. Exact TPMO counts (# organizations / # products) for the disclaimer.
 7. Breakpoint brand kit — where does it live?
 8. Where should this engine live long term? It's in the Cashville repo because that's this
    session's working branch; it belongs in the agency's blog-automation repo or

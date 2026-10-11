@@ -98,8 +98,7 @@ Claude does **not** need Billy's Spotify login. Two separate things:
 
 ## 5. Compliance (Billy + FMO/carrier compliance contact)
 
-- [ ] TPMO counts: number of organizations and products we represent, per state
-- [ ] Exact CY2027 TPMO disclaimer wording from the FMO/carrier
+- [x] TPMO disclaimer: not used in the podcast. Episodes are general education; that conversation happens in appointments (Billy, Oct 11).
 - [ ] Tennessee Department of Commerce & Insurance advertising rules confirmed
 - [ ] Named backup approver (licensed) when Billy is unavailable
 - [ ] Billy's NC and TN license numbers for show notes, if we include them

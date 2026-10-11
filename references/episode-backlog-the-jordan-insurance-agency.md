@@ -9,9 +9,9 @@ Nashville pages, and many titles say "Charlotte." The Nashville office has no co
 Episodes marked **TN** are written for Tennessee and should each get a matching episode page,
 so the podcast starts closing that gap.
 
-Compliance column: **EDU** = educational, no plan names/costs/benefits, no TPMO disclaimer needed.
-**REVIEW** = touches costs or benefits; licensed approval required, and add the TPMO disclaimer
-if it steers toward enrollment.
+Compliance column: **EDU** = educational, no plan names/costs/benefits.
+**REVIEW** = the source touches costs or benefits; the script must strip those and stay general
+education before Billy approves it. No TPMO disclaimer in any episode (Billy, Oct 11).
 
 | # | Publish | Lane | Title (≤ 60 chars, question/keyword first) | Source page | Compliance |
 |---|---|---|---|---|---|

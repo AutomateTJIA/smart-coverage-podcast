@@ -5,23 +5,15 @@ carrier compliance contact before first use.
 
 ## Classify
 
-**EDU** (no disclaimer, still needs licensed approval for Medicare/health): explains how
+**EDU** (the only kind of episode we make; still needs licensed approval for Medicare/health): explains how
 insurance works, rules, deadlines, comparisons of plan *types*. No plan names, carriers,
 premiums, copays, or specific benefits. No steering toward enrolling.
 
-**REVIEW** — any of: specific costs or premiums, benefits (dental/vision/hearing, $0 premium,
-giveback), named plans or carriers, a push to enroll. CMS treats content as marketing when it
-has both intent to influence enrollment and content about benefits/costs (42 CFR 422.2260).
+**Out of bounds for episodes:** specific plan costs or premiums, plan benefits (dental/vision/hearing,
+$0 premium, giveback), named plans or carriers, a push to enroll in a plan. If a source post
+contains these, the script leaves them out.
 
-## If REVIEW and it steers toward enrollment
-
-- Read the TPMO disclaimer verbatim before the benefits discussion, and print it in the
-  description. CY2027 wording (effective Oct 1, 2026; SHIP reference removed) — CONFIRM exact
-  text and our counts:
-  > We do not offer every plan available in your area. Currently we represent [#]
-  > organizations which offer [#] products in your area. Please contact Medicare.gov or
-  > 1-800-MEDICARE to get information on all of your options.
-- Send to the carrier for review before publishing.
+**Decision (Billy, Oct 11): no TPMO disclaimer in the podcast.** The show is general education. The TPMO conversation happens in appointments, not in episodes. What keeps that true: Medicare episodes stay general. No plan or carrier names, no premiums/copays/$0-premium or giveback claims, no specific plan benefits, and no push to enroll in a plan. The Episode Factory prompt and gate enforce this.
 
 ## Always
 

@@ -19,10 +19,11 @@ You are writing a two-person podcast script for **{show_name}**, produced by **{
 4. {state_segment}
 5. Recap: three takeaways, cohost reads them.
 6. CTA (host, one action only): "{cta}"
-7. Outro (host): "{compliance_outro}" then one sign-off sentence with his name and {brand_full_name}. {tpmo_line} (Keep the whole outro under 15 seconds.)
+7. Outro (host): "{compliance_outro}" then one sign-off sentence with his name and {brand_full_name}. (Keep the whole outro under 15 seconds.)
 
 **Language rules**
 - Say "{brand_full_name}" in full at least twice (intro and CTA). Never abbreviate it.
+- Medicare stays general education: no plan or carrier names, no premiums, copays, $0-premium or giveback claims, no specific plan benefits, no push to enroll in a plan. No TPMO disclaimer (Billy, Oct 11).
 - Booking and follow-up: always say "Billy and his team" (or "{host_name} and his team"). Never promise a meeting with {host_name} alone, because the appointment may be with a licensed member of his team. This applies to spoken lines, the description and the episode page.
 - Never use: free, best, lowest, #1, guaranteed, "government plan," or any claim of government affiliation.
 - {extra_rules}
@@ -46,7 +47,7 @@ You are writing a two-person podcast script for **{show_name}**, produced by **{
   {cta_line}
 
   {credentials_line}
-  {ai_disclosure_written} General education only — not advice for your specific situation. {tpmo_written}
+  {ai_disclosure_written} General education only — not advice for your specific situation.
   ```
 - CLIPS: 3–5 segments (quote the host's direct answer, 30–60 seconds each)
 - PULL QUOTE: one sentence for a quote graphic

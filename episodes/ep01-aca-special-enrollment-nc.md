@@ -46,4 +46,4 @@ Voices in this episode are AI-generated, including Billy's, from a script writte
 ```
 
 Chapter times were estimated from pauses in the audio (no transcript tool available); they land
-within a few seconds of each topic. Medicare is not discussed, so no TPMO disclaimer is needed.
+within a few seconds of each topic. Medicare is not discussed.
