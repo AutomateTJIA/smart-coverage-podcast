@@ -449,7 +449,7 @@ In this episode:
 ...
 
 Read the full guide: [matching blog/FAQ URL]
-Book a free coverage review: [booking URL]
+Book a free 15-minute chat with Billy and his team: https://cal.com/team/agency-producer/t-agency
 
 Billy Jordan is a licensed insurance agent (NPN 8699876) with The Jordan Insurance Agency, with
 offices in Charlotte, NC and Nashville, TN.

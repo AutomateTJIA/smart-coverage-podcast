@@ -16,7 +16,7 @@ Episode {n} · {date} · {duration} · Hosted by Billy Jordan, licensed agent
 …
 
 Related: {source blog/FAQ link} · {product page link}
-CTA: Book a free coverage review → {booking URL}
+CTA: Book a free 15-minute chat with Billy and his team → https://cal.com/team/agency-producer/t-agency
 Disclosure: AI-generated voices… · General education only… · {TPMO if REVIEW}
 ```
 

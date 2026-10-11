@@ -10,7 +10,7 @@ Owner key: **Billy** = only Billy can do it (his accounts, his voice, his licens
 - [ ] Final yes on the name "Smart Coverage. Real Advice."
 - [ ] Voice path for The Jordan Insurance Agency show: **ElevenLabs with Billy's voice** (recommended) or **NotebookLM hosts** (see "How the voices work" below).
 - [ ] Which YouTube channel carries the podcast. The site links four (insurance, Medicare, health insurance, mortgage protection). Recommend the main insurance channel so subscribers build in one place. Note: the existing channel handles use initials, which the brand guidelines forbid in new names. Changing a handle is optional but worth deciding.
-- [ ] Booking link for the CTA (the site uses a cal.com link today).
+- [x] Booking link for the CTA: https://cal.com/team/agency-producer/t-agency (Billy, Oct 11). Spoken CTA says "Billy and his team".
 
 ## 2. Accounts (Billy creates; Claude never needs your passwords)
 

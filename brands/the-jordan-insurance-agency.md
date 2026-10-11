@@ -23,7 +23,8 @@
 - existing workflow: n8n "AI Coverage Coach — Blog to Podcast (Host + Guest)" (id ngXftJaRk1b1oiL9). Rename the show inside it once the name is final.
 - audience: individuals, families, self-employed people, and adults approaching 65 in NC and TN
 - lanes: Medicare · Health · Life · Home & Auto · Retirement
-- cta: "Book a free coverage review at thejordaninsuranceagency.com, or call our office." (no "free" in Medicare product claims; "free review" of our service is allowed — CONFIRM with compliance)
+- cta (spoken): "For a personalized look at your situation, book a free fifteen-minute chat with Billy and his team at thejordaninsuranceagency.com/podcast." (Short, speakable URL on air. Billy, Oct 11.)
+- booking_url (written): https://cal.com/team/agency-producer/t-agency (used in every description, episode page and the /podcast page button. Billy, Oct 11.)
 - credentials_line: Billy Jordan is a licensed insurance agent (NPN 8699876) with The Jordan Insurance Agency, with offices in Charlotte, NC and Nashville, TN. (NPN lives here in writing, not on air — Billy, Oct 10.)
 - compliance_outro: "Quick reminder: this is general education, not advice for your situation." (Billy says it, one line, then his sign-off. Shortened Oct 10.)
 - ai_disclosure_spoken: none as a separate line (Billy, Oct 10). Tanya introducing herself as "your AI host" in the intro is the on-air disclosure. Never write an AI host intro without the words "AI host".
