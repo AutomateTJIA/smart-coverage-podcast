@@ -111,3 +111,14 @@ an episode grid. The old Spotify show is redirected to the Transistor feed the s
   the pop-up calendar button · Full transcript (rich text). SEO title/description bound to `seo-title` / `meta-description`.
 - Classes: `podcast-ep-*` (episode page), `podcast-card*` (cards).
 - Episode 1 CMS item: 6acc36cc026d1d5eb46109c8 (slug `lost-your-health-insurance-60-day-special-enrollment-clock-north-carolina`).
+
+## Redesign to match the AEO Engine podcast page (Oct 12)
+
+Billy's AEO Engine screenshots showed a centered grid of small cards, each starting with "EP 256 · Oct 11, 2026 · 10:51". /podcast now follows that pattern:
+
+- Section `episodes-section` (light gray, rounded) with the eyebrow "ALL EPISODES", an H2, and one line of sub-copy.
+- The collection list (`episodes-grid`) has 3 columns, 2 on tablet and 1 on phone, sorted by Publish Date with newest first.
+- Card (`episodes-card`): the meta row "EP {episode-number} · {publish-date} · {duration}", then the title, a quick answer cut to about 4 lines, and "Read & listen ›".
+- Below the grid: "Listen on Apple Podcasts · Spotify · RSS feed", then the gold booking button, which opens the pop-up.
+- The episode page shows the same "EP # · date · length" row under the H1 (`podcast-ep-metarow`).
+- **Every new CMS item needs `episode-number` and `publish-date` filled.** The Episode Factory must set both. Numbering is sequential and matches the Transistor episode number.
