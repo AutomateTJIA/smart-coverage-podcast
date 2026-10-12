@@ -19,6 +19,7 @@
   - The original ElevenLabs download of the outro was named with the agency's initials; never use that name — rename it in ElevenLabs to "Rhodes and Rust (Sign-Off)".
 - bench workflow: n8n "Podcast Bench Test — ACA Special Enrollment (Eleven v4)" (id uTpTirYLpR0yIPYT), created Oct 10, updated to Tanya Oct 10, not yet run.
 - website episodes: Webflow CMS collection "Podcast Episodes" (id 6acace0ef8f59eaf26c608c1, pages at /podcast/{slug}), created Oct 10, unpublished. Fields in references/episode-page-template.md. Same model as AEO Engine (one transcript page per episode on our own domain).
+- rss_feed: https://feeds.transistor.fm/smart-coverage-real-advice-the-insurance-podcast-from-the-jordan-insurance-agency (Transistor, created Oct 11; episode 1 uploaded as a draft first. Paste this into Apple Podcasts Connect; Spotify is submitted from Transistor → Distribution.)
 - episode factory: n8n "Smart Coverage. Real Advice. — Episode Factory (ElevenLabs + Transistor)" (id DWpa5JgtEn5eloux), created Oct 10 as a copy of AI Coverage Coach. Latest blog post → GPT-4.1 script (Tanya + Billy, new short intro/outro, 1,050–1,250 words) → compliance + brand gate → Eleven v4 with Tanya's hook as its own chunk → MP3 in Google Drive. Still to add: approval step, music, Transistor upload, episode page, schedule.
 - existing workflow: n8n "AI Coverage Coach — Blog to Podcast (Host + Guest)" (id ngXftJaRk1b1oiL9). Rename the show inside it once the name is final.
 - audience: individuals, families, self-employed people, and adults approaching 65 in NC and TN

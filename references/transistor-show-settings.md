@@ -19,3 +19,8 @@
 | Owner Email | podcast@thejordaninsuranceagency.com (role address; checked "add to RSS feed" so Apple/Spotify can verify ownership) |
 
 Approvals go to Slack (n8n credential "Slack account", id 4jLTmQxQFVzfybZX).
+
+## Live show
+
+- RSS feed: https://feeds.transistor.fm/smart-coverage-real-advice-the-insurance-podcast-from-the-jordan-insurance-agency
+- Episode 1 (ACA Special Enrollment) uploaded Oct 11 as a draft; Billy publishes it, then submits to Spotify (Transistor → Distribution) and Apple (Apple Podcasts Connect, paste the RSS feed).
