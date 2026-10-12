@@ -25,3 +25,10 @@ Approvals go to Slack (n8n credential "Slack account", id 4jLTmQxQFVzfybZX).
 - RSS feed: https://feeds.transistor.fm/smart-coverage-real-advice-the-insurance-podcast-from-the-jordan-insurance-agency
 - Episode 1 (ACA Special Enrollment) uploaded Oct 11 as a draft; Billy publishes it, then submits to Spotify (Transistor → Distribution) and Apple (Apple Podcasts Connect, paste the RSS feed).
 - Published Oct 12. Spotify show: https://open.spotify.com/show/1xYbNAPNgPHkc2FKOyhhfS. Apple: submitted by Billy via Apple Podcasts Connect (pending).
+
+## API (for the Episode Factory)
+
+- Transistor show ID: `84410`. Episode 1 ID: `3641585`.
+- n8n credential: "Transistor API key" (Header Auth, header `x-api-key`, id `YXjL8DQGdy1qxdmm`). Billy entered the key himself.
+- Verified Oct 12 with n8n workflow "Podcast - Transistor Key Test" (`IOOQsiUmQGcAnNrT`, execution 314432): the API returned this show.
+- Seen in the API on Oct 12: the secondary category is empty (the table above says Education › How To), and `apple_podcasts` is not set yet.
