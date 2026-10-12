@@ -122,3 +122,5 @@ Billy's AEO Engine screenshots showed a centered grid of small cards, each start
 - Below the grid: "Listen on Apple Podcasts · Spotify · RSS feed", then the gold booking button, which opens the pop-up.
 - The episode page shows the same "EP # · date · length" row under the H1 (`podcast-ep-metarow`).
 - **Every new CMS item needs `episode-number` and `publish-date` filled.** The Episode Factory must set both. Numbering is sequential and matches the Transistor episode number.
+- **Card link fix (Oct 12):** Webflow's built-in "Current Podcast Episode" link sent visitors to `/detail_podcast`, a 404. The card now links through a CMS Link field, **`episode-page-url`**, set to `https://thejordaninsuranceagency.com/podcast/{slug}`. The Episode Factory must fill it on every new item.
+- **Publish date:** store it at midday UTC (for example `2026-10-12T16:00:00Z`). Midnight UTC shows the previous day in Eastern time.
