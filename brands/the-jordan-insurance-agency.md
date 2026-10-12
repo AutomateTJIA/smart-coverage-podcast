@@ -26,6 +26,7 @@
 - lanes: Medicare · Health · Life · Home & Auto · Retirement
 - cta (spoken): "For a personalized look at your situation, book a free thirty-minute chat with Billy and his team at thejordaninsuranceagency.com/podcast." (Short, speakable URL on air. Billy, Oct 11.)
 - team_rule: ALWAYS "Billy and his team" whenever an episode, description or page mentions booking, a chat, a call, a review or any follow-up. Never promise an appointment with Billy alone, because it may be with Billy or a licensed member of his team. (Billy, Oct 11.) The Episode Factory prompt and its Compliance and Brand Gate enforce this.
+- description_booking_link: https://thejordaninsuranceagency.com/podcast#book. Show notes send people to the /podcast page, which has the team calendar embedded (same place the audio sends them, and it keeps traffic on our site). Billy, Oct 12.
 - booking_url (written): https://cal.com/team/agency-producer/t-agency, the same team calendar the home page uses; any element with class `rev-cta-btn` opens it as a pop-up via the site-wide code. Meeting length: 30 minutes (used in every description, episode page and the /podcast page button. Billy, Oct 11.)
 - credentials_line: Billy Jordan is a licensed insurance agent (NPN 8699876) with The Jordan Insurance Agency, with offices in Charlotte, NC and Nashville, TN. (NPN lives here in writing, not on air — Billy, Oct 10.)
 - compliance_outro: "Quick reminder: this is general education, not advice for your situation." (Billy says it, one line, then his sign-off. Shortened Oct 10.)

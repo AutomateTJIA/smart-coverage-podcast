@@ -39,7 +39,7 @@ In this episode:
 05:48 Three things to remember
 
 Read the full guide: https://thejordaninsuranceagency.com/blog/aca-special-enrollment-periods-in-north-carolina-2026-every-qualifying-life-event-the-60-day-clock-and-how-not-to-miss-it
-Book a free 30-minute chat with Billy and his team: https://cal.com/team/agency-producer/t-agency
+Book a free 30-minute chat with Billy and his team: https://thejordaninsuranceagency.com/podcast#book
 
 Billy Jordan is a licensed insurance agent (NPN 8699876) with The Jordan Insurance Agency, with offices in Charlotte, NC and Nashville, TN.
 Voices in this episode are AI-generated, including Billy's, from a script written and approved by Billy Jordan, licensed insurance agent. General education only, not advice for your specific situation.
