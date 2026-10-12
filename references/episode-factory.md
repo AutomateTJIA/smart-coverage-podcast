@@ -20,6 +20,12 @@ All three run on Eastern time (`America/New_York`).
 
 ## Front Door
 
+- **Who can request (Billy, Oct 12):** the form asks for a work email. Only `@agencyhlpc.com`,
+  `@thejordaninsuranceagency.com` and `@breakpointsystems.com` addresses are accepted, with up to
+  **14 links** per request. Every accepted request is emailed to **billy@agencyhlpc.com** with
+  Confirm / Decline buttons (Gmail credential "Gmail account"; waits 24 hours). Nothing starts until
+  Billy confirms. Requests from other domains stop silently. The email field alone can be typed by
+  anyone, so Billy's confirmation is the real lock.
 - **Batch form** (path `smart-coverage-batch`). Paste blog links, one per line. Only
   `thejordaninsuranceagency.com/blog/...` links are accepted. Links that already have a live or
   scheduled episode are skipped. Declined or failed links *can* be re-run from the form.
