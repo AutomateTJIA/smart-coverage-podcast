@@ -97,3 +97,17 @@ n8n fills one item per approved episode. Field slugs:
 Still to do: design the template page (layout above), bind SEO title/description, add PodcastEpisode
 schema, and at launch swap the hub: remove the 4 old Spotify embeds and add the new show player plus
 an episode grid. The old Spotify show is redirected to the Transistor feed the same day.
+
+## Built in Webflow (Oct 12)
+
+- **/podcast** (page 69579a026efc524887cf5759): "Listen to the latest episodes" box with a collection list of compact cards
+  (title, length, quick answer, "Listen and read the transcript →"), each linking to its episode page, then the
+  gold booking button. The booking button opens the team calendar as a pop-up (page footer script
+  `tjia-podcast-calendar-popup`, same pattern as the site's /faq and /guides pop-up); arriving with `#book` opens it automatically.
+  Sort newest-first is set in the Designer (the API rejected the sort setting).
+- **Episode page template** (/podcast/{slug}, page 6acace0ff8f59eaf26c608c7): site Header and Footer components,
+  then: ← All episodes · eyebrow · H1 (name) · length (duration) · quick-answer box · player iframe (src =
+  `transistor-player-url`, renamed "Player Embed URL"; Spotify embed format) · Show notes (rich text) · navy booking box with
+  the pop-up calendar button · Full transcript (rich text). SEO title/description bound to `seo-title` / `meta-description`.
+- Classes: `podcast-ep-*` (episode page), `podcast-card*` (cards).
+- Episode 1 CMS item: 6acc36cc026d1d5eb46109c8 (slug `lost-your-health-insurance-60-day-special-enrollment-clock-north-carolina`).
