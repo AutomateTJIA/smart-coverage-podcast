@@ -8,7 +8,7 @@ this file wins.
 - **One episode per day, 7 days a week, released at 9:00 AM Eastern** (office hours, so the team can check it as it goes live; Billy, Oct 12).
 - Episodes run **5 to 7 minutes**. Don't quote an exact length in public copy.
 - **Batches of 7 to 14** blog posts are fine: each approved episode takes the next open 9:00 AM slot.
- About 30 a month, around 180–200 in six months.
+- About 30 a month, around 180–200 in six months.
   This matches AEO Engine's pace (#224 → #256 in about 5 weeks).
 - **Ramp:** 3 episodes in the first week to prove quality and the approval flow, then daily.
 - **Reddit extras:** at most **2 per week**, on top of the daily episode, never 2 in the same
