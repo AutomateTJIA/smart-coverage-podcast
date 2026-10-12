@@ -38,7 +38,7 @@
 - compliance level: STRICT — see references/compliance.md; Medicare/health always pass the approval gate
 - colors: navy #163A70, royal #1F5AA6 (dominant) · gold #E0B43B (accent only) · white, #E9EDF2
   - These are the ONLY approved colors. No browns, oranges, reds or greens, not even for chips or status dots. Use tints and shades of navy for gray text. (Billy, Oct 12.)
-- signature: everything we build ends with "Built with love ❤️ by Breakpoint Systems LLC." (Billy, Oct 12.)
+- signature: everything we build ends with "Built with ❤️ by Breakpoint Systems LLC." (Billy, Oct 12.)
 - podcast studio page (internal): https://claude.ai/artifact/HptHHjCiAUL3XhHSKF3uJi. Request episodes from blog links (opens the n8n batch form), see the week's lineup and the latest episode.
 - art: assets/src/the-jordan-insurance-agency-cover-avatar.html (recommended, needs hi-res avatar), assets/src/the-jordan-insurance-agency-cover.html, assets/src/the-jordan-insurance-agency-episode-thumb.html
 - categories: Business › Investing; Education › How To

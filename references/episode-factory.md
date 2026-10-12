@@ -14,7 +14,7 @@ n8n instance: `systems.breakpointsystems.com`. All three workflows live in Billy
 |---|---|---|---|
 | **Smart Coverage — Front Door (batch form + daily pick)** | `rPtQJ37gJT4o29t3` | (a) the batch form, (b) every morning at 10:15 AM ET | Collects blog links and sends them to the Producer **one at a time** |
 | **Smart Coverage — Episode Producer (one episode)** | `JSKBgEYlncxIZMz0` | Called by the Front Door | Script, compliance edit, gate, duplicate check, Slack approval, voices, music, Transistor (scheduled), website draft, ledger |
-| **Smart Coverage — Daily Release (website)** | `A3h2y2PVfOeJPZ8r` | Every morning at 6:05 AM ET | Publishes the website page for each episode whose release time has passed, marks it published, posts the link in Slack |
+| **Smart Coverage — Daily Release (website)** | `A3h2y2PVfOeJPZ8r` | Every morning at 9:05 AM ET | Publishes the website page for each episode whose release time has passed, marks it published, posts the link in Slack |
 
 All three run on Eastern time (`America/New_York`).
 
@@ -25,7 +25,7 @@ All three run on Eastern time (`America/New_York`).
   scheduled episode are skipped. Declined or failed links *can* be re-run from the form.
 - **Daily pick** (10:15 AM ET). Looks at blog posts published in the last 3 weeks that have no
   ledger row, and picks one:
-  1. a post in **today's lane** (Mon/Wed/Fri Medicare, Tue/Thu Health, Sat Home, Sun Auto;
+  1. a post in **tomorrow's lane** (the day it will air) (Mon/Wed/Fri Medicare, Tue/Thu Health, Sat Home, Sun Auto;
      Dec 8 – Jan 15 the Medicare days go to Health),
   2. otherwise the newest Medicare/Health/Home/Auto post,
   3. otherwise the newest post.
@@ -51,7 +51,7 @@ All three run on Eastern time (`America/New_York`).
    - Otherwise the full script goes to Slack **#podcast-approvals** with Approve/Decline buttons.
    - No answer in 12 hours: on a **weekend it goes ahead**; on a weekday it is skipped.
 3. **Make the audio.**
-   - Plan Release assigns the next episode number and the next open day at **6:00 AM ET**
+   - Plan Release assigns the next episode number and the next open day at **9:00 AM ET** (office hours; Billy, Oct 12)
      (one per day, after the last scheduled one).
    - ElevenLabs v4 text-to-dialogue voices the episode chunk by chunk.
    - The music parts are pulled from GitHub (`assets/audio/factory/`) and joined: hook → gap →
