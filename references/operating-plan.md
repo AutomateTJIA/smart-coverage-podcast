@@ -96,7 +96,7 @@ Every new CMS item **must** have all of these, or the card breaks:
 
 ## Build order
 
-1. Blog → podcast factory: batch mode plus the daily trigger, editor, gate, Slack
+1. **Built Oct 12, now in testing** (see [`episode-factory.md`](episode-factory.md)). Blog → podcast factory: batch mode plus the daily trigger, editor, gate, Slack
    approval, music, Transistor, and the Webflow CMS item.
 2. /podcast topic buttons and the Home/Auto lane split.
 3. Reddit radar.

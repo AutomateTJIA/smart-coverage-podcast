@@ -5,6 +5,10 @@ Version 1.4 · October 12, 2026 · Owner: Billy Jordan
 > **Current operating plan:** [`references/operating-plan.md`](references/operating-plan.md)
 > (Oct 12): one episode a day, the weekly lane schedule, Reddit extras, the credit budget and
 > the website field rules. It replaces the cadence in §0 and §8 below.
+>
+> **The machine that runs it:** [`references/episode-factory.md`](references/episode-factory.md)
+> (Oct 12): the three n8n workflows (Front Door, Episode Producer, Daily Release), the batch
+> form, the daily pick, ledger statuses and known limits.
 
 This is the operating playbook for launching and running an AI-assisted podcast for
 The Jordan Insurance Agency, modeled on the show run by our AEO partner, then cloned for
