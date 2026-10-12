@@ -103,7 +103,7 @@ an episode grid. The old Spotify show is redirected to the Transistor feed the s
 - **/podcast** (page 69579a026efc524887cf5759): "Listen to the latest episodes" box with a collection list of compact cards
   (title, length, quick answer, "Listen and read the transcript →"), each linking to its episode page, then the
   gold booking button. The booking button opens the team calendar as a pop-up (page footer script
-  `tjia-podcast-calendar-popup`, same pattern as the site's /faq and /guides pop-up); arriving with `#book` opens it automatically.
+  `podcast-calendar-popup`, same pattern as the site's /faq and /guides pop-up); arriving with `#book` opens it automatically.
   Sort newest-first is set in the Designer (the API rejected the sort setting).
 - **Episode page template** (/podcast/{slug}, page 6acace0ff8f59eaf26c608c7): site Header and Footer components,
   then: ← All episodes · eyebrow · H1 (name) · length (duration) · quick-answer box · player iframe (src =
