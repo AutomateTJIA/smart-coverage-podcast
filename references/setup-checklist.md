@@ -118,3 +118,10 @@ Claude does **not** need Billy's Spotify login. Two separate things:
 - [ ] Trailer script
 - [ ] Episodes 1–3 scripts (Medicare, educational)
 - [ ] Description template and CTA wording
+
+## 8. Slack approvals (done Oct 11)
+
+- [x] n8n credential "Slack account" (id `4jLTmQxQFVzfybZX`) uses the n8n Podcast Bot's xoxb Bot token (Billy entered it himself; never pasted in chat)
+- [x] Bot scopes: `chat:write`, `channels:read`, `channels:history`, `groups:read`, `commands`; app reinstalled after adding scopes
+- [x] Channel **#podcast-approvals** (id `C0C8A3WRQA1`) in the BreakPoint Systems AI Workspace; bot invited
+- [x] Tested with n8n workflow "Podcast - Slack Approval Test" (`DrW5lr3ixGUGFoSq`): test message posted and the Approve button resumed the workflow (execution 314397, approved = true)
