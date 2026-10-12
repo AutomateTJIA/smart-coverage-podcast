@@ -24,7 +24,7 @@ Approvals go to Slack (n8n credential "Slack account", id 4jLTmQxQFVzfybZX).
 
 - RSS feed: https://feeds.transistor.fm/smart-coverage-real-advice-the-insurance-podcast-from-the-jordan-insurance-agency
 - Episode 1 (ACA Special Enrollment) uploaded Oct 11 as a draft; Billy publishes it, then submits to Spotify (Transistor → Distribution) and Apple (Apple Podcasts Connect, paste the RSS feed).
-- Published Oct 12. Spotify show: https://open.spotify.com/show/1xYbNAPNgPHkc2FKOyhhfS. Apple: submitted by Billy via Apple Podcasts Connect (pending).
+- Published Oct 12. Spotify show: https://open.spotify.com/show/1xYbNAPNgPHkc2FKOyhhfS. Apple: live ("Available") as of Oct 11, Apple Podcasts show ID 1772935091, https://podcasts.apple.com/us/podcast/id1772935091. The Apple Podcasts Connect account is named "AI Coverage Coach" (Apple ID aicoveragecoach@agencyhlpc.com). Listeners never see that name; renaming it needs Apple Podcasts Support.
 
 ## API (for the Episode Factory)
 
