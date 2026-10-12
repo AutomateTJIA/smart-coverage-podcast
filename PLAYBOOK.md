@@ -1,6 +1,15 @@
 # The Podcast Engine Playbook — The Jordan Insurance Agency (then Breakpoint Systems)
 
-Version 1.4 · October 12, 2026 · Owner: Billy Jordan
+Version 1.5 · October 12, 2026 · Owner: Billy Jordan
+
+> **The one production process (Billy, Oct 12):** the podcast system was never set up or used
+> before Oct 12. The **Episode Factory v2** built that day is the only process, described in
+> [`references/episode-factory.md`](references/episode-factory.md). Older workflows and plans in
+> this playbook (AI Coverage Coach, the Oct 10 factory, the bench and voice tests, NotebookLM,
+> "3 episodes a week") are **history only**: never used, retired, not a fallback.
+> **Nothing in the factory counts as proven until its first full test run.** Proven so far:
+> episode 1 (assembled by hand on Oct 11), the Slack approval test, the Transistor key test, and
+> the MP3 join (tested offline).
 
 > **Current operating plan:** [`references/operating-plan.md`](references/operating-plan.md)
 > (Oct 12): one episode a day, the weekly lane schedule, Reddit extras, the credit budget and
@@ -244,7 +253,9 @@ with who does what, is in `references/setup-checklist.md`. The short version:
    network settings lets Claude read public pages. Billy uses his own Spotify for Creators login
    only to check the old show and redirect it.
 
-### What we already have (found Oct 10)
+### History: what was in n8n before (found Oct 10, never used, retired Oct 12)
+
+> History only. None of this was ever run or used. Replaced by the Episode Factory v2.
 
 Billy's n8n already contains **"AI Coverage Coach — Blog to Podcast (Host + Guest)"** (built
 July 10, never run). It does most of what the partner does:

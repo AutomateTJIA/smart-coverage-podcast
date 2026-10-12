@@ -5,7 +5,13 @@ description: Turn an existing website page (blog post, FAQ, guide) into a publis
 
 # Podcast Engine
 
-Draft v0.2 (Oct 10, 2026).
+Draft v0.3 (Oct 12, 2026).
+
+> **One process:** episodes are made by the n8n **Episode Factory v2**
+> ([`references/episode-factory.md`](references/episode-factory.md)), the only production
+> process. It was built Oct 12 and is not proven until its first full test run. The steps below
+> describe what the factory does. Thumbnails (step 7), YouTube and repurposing (step 10) are
+> **not built yet**. Don't run any older n8n workflow; they're retired.
 
 ## What's in this skill
 
@@ -55,14 +61,14 @@ If the brand-image skill can't be loaded, stop and tell Billy. Don't continue fr
 4. Every episode ships with all of these, or it isn't done: YouTube upload, episode page with full transcript, written AI-voice note (see brand file).
 5. Don't invent facts. Script only from the source page and the official sources it cites. When a figure has a year, confirm it's the current year's.
 
-## Steps
+## Steps (what the Episode Factory v2 does; 7 and 10 not built yet)
 
 1. **Brief.** Read the source page. Extract the core question, 3–5 sub-questions people actually ask, the direct answer to each (2–3 sentences), state-specific differences, and the matching product page + booking CTA. Pick the lane from the brand file.
 2. **Title + compliance class.** Title ≤ 60 characters, question or keyword first, no show name, no episode number. Classify **EDU** or **REVIEW** with `references/compliance.md`.
 3. **Script.** Use `references/script-prompt.md` with the brand file's values. Two speakers, 7–8 minutes (~1,100–1,200 words) standard, or ~4 minutes (~600 words) for a quick answer. About 1 ElevenLabs credit per character, ~900 per minute. Also output the description, chapter estimates, 3–5 clip candidates, and a pull quote.
 4. **Brand-name gate.** Save the script, title, and description to the episode folder (slug-named, e.g. `the-jordan-insurance-agency-ep-012/`) and run `scripts/check-brand-name.sh <episode folder>`. Fix every hit and re-run until PASS.
 5. **Approval gate.** Send the script, title, description, and compliance class to Billy (n8n "wait for approval" → Slack/email). Breakpoint episodes may skip; Medicare/health episodes for The Jordan Insurance Agency never skip. Apply edits, then repeat step 4.
-6. **Audio.** Use the existing n8n workflow's ElevenLabs Text to Dialogue step (`POST /v1/text-to-dialogue`, model `eleven_v4`): Tanya (host, voice ID in the brand file) and Billy's voice ID (guest), the approved script split into chunks, then stitched with the intro/outro jingle in front and behind. (ElevenLabs Studio Podcast API is the alternative.) Apply the pronunciation dictionary from the brand file. Wait for the webhook and download the MP3. Fallback: Gemini multi-speaker TTS. If NotebookLM was used instead, transcribe its audio and run `scripts/check-brand-name.sh` on the transcript; regenerate on failure. Listen to the first 30 seconds: the brand name must be spoken in full.
+6. **Audio.** The factory's ElevenLabs Text to Dialogue step (`POST /v1/text-to-dialogue`, model `eleven_v4`): Tanya (host, voice ID in the brand file) and Billy's voice ID (guest), the approved script split into chunks, then stitched with the intro/outro jingle in front and behind. (ElevenLabs Studio Podcast API is the alternative.) Apply the pronunciation dictionary from the brand file. Wait for the webhook and download the MP3. Fallback: Gemini multi-speaker TTS. If NotebookLM was used instead, transcribe its audio and run `scripts/check-brand-name.sh` on the transcript; regenerate on failure. Listen to the first 30 seconds: the brand name must be spoken in full.
 7. **Thumbnail.** Copy the brand's episode-thumbnail HTML from `assets/src/`, set the lane chip, episode number, and a 4–6 word hook taken from the title. Render 1280×720 with Playwright, plus 1200×630 for the episode page. Name files with the brand slug.
 8. **Publish to Transistor.** `references/transistor-api.md`: authorize upload → PUT MP3 → create draft (title, summary, description, transcript = approved script) → publish or schedule. YouTube auto-post is on at the show level.
 9. **Episode page.** Build `/podcast/{slug}` from `references/episode-page-template.md`. Add "Listen to this as a podcast" to the source page.

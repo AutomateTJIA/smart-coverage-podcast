@@ -1,6 +1,11 @@
 # Episode Factory v2 (n8n): how the daily podcast gets made
 
 Built Oct 12, 2026. This is the machine behind [`operating-plan.md`](operating-plan.md).
+
+**This is the only podcast production process.** Nothing was set up or used before Oct 12.
+The older n8n workflows (AI Coverage Coach, the Oct 10 factory, bench and voice tests) are not
+part of it. Four of them were archived on Oct 12. **Status: built, not yet proven.** The first full
+test run (one blog link through the form) is the proof.
 n8n instance: `systems.breakpointsystems.com`. All three workflows live in Billy's personal project.
 
 ## The three workflows
