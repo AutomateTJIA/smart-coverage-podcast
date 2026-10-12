@@ -1,6 +1,10 @@
 # The Podcast Engine Playbook — The Jordan Insurance Agency (then Breakpoint Systems)
 
-Version 1.3 · October 10, 2026 · Owner: Billy Jordan
+Version 1.4 · October 12, 2026 · Owner: Billy Jordan
+
+> **Current operating plan:** [`references/operating-plan.md`](references/operating-plan.md)
+> (Oct 12): one episode a day, the weekly lane schedule, Reddit extras, the credit budget and
+> the website field rules. It replaces the cadence in §0 and §8 below.
 
 This is the operating playbook for launching and running an AI-assisted podcast for
 The Jordan Insurance Agency, modeled on the show run by our AEO partner, then cloned for
@@ -521,6 +525,11 @@ approval in the n8n approval step. This is the one step we don't automate.
 ---
 
 ## 8. Launch plan — aggressive and timed to enrollment season
+
+> **Superseded Oct 12.** Episode 1 shipped Oct 12 without a trailer. The cadence is now **daily**
+> (3 in the first week, then 1 a day), with Medicare Mon/Wed/Fri, Health Tue/Thu, Home Sat and
+> Auto Sun, plus up to 2 Reddit-question episodes a week. See
+> [`references/operating-plan.md`](references/operating-plan.md). The table below is kept for history.
 
 | Date | Milestone |
 |---|---|

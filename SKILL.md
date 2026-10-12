@@ -12,6 +12,7 @@ Draft v0.2 (Oct 10, 2026).
 | File | Use |
 |---|---|
 | `PLAYBOOK.md` | The full strategy: partner teardown, show name, stack, episode formula, website, compliance, launch plan, KPIs, Breakpoint version. **Read it before the first episode of a session.** |
+| `references/operating-plan.md` | **Current cadence and rules (Oct 12):** daily schedule by lane, Reddit stream, duplicate ledger, approvals, required CMS fields, credit budget, build order |
 | `references/setup-checklist.md` | Accounts, voice clone, compliance items, and decisions needed before episode 1 |
 | `references/brand-name-rules.md` | The binding name rule and the forbidden variants |
 | `scripts/check-brand-name.sh` | Brand-name gate. Fails on any forbidden variant in text or file names |
