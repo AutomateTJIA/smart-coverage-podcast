@@ -58,8 +58,8 @@ a { color: inherit; }
 .art .ring.two { width: 132%; max-width: 660px; border-color: rgba(233,237,242,.10); }
 .art img { position: relative; width: 100%; max-width: 440px; aspect-ratio: 1; border-radius: 22px; transform: rotate(-3deg); box-shadow: 0 40px 80px -24px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.08); }
 @media (prefers-reduced-motion: no-preference) {
-  .art img { animation: float 7s ease-in-out infinite; }
-  @keyframes float { 0%,100% { transform: rotate(-3deg) translateY(0); } 50% { transform: rotate(-2deg) translateY(-10px); } }
+  .art img { animation: float 5s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: rotate(-4deg) translateY(0) scale(1); } 50% { transform: rotate(0deg) translateY(-24px) scale(1.03); } }
 }
 .eq { position: absolute; left: 0; right: 0; bottom: 0; height: 120px; display: flex; align-items: flex-end; gap: 6px; padding-inline: 28px; opacity: .22; pointer-events: none; }
 .eq i { flex: 1; background: var(--royal); border-radius: 6px 6px 0 0; height: var(--h); transform-origin: bottom; }
@@ -249,8 +249,8 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
   <div class="wrap desk">
     <div>
       <div class="label">The studio desk</div>
-      <h2>Turn a blog post into an episode</h2>
-      <p class="sub">Paste one or more of our blog post links. Each one becomes its own episode, and nothing goes live until it's approved.</p>
+      <h2>From one link to a finished episode</h2>
+      <p class="sub">Paste one or more links. Each one becomes its own episode, and nothing goes live until it's approved.</p>
       <ol class="flow">
         <li><span class="n">1.</span><b>The request</b></li>
         <li><span class="n">2.</span><b>The approval</b></li>
@@ -259,15 +259,15 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
     </div>
     <div class="panel">
       <h3>Request an episode</h3>
-      <p class="hint">Agency email required. Up to 14 blog links per request, one per line.</p>
+      <p class="hint">One link per line, up to 14 at a time.</p>
       <label for="email">Your work email</label>
       <input id="email" type="email" autocomplete="email" placeholder="you@thejordaninsuranceagency.com">
       <p class="emailnote" id="emailnote"></p>
-      <label for="links">Blog post links</label>
-      <textarea id="links" spellcheck="false" placeholder="https://thejordaninsuranceagency.com/blog/is-home-insurance-more-expensive-for-older-homes-north-carolina-costs-coverage-guide"></textarea>
+      <label for="links">Links</label>
+      <textarea id="links" spellcheck="false" placeholder="Paste a link"></textarea>
       <div class="count" aria-live="polite"><span id="ok"><b>0</b> episodes ready to request</span><span id="skip" class="bad"></span></div>
       <a id="send" class="btn gold send" href="#studio" target="_blank" rel="noopener" aria-disabled="true">Send to the studio</a>
-      <p class="after" id="after">The studio form opens in a new tab with your details filled in. Press <b>Make episodes</b> there, and Slack confirms your request.</p>
+      <p class="after" id="after">The studio form opens in a new tab with your details filled in. Press <b>Make episodes</b> there.</p>
       <div class="lanes-key"><span class="pill med">Medicare</span><span class="pill hea">Health</span><span class="pill home">Home</span><span class="pill auto">Auto</span></div>
     </div>
   </div>
@@ -279,7 +279,7 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
       <div>
         <div class="label">Publishing calendar</div>
         <h2>One episode, every day, 9:00 AM</h2>
-        <p class="sub">Every day of the month has its own topic, so the show stays balanced across Medicare, Health, Home and Auto.</p>
+        <p class="sub">Each day can have its own topic, so the show stays balanced across Medicare, Health, Home and Auto. Requested episodes take the next open 9:00 AM slot, whatever the topic.</p>
       </div>
       <div class="cal-nav">
         <button type="button" id="prev" aria-label="Previous month">&#8592;</button>
@@ -353,7 +353,7 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
       if (seen[k]) return; seen[k] = 1; good.push(clean.replace(/\/$/, ""));
     });
     ok.innerHTML = "<b>" + good.length + "</b> " + (good.length === 1 ? "episode" : "episodes") + " ready to request";
-    skip.textContent = bad ? bad + (bad === 1 ? " line isn't a blog link" : " lines aren't blog links") : "";
+    skip.textContent = bad ? bad + (bad === 1 ? " line isn't a link" : " lines aren't links") : "";
     if (good.length > 14) { skip.textContent = "Only the first 14 links will be sent"; good = good.slice(0, 14); }
     var em = mail.value.trim();
     note.textContent = em && !emailOk() ? "Use your agency email address." : "";
@@ -373,7 +373,7 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
   // Inside Claude it can't reach outside systems, so it opens the studio form instead.
   var HOSTED = /(^|\.)thejordaninsuranceagency\.com$|\.vercel\.app$/i.test(location.hostname);
   var API = "https://systems.breakpointsystems.com/webhook/smart-coverage-studio";
-  if (HOSTED) { send.removeAttribute("target"); after.innerHTML = "Press <b>Send to the studio</b>. You'll see the result right here, and Slack confirms every request."; }
+  if (HOSTED) { send.removeAttribute("target"); after.innerHTML = "Press <b>Send to the studio</b>. You'll see the result right here."; }
   var busy = false;
   send.addEventListener("click", function (e) {
     if (!emailOk()) { e.preventDefault(); mail.focus(); note.textContent = "Use your agency email address."; return; }
