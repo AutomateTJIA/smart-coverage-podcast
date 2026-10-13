@@ -10,6 +10,12 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
+### Built — ElevenLabs usage in every episode email (n8n Episode Producer)
+- Before, the monthly ElevenLabs usage line only appeared in Slack ("Episode is built and scheduled"), after approval. It was never in the emails.
+- **Approval email** now shows usage before you decide: "% used this month, and about where you'll be if you approve this one". It warns at 75% or more. A new usage check runs just before the email goes out; if ElevenLabs can't be reached, the email says so and still sends.
+- **Finished-episode email** (the one with the MP3) now shows the usage line too. Slack keeps it as before.
+- Reading after Episode 2: 5% used (10,292 of 211,000 characters).
+
 ### Fixed — our own blog posts were being fact-checked like outside articles (n8n Episode Producer)
 - **What happened:** the step that reads the link used a web-address tool that n8n's sandbox doesn't have. It quietly failed, so the system couldn't tell the link was on thejordaninsuranceagency.com and treated Billy's own blog post as an **outside article**. That switched on the strict outside-article editor, which cut 10 things from the "Medicare and Divorce" script and labeled the email "OUTSIDE ARTICLE from ." (blank). This came in with the outside-article feature on Oct 13.
 - **Fix:** the website name is now read with a simple pattern that works in n8n, **and** anything on our own website (or labeled "blog" by the Front Door) always counts as vetted. Tested on four sample links.
