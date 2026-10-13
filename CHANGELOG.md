@@ -10,6 +10,15 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
+### Fixed — Episode 2 no longer says "Check the current figure for employer size requirements" (Transistor, Webflow)
+- Episode 2 was made before the "don't soften vetted facts" fix, so Billy's AI voice read that hedge out loud.
+- Only the one section containing it (about 1,250 characters) was re-recorded with the line removed, then swapped into the live MP3. Before uploading, it checked the file was the exact size expected and that the section edges lined up, and it would have stopped if not.
+- Same link and same episode on Apple, Spotify and the website. The new length is 7 min 51 sec. The transcript is corrected on Transistor and on the website.
+- The original file is still stored at Transistor, so this can be undone if needed. The temporary workflow was archived.
+
+### Changed — the usage line shows the reset date and how many episodes are left (n8n Episode Producer)
+- Example: "6% used (11,682 of 211,000). Resets Nov 10 (29 days). Room for about 32 more episodes before then." This appears in the approval email, the finished-episode email and Slack.
+
 ### Built — ElevenLabs usage in every episode email (n8n Episode Producer)
 - Before, the monthly ElevenLabs usage line only appeared in Slack ("Episode is built and scheduled"), after approval. It was never in the emails.
 - **Approval email** now shows usage before you decide: "% used this month, and about where you'll be if you approve this one". It warns at 75% or more. A new usage check runs just before the email goes out; if ElevenLabs can't be reached, the email says so and still sends.
