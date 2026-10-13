@@ -10,6 +10,13 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
+### Fixed — every podcast request now reports back in Slack (n8n Front Door)
+- Billy's first test request was turned away silently because the blog link landed in the email box, and the form still said "Thanks". His second request worked and was waiting for the Confirm click in the email, but nothing said so.
+- #podcast-approvals now gets a message for every outcome:
+  - "request received, click Confirm in the email"
+  - "request not accepted" (with the reason)
+  - "declined or expired"
+
 ### Moved — the podcast system now has its own repository
 - Everything for the podcast moved out of Cashville-Project into this private repository, with its full history: the playbook, brand files, scripts, artwork, music and episode notes.
 - Added: this changelog (the podcast entries from Cashville-Project), project rules for Claude (`CLAUDE.md`), a README, and the Podcast Studio page (`studio/podcast-studio.html`).
