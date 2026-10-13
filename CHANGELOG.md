@@ -10,6 +10,10 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
+### Changed — Billy signs off with "Until next time" (n8n Episode Producer; brand file)
+- Billy's last line is now a warm hand-off: "I'm Billy Jordan with The Jordan Insurance Agency. Until next time, take care." No disclaimer at the end, since it's said once up front. Tanya still closes the show.
+- **Wording fix, for accuracy:** the written note in show notes and on episode pages said scripts were "written and approved by Billy Jordan". They're written by the AI from Billy's posts and approved by Billy, so it now says "**reviewed** and approved". New episodes use it; Episodes 1 and 2 still show the old wording until updated.
+
 ### Built — second episode of a day airs at 3:00 PM, and a passcode lockout (n8n Episode Producer, Daily Release, Front Door, Studio Page Requests; studio page, playbook)
 - **Schedule (Billy's rule):** one episode a day at 9:00 AM. A second one on the same day only happens on purpose, when someone picks a date that already has an episode. It now airs that **afternoon at 3:00 PM** instead of also at 9:00, so the two don't touch. If the morning slot has already passed when today is picked, it takes 3:00 PM. If both are taken, it goes to the next open day.
 - The afternoon time is a setting Billy controls: `second_slot_time` in the n8n table "Smart Coverage Studio Settings" (15:00 now; change it to 17:00 for 5 PM). Tested on 11 cases.
