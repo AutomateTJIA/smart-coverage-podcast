@@ -142,6 +142,7 @@ Four lanes, each able to become its own Transistor show with its own RSS feed (B
 
 - The routing table is the n8n data table **Smart Coverage Shows** (`vCxFnYRsxi2jLOyX`). A lane with an empty `transistor_show_id` airs on the `main` show, exactly as before.
 - **To turn a lane on:** create the show in Transistor, then paste its show ID into that lane's `transistor_show_id`. Nothing else changes.
+- `apple_podcasts_url` (added Oct 13): the show's Apple Podcasts link. **Build Web Fields** uses it for the episode page's "Listen on Apple" link and falls back to the main show when it's empty.
 - Slots (9 AM, plus the purposeful afternoon slot) and episode numbers are counted **per show**, so three shows can each air at 9 AM on the same day, and each new show starts at Episode 1.
 - The ledger has a `show_id` column. Rows without one count as the main show.
 - The Producer reads the table in **Get Shows**, picks the show in **Preview Air Date** and **Plan Release**, uploads to that show in **Create Transistor Episode**, and the approval email shows a **Show:** line.

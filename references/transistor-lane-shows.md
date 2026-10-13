@@ -5,6 +5,23 @@ send Claude its show ID, or paste it into that lane's `transistor_show_id` in th
 From then on that lane's episodes go to the new feed. Then use Transistor's **Distribution** page to submit to
 Apple Podcasts and Spotify. Apple review usually takes 1 to 5 days.
 
+## Plan as of Oct 13: Medicare and Health Insurance only
+
+Billy's call: the two lanes we play in most get fed all the time. Home & Auto and Life stay on the main show
+until they have steady volume.
+
+- **Medicare** stays on the current show (`84410`). Its followers and reviews are there already, so no new Medicare show.
+- **Health Insurance** gets its own show. Launch steps:
+  1. Billy creates the show in Transistor using the Health Insurance fields below, and uploads
+     `assets/the-jordan-insurance-agency-podcast-cover-health-3000.jpg`.
+  2. Paste the new show ID into the `health` row's `transistor_show_id` in **Smart Coverage Shows** (or send it to Claude).
+  3. Submit it to Apple Podcasts and Spotify from Transistor's **Distribution** page.
+  4. When Apple approves it, paste the Apple Podcasts link into the `health` row's `apple_podcasts_url`. Until then,
+     "Listen on Apple" on Health episode pages points to the main show.
+  5. Before the first Health episode airs, add a show label to the website episode cards. The Health show starts at
+     EP 1, so without the label the site would show two "EP 1" cards.
+- Target: at least 2 Health episodes a week through Marketplace open enrollment (Nov 1 to Jan 15).
+
 Every show: Author **Billy Jordan**, Owner **The Jordan Insurance Agency**, Language **English**, Explicit **No**.
 
 ## Medicare
