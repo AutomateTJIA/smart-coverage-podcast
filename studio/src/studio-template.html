@@ -265,6 +265,9 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
       <p class="emailnote" id="emailnote"></p>
       <label for="links">Links</label>
       <textarea id="links" spellcheck="false" placeholder="Paste a link"></textarea>
+      <label for="airdate" style="margin-top:16px">Air date <span style="text-transform:none;letter-spacing:0;font-family:var(--body);color:#3B4F70">(optional)</span></label>
+      <input id="airdate" type="date">
+      <p class="emailnote" style="color:#3B4F70;font-weight:500">Leave blank for the next open day. If that date already has an episode, this one airs as the second that day.</p>
       <div class="count" aria-live="polite"><span id="ok"><b>0</b> episodes ready to request</span><span id="skip" class="bad"></span></div>
       <a id="send" class="btn gold send" href="#studio" target="_blank" rel="noopener" aria-disabled="true">Send to the studio</a>
       <p class="after" id="after">The studio form opens in a new tab with your details filled in. Press <b>Make episodes</b> there.</p>
@@ -337,7 +340,7 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
   var box = document.getElementById("links"), send = document.getElementById("send");
   var ok = document.getElementById("ok"), skip = document.getElementById("skip"), after = document.getElementById("after");
   var good = [];
-  var mail = document.getElementById("email"), note = document.getElementById("emailnote");
+  var mail = document.getElementById("email"), note = document.getElementById("emailnote"), air = document.getElementById("airdate");
   var DOMAINS = ["agencyhlpc.com", "thejordaninsuranceagency.com", "breakpointsystems.com"];
   function emailOk() {
     var v = mail.value.trim().toLowerCase();
@@ -358,7 +361,7 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
     var em = mail.value.trim();
     note.textContent = em && !emailOk() ? "Use your agency email address." : "";
     if (good.length && emailOk()) {
-      send.href = FORM + "?work_email=" + encodeURIComponent(em) + "&blog_urls=" + encodeURIComponent(good.join("\n"));
+      send.href = FORM + "?work_email=" + encodeURIComponent(em) + "&blog_urls=" + encodeURIComponent(good.join("\n")) + (air.value ? "&air_date=" + encodeURIComponent(air.value) : "");
       send.setAttribute("aria-disabled", "false");
     } else {
       send.href = "#studio"; send.setAttribute("aria-disabled", "true");
@@ -368,6 +371,8 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
   try { var d = localStorage.getItem("scs-draft"); if (d) box.value = d; } catch (e) {}
   try { var m = localStorage.getItem("scs-email"); if (m) mail.value = m; } catch (e) {}
   box.addEventListener("input", read);
+  air.addEventListener("input", read);
+  try { var t0 = new Date(); t0.setDate(t0.getDate() + 1); air.min = t0.toISOString().slice(0, 10); } catch (e) {}
   mail.addEventListener("input", function () { try { localStorage.setItem("scs-email", mail.value); } catch (e) {} read(); });
   // On our own web address the page submits directly and shows the result here.
   // Inside Claude it can't reach outside systems, so it opens the studio form instead.
@@ -383,12 +388,12 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
       if (busy) return;
       busy = true; send.textContent = "Sending…"; send.setAttribute("aria-disabled", "true");
       after.className = "after"; after.textContent = "";
-      fetch(API, { method: "POST", body: new URLSearchParams({ work_email: mail.value.trim(), blog_urls: good.join("\n") }) })
+      fetch(API, { method: "POST", body: new URLSearchParams({ work_email: mail.value.trim(), blog_urls: good.join("\n"), air_date: air.value || "" }) })
         .then(function (r) { return r.json(); })
         .then(function (d) {
           after.className = "after " + (d.ok ? "good" : "warn");
           after.textContent = d.message || (d.ok ? "Request received." : "That request wasn't accepted.");
-          if (d.ok) { box.value = ""; try { localStorage.removeItem("scs-draft"); } catch (x) {} }
+          if (d.ok) { box.value = ""; air.value = ""; try { localStorage.removeItem("scs-draft"); } catch (x) {} }
         })
         .catch(function () { after.className = "after warn"; after.textContent = "Couldn't reach the studio. Check your connection and try again in a minute."; })
         .then(function () { busy = false; send.textContent = "Send to the studio"; read(); });

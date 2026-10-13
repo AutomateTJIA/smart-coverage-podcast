@@ -10,6 +10,16 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
+### Built — pick an air date, including a second episode on the same day (n8n Front Door, Studio Page Requests, Episode Producer; studio page)
+- The studio page and the request form have an optional **Air date** box.
+- **Left blank:** the episode takes the first open day at 9:00 AM. Undated episodes now fill the earliest empty day; before, they always went after the last scheduled one, which would have left gaps.
+- **Date picked, nothing that day:** it airs that day.
+- **Date picked, one episode already that day:** it airs that day as the **second** episode (Billy's rule: two per day only when asked for).
+- **Date picked, already two that day:** it goes to the next open day after it.
+- Several links with one date: the first link gets the date, the rest go on the open days after it.
+- The approval email now shows **AIRS: [day and time]** with a plain note ("as the SECOND episode that day", "already has two episodes, so…", "that date has passed, so…"). Slack shows the air date too.
+- The rule was tested on 7 cases (free day, second on a day, full day, batch follow-on, past date, unreadable date, no date) before going live.
+
 ### Fixed — a formatting slip no longer rejects an episode (n8n Episode Producer)
 - Billy's request for the "North Carolina Medicare Eligibility" post was rejected. It was not the length (1,003 words, about 6.6 minutes). The recap was written as separate "One: / Two: / Three:" lines without "Tanya:" in front, and the final check rejects any line without a speaker.
 - The script is now repaired automatically: a line without a speaker is joined to the line before it. The approval email notes when that happened. The writer and editor were also told to keep every recap item on a "Tanya:" line.
