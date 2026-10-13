@@ -10,6 +10,25 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
+### Fixed — our own blog posts were being fact-checked like outside articles (n8n Episode Producer)
+- **What happened:** the step that reads the link used a web-address tool that n8n's sandbox doesn't have. It quietly failed, so the system couldn't tell the link was on thejordaninsuranceagency.com and treated Billy's own blog post as an **outside article**. That switched on the strict outside-article editor, which cut 10 things from the "Medicare and Divorce" script and labeled the email "OUTSIDE ARTICLE from ." (blank). This came in with the outside-article feature on Oct 13.
+- **Fix:** the website name is now read with a simple pattern that works in n8n, **and** anything on our own website (or labeled "blog" by the Front Door) always counts as vetted. Tested on four sample links.
+- **Editor rule for our posts, tightened:** it may not fact-check the post or the script against it, and may not remove, reword or hedge anything the post says, or remove examples and everyday color. The only fact edit allowed is removing a specific number, dollar amount, date, deadline or rule that appears nowhere in the post.
+- **Result:** the same post re-run gave 2 editor notes instead of 10 (one drug-plan detail not in the post, and the required "not affiliated with Medicare" line), correctly labeled "our blog post (already checked)".
+- The approval email now says exactly what **Decline** does: nothing is made, nothing airs, no voices are paid for, Slack confirms it, and the same link can be sent again any time.
+
+### Changed — episode length reads "6 min 55 sec", not "6:55" (n8n Episode Producer; Webflow)
+- "6:55" looked like a clock time. Episodes 1 and 2 were corrected on the website, and new episodes are written this way automatically.
+
+### Live on the website (Webflow site published and checked on the live pages)
+- **"All episodes" button** on each episode page now goes back to /podcast (it pointed nowhere).
+- **Booking on the podcast pages** now uses the same routing form as the home page: the visitor picks the type of appointment and is sent to the right person's calendar, instead of one catch-all calendar.
+- **"Schedule Your Consultation"** moved to the top of /podcast, under the heading, so it doesn't sink as episodes are added.
+
+### Changed — studio page and request form wording (c6a2842; n8n Front Door)
+- "Request an episode" is now **"Create a podcast episode"** (the top button says "Create an episode").
+- The email box just says **"Email"**; the sample agency address is gone, on the page and on the form.
+
 ### Built — pick an air date, including a second episode on the same day (n8n Front Door, Studio Page Requests, Episode Producer; studio page)
 - The studio page and the request form have an optional **Air date** box.
 - **Left blank:** the episode takes the first open day at 9:00 AM. Undated episodes now fill the earliest empty day; before, they always went after the last scheduled one, which would have left gaps.
