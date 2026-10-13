@@ -11,7 +11,9 @@ premiums, copays, or specific benefits. No steering toward enrolling.
 
 **Out of bounds for episodes:** specific plan costs or premiums, plan benefits (dental/vision/hearing,
 $0 premium, giveback), named plans or carriers, a push to enroll in a plan. If a source post
-contains these, the script leaves them out.
+contains these, the script leaves them out. (Outside articles only. See the next paragraph for our own posts.)
+
+**Our own blog posts are approved content (Billy, Oct 13).** Billy reviews every post before it is published, so the podcast uses the post's words, numbers and cost terms (premiums, copays, deductibles, out-of-pocket limits) as written. The editor and the final check never remove or block anything that is in the post. They only catch what the AI ADDS that is not in the post: a plan or carrier name, a dollar amount, a "$0 premium" or giveback claim, or a superlative. The strict list below still applies in full to outside articles. Trade-off Billy accepted: if a post itself names a carrier or quotes a specific plan's price, the episode will say it too, so keep posts general to keep the "no TPMO disclaimer" footing.
 
 **Decision (Billy, Oct 11): no TPMO disclaimer in the podcast.** The show is general education. The TPMO conversation happens in appointments, not in episodes. What keeps that true: Medicare episodes stay general. No plan or carrier names, no premiums/copays/$0-premium or giveback claims, no specific plan benefits, and no push to enroll in a plan. The Episode Factory prompt and gate enforce this.
 

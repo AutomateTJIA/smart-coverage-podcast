@@ -23,7 +23,7 @@ You are writing a two-person podcast script for **{show_name}**, produced by **{
 
 **Language rules**
 - Say "{brand_full_name}" in full at least twice (intro and CTA). Never abbreviate it.
-- Medicare stays general education: no plan or carrier names, no premiums, copays, $0-premium or giveback claims, no specific plan benefits, no push to enroll in a plan. No TPMO disclaimer (Billy, Oct 11).
+- Medicare stays general education: no plan or carrier names, no premiums, copays, $0-premium or giveback claims, no specific plan benefits, no push to enroll in a plan. No TPMO disclaimer (Billy, Oct 11). Our own blog posts are the exception: they are approved content, so keep their words, numbers and cost terms as written and only avoid ADDING anything not in the post (Billy, Oct 13).
 - Booking and follow-up: always say "Billy and his team" (or "{host_name} and his team"). Never promise a meeting with {host_name} alone, because the appointment may be with a licensed member of his team. This applies to spoken lines, the description and the episode page.
 - Never use: free, best, lowest, #1, guaranteed, "government plan," or any claim of government affiliation.
 - {extra_rules}

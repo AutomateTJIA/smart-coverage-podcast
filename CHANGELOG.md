@@ -10,6 +10,12 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
+### Changed — your blog posts are now treated as approved content, start to finish (n8n Episode Producer; docs)
+- **What happened:** the editor removed "copays" and "lower copays" from the Medicare plan review episode, citing "rule 4." That rule wasn't written by Billy. It came from his Oct 11 decision to skip the TPMO disclaimer, which depends on Medicare episodes staying general. The rule was meant for plan-specific prices ("Plan X has a $10 copay"), but the AI applied it to the plain word "copays." Both the writer and the editor were also told to drop prices from the post.
+- **Now:** for our own blog posts, the writer keeps the post's words, numbers and cost terms (premiums, copays, deductibles, out-of-pocket limits) as written. The editor may only remove something the AI ADDED that isn't in the post: a plan or carrier name, a dollar amount, "$0 premium" or "giveback," or a superlative. The final check ignores any word that appears in the post. Tested on 8 cases: words from the post pass, words the AI adds are caught, and outside articles keep the full strict rules.
+- **The pending email** for "What to Bring to Your Medicare Plan Review" was written by the old rules. Decline it (nothing is paid) and resend the link from the studio to get the version with copays kept.
+- Docs updated: compliance notes, script guide, project rules.
+
 ### Fixed — episode length format, the "Read & listen" gold, and a false alarm in the final script check (n8n Daily Release and Episode Producer; website)
 - **Episode 3 showed "6:30" instead of "6 min 30 sec."** It was built before the format fix. It's corrected now. To stop it for good, the release step now writes the length itself, as "X min Y sec", from the real audio length on Transistor, right when the episode goes live. Any episode built by an older version gets fixed automatically.
 - **"Read & listen ›", the "EP 3" label and the "ALL EPISODES" label on /podcast** were a dark brownish gold (#9A7614). They're now the logo gold (#E0B43B). The site was republished, and the brown is gone from the live stylesheet.
