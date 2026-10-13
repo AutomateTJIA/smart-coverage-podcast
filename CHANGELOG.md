@@ -10,6 +10,14 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
+### Changed — Tanya no longer says "AI" on air; the written AI note stays everywhere (option B) (n8n Episode Producer; Transistor; website; docs, 11084f6)
+- **Billy's call (option B):** Tanya now introduces herself as "I'm Tanya, your host." Nobody on air says they're AI, and nobody claims to be a live person. The script writer has that rule, and the final check now looks for "your host" instead of "your AI host".
+- **The written disclosure stays on everything:** show notes, episode pages ("Tanya (AI host)" in transcripts), the show's main description on Transistor, and YouTube's "altered or synthetic content" box.
+- **Episodes 1 and 2 updated** on Transistor and on the website: "written and approved" now reads "**reviewed** and approved". Both website items republished. Episode 3's (divorce) website notes were fixed too, before it goes live.
+- **Show description on Transistor:** same wording fix, and removed "In 7–8 minute episodes", because public copy shouldn't quote a length.
+- **Heads-up:** Episode 3 (divorce) was already voiced before these changes, so its audio still has the old style: "your AI host", the disclaimer mid-episode, and the old ending. Its transcript matches the audio, so it stays as is. Every episode from now on uses the new style.
+- Docs updated to match: brand file, compliance notes, Playbook, script guide and checklist. The temporary Transistor helper workflow in n8n was archived.
+
 ### Changed — Billy signs off with "Until next time" (n8n Episode Producer; brand file)
 - Billy's last line is now a warm hand-off: "I'm Billy Jordan with The Jordan Insurance Agency. Until next time, take care." No disclaimer at the end, since it's said once up front. Tanya still closes the show.
 - **Wording fix, for accuracy:** the written note in show notes and on episode pages said scripts were "written and approved by Billy Jordan". They're written by the AI from Billy's posts and approved by Billy, so it now says "**reviewed** and approved". New episodes use it; Episodes 1 and 2 still show the old wording until updated.
