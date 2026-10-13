@@ -13,7 +13,7 @@ n8n instance: `systems.breakpointsystems.com`. All three workflows live in Billy
 | Workflow | ID | What starts it | What it does |
 |---|---|---|---|
 | **Smart Coverage — Front Door (batch form + daily pick)** | `rPtQJ37gJT4o29t3` | (a) the batch form, (b) every morning at 10:15 AM ET | Collects blog links and sends them to the Producer **one at a time** |
-| **Smart Coverage — Episode Producer (one episode)** | `JSKBgEYlncxIZMz0` | Called by the Front Door | Script, compliance edit, gate, duplicate check, Slack approval, voices, music, Transistor (scheduled), website draft, ledger |
+| **Smart Coverage — Episode Producer (one episode)** | `JSKBgEYlncxIZMz0` | Called by the Front Door | Script, compliance edit, gate, duplicate check, email approval, voices, music, Transistor (scheduled), website draft, ledger |
 | **Smart Coverage — Studio Page Requests** | `zmb6a0YAfxYXibfI` | The hosted Studio page (POST to webhook `smart-coverage-studio`) | Checks the email and links, answers the page right away, hands accepted requests to the Front Door |
 | **Smart Coverage — Daily Release (website)** | `A3h2y2PVfOeJPZ8r` | Every morning at 9:05 AM ET | Publishes the website page for each episode whose release time has passed, marks it published, posts the link in Slack |
 
@@ -25,7 +25,7 @@ All three run on Eastern time (`America/New_York`).
   `@thejordaninsuranceagency.com` and `@breakpointsystems.com` addresses are accepted, with up to
   **14 links** per request. Accepted requests start right away, and Slack posts "Podcast request
   received". Anything else gets "request not accepted" in Slack. The email-confirmation step from
-  Oct 12 was removed; Billy's Slack approval of each episode is the safety check.
+  Oct 12 was removed; Billy's email approval of each episode is the safety check.
 - **Batch form** (path `smart-coverage-batch`). Paste blog links, one per line. Only
   `thejordaninsuranceagency.com/blog/...` links are accepted. Links that already have a live or
   scheduled episode are skipped. Declined or failed links *can* be re-run from the form.
@@ -49,12 +49,22 @@ All three run on Eastern time (`America/New_York`).
 1. **Write and check the script.** Read the blog post → Write Dialogue (OpenAI gpt-4.1, temp 0.6)
    → Edit for Compliance (gpt-4.1, temp 0.1) → **Compliance and Brand Gate**. If the gate fails,
    it stops before any voice credits are spent and posts the problems in Slack.
+   - **Our blog posts are already vetted (Billy, Oct 12).** The writer and editor treat every
+     fact, number and date in the post as verified. They never soften, hedge or drop a fact, and
+     never add "check the current figure". The editor only fixes: the brand name, "Billy and his
+     team", the required lines, forbidden phrases, and Medicare plan, carrier or price mentions
+     (those stay out by our compliance rule, even if the post has them).
+   - **Target length:** 850 to 1,050 words, about 5 to 7 minutes with the music. Length never
+     blocks an episode; a long or short script is flagged in the approval email and Billy decides.
+     Only a broken script (under 500 or over 2,000 words) stops at the gate.
 2. **Duplicate check and approval.**
    - Write Episode Details produces the title, slug, question, topic, quick answer, SEO fields,
      bullets and `duplicate_of`.
    - If the question is already answered in the ledger, it stops ("Skipped: already answered by
      episode N").
-   - Otherwise the full script goes to Slack **#podcast-approvals** with Approve/Decline buttons.
+   - Otherwise the full script is **emailed to billy@agencyhlpc.com** with Approve / Decline
+     buttons at the bottom (Gmail credential "Gmail account"). Slack gets one short line saying
+     the script was emailed. (Changed from a long Slack post on Oct 12, Billy's request.)
    - No answer in 12 hours: on a **weekend it goes ahead**; on a weekday it is skipped.
 3. **Make the audio.**
    - Plan Release assigns the next episode number and the next open day at **9:00 AM ET** (office hours; Billy, Oct 12)
@@ -84,7 +94,7 @@ All three run on Eastern time (`America/New_York`).
 
 ## Billy's day-to-day
 
-- **Approve or decline** in Slack #podcast-approvals. That's the only daily touch.
+- **Approve or decline** from the approval email. That's the only daily touch.
 - To make extra episodes, or to re-run a declined one, paste links into the batch form.
 - Slack tells you when each episode is scheduled and when it goes live.
 
@@ -94,11 +104,11 @@ All three run on Eastern time (`America/New_York`).
   sound quieter than episode 1 in podcast apps. Fix candidate: Auphonic (about $11/mo) as one
   extra step.
 - **Approval wait inside a called workflow:** the Front Door waits for the Producer, which waits
-  in Slack for up to 12 hours. If n8n doesn't hand the result back after the wait, the fallback
+  for the approval email for up to 12 hours. If n8n doesn't hand the result back after the wait, the fallback
   is to turn waiting off and rely on the one-per-day release slot. The first batch test answers
   this.
-- **Batch speed:** with sequential processing, a batch of 5 links means 5 separate Slack
-  approvals, each arriving after the previous one is answered.
+- **Batch speed:** with sequential processing, a batch of 5 links means 5 separate approval
+  emails, each arriving after the previous one is answered.
 - **Webflow:** the website item is created through the Webflow OAuth credential. If its scopes
   don't include CMS write, step 4 fails with a 403. Reconnect the credential with CMS read/write.
 - **Music file location:** the Producer pulls music from branch `claude/laughing-cannon-hro47m`.

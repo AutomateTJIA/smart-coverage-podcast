@@ -70,7 +70,8 @@ AEO if they answer 200 different questions; duplicates compete with each other i
 
 ## Approvals
 
-- Every episode is posted in Slack **#podcast-approvals** with Approve / Decline buttons.
+- Every episode script is **emailed to billy@agencyhlpc.com** with Approve / Decline buttons.
+  Slack gets one short line saying it was sent.
 - Weekend episodes: **auto-publish window**. They publish after the set time unless Billy
   taps Stop.
 - Approval is the bottleneck. Keep it to about one tap per episode.
@@ -99,7 +100,7 @@ Every new CMS item **must** have all of these, or the card breaks:
 
 ## Build order
 
-1. **Built Oct 12, now in testing** (see [`episode-factory.md`](episode-factory.md)). Blog → podcast factory: batch mode plus the daily trigger, editor, gate, Slack
+1. **Built Oct 12, now in testing** (see [`episode-factory.md`](episode-factory.md)). Blog → podcast factory: batch mode plus the daily trigger, editor, gate, email
    approval, music, Transistor, and the Webflow CMS item.
 2. /podcast topic buttons and the Home/Auto lane split.
 3. Reddit radar.
