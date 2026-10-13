@@ -10,6 +10,13 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
+### Built — second episode of a day airs at 3:00 PM, and a passcode lockout (n8n Episode Producer, Daily Release, Front Door, Studio Page Requests; studio page, playbook)
+- **Schedule (Billy's rule):** one episode a day at 9:00 AM. A second one on the same day only happens on purpose, when someone picks a date that already has an episode. It now airs that **afternoon at 3:00 PM** instead of also at 9:00, so the two don't touch. If the morning slot has already passed when today is picked, it takes 3:00 PM. If both are taken, it goes to the next open day.
+- The afternoon time is a setting Billy controls: `second_slot_time` in the n8n table "Smart Coverage Studio Settings" (15:00 now; change it to 17:00 for 5 PM). Tested on 11 cases.
+- **Release check now runs every hour at :58** instead of only 8:58 AM, so afternoon episodes get published on the website and verified too. It's quiet when nothing is due, and it also catches any release that was missed earlier.
+- **Lockout:** 10 wrong passcodes within an hour lock the studio (page and backup form) for an hour, even for the right passcode, so guessing can't work. Billy gets one Slack alert when it locks. Each wrong try is logged in "Smart Coverage Studio Wrong Tries"; deleting those rows unlocks it early. Tested on 4 cases plus a live wrong-passcode test, which was logged correctly.
+- Studio page and playbook wording updated for the 3:00 PM second slot and the lockout message.
+
 ### Built — "Clear and start over" button on the studio page — d6a5a6e
 - One click empties the links, the air date and any message, so nobody has to erase line by line. Email and passcode stay, because the page remembers them on purpose.
 - Also: Billy set the team passcode in n8n. A test with a wrong passcode was refused ("That team passcode isn't right"), which confirms the lock is on and checking against his value.

@@ -15,7 +15,7 @@ n8n instance: `systems.breakpointsystems.com`. All three workflows live in Billy
 | **Smart Coverage — Front Door (batch form + daily pick)** | `rPtQJ37gJT4o29t3` | (a) the batch form, (b) every morning at 10:15 AM ET | Collects blog links and sends them to the Producer **one at a time** |
 | **Smart Coverage — Episode Producer (one episode)** | `JSKBgEYlncxIZMz0` | Called by the Front Door | Script, compliance edit, gate, duplicate check, email approval, voices, music, Transistor (scheduled), website draft, ledger |
 | **Smart Coverage — Studio Page Requests** | `zmb6a0YAfxYXibfI` | The hosted Studio page (POST to webhook `smart-coverage-studio`) | Checks the email and links, answers the page right away, hands accepted requests to the Front Door |
-| **Smart Coverage — Daily Release (website)** | `A3h2y2PVfOeJPZ8r` | Every morning at 8:58 AM ET | Publishes the website page for each episode due at 9:00, marks it published, then checks the page loads and Transistor shows it published; reports pass or FAILED in Slack and by email |
+| **Smart Coverage — Daily Release (website)** | `A3h2y2PVfOeJPZ8r` | Every hour at :58 ET (quiet when nothing is due) | Publishes the website page for each episode due (9:00 AM, plus the afternoon slot on two-episode days), marks it published, then checks the page loads and Transistor shows it published; reports pass or FAILED in Slack and by email |
 
 All three run on Eastern time (`America/New_York`).
 
@@ -118,3 +118,13 @@ All three run on Eastern time (`America/New_York`).
   Switch it to `main` after this branch is merged.
 - **Duration** on the website card is estimated from the file size (128 kbps), so it can be off
   by a few seconds.
+
+## Release slots and studio gate (Oct 13)
+
+- **One episode a day at 9:00 AM ET.** A second episode on a day only when someone picks that date on purpose. It airs in the afternoon slot, `second_slot_time` in the n8n table "Smart Coverage Studio Settings" (default `15:00`, 3:00 PM ET; Billy can change it to `17:00`). Same rule in the Producer's Preview Air Date and Plan Release.
+- **Studio gate** (Studio Page Requests `Check Request` and Front Door `Check Requester`, same logic):
+  - team passcode from "Smart Coverage Studio Settings" (`studio_passcode`; blank = nothing accepted)
+  - agency email
+  - links only from our site or "Smart Coverage Approved Sources"
+  - lockout after 10 wrong passcodes in an hour, logged in "Smart Coverage Studio Wrong Tries"; one Slack alert when it locks; delete those rows to unlock early
+
