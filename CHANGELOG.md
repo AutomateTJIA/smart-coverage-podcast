@@ -10,7 +10,7 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
-### Changed — the podcast no longer depends on Cashville-Project (n8n Episode Producer; docs)
+### Changed — the podcast no longer depends on Cashville-Project (n8n Episode Producer; docs; commit 02a4687)
 - The Episode Producer used to download the intro, gap and outro music from Cashville-Project. It now downloads them from this repository. Before switching, a test confirmed n8n can read the files here and that they match byte for byte. No episodes were waiting for approval, so none were still pointed at the old location.
 - Checked: the Daily Release, Front Door and Studio Page Requests workflows never pointed at Cashville. The Studio website on Vercel deploys from this repository.
 - An old copy of the podcast files is still in Cashville-Project (branch `claude/laughing-cannon-hro47m`, `docs/podcast-engine/`). Every file is either identical to a file here or an older version of one. Nothing uses that copy anymore. It's waiting on Billy's OK to delete.
