@@ -1,0 +1,445 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><style>*{box-sizing:border-box}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>Smart Coverage Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: a single broadcast-navy world, built like the show cover. Giant on-air hero with the cover art,
+   a gold lane ticker, then the studio desk (request box), the week's lineup, the latest episode. */
+:root {
+  --navy: #163A70;      /* brand navy */
+  --royal: #1F5AA6;     /* brand royal */
+  --gold: #E0B43B;      /* brand gold, accent only */
+  --mist: #E9EDF2;      /* brand light */
+  --white: #FFFFFF;
+  --ink: #0E2650;       /* deepest navy, a shade of brand navy */
+  --line: rgba(233,237,242,.14);
+  --soft: rgba(233,237,242,.72);
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "Public Sans", "Segoe UI", Roboto, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--ink); color: var(--white); font: 400 17px/1.6 var(--body); }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 28px; }
+@media (max-width: 560px) { .wrap { padding-inline: 16px; } }
+
+/* Top bar */
+.top { border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-block: 18px; }
+.top img { height: 54px; width: auto; display: block; }
+.onair { display: inline-flex; align-items: center; gap: 10px; font: 600 12px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--ink); background: var(--gold); padding: 9px 14px; border-radius: 999px; }
+.onair i { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); }
+@media (prefers-reduced-motion: no-preference) { .onair i { animation: blink 1.4s ease-in-out infinite; } @keyframes blink { 50% { opacity: .25; } } }
+
+/* Hero */
+.hero { position: relative; overflow: hidden; background:
+  radial-gradient(60% 70% at 78% 30%, rgba(31,90,166,.95) 0%, rgba(31,90,166,0) 70%),
+  linear-gradient(180deg, var(--navy) 0%, var(--ink) 100%); }
+.hero .wrap { position: relative; display: grid; grid-template-columns: 1.2fr .8fr; gap: 48px; align-items: center; padding-block: 72px 88px; }
+.hero .copy { min-width: 0; position: relative; z-index: 1; }
+.kicker { font: 800 14px/1 var(--display); letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+.hero h1 { font: 900 clamp(52px, 9vw, 116px)/.92 var(--display); letter-spacing: -.035em; margin: 22px 0 26px; }
+.hero h1 .g { color: var(--gold); display: block; }
+.hero .lede { font-size: clamp(18px, 2vw, 21px); color: var(--soft); max-width: 31em; margin: 0 0 32px; }
+.hero .lede b { color: var(--white); font-weight: 600; }
+.btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 22px; border-radius: 999px; font: 800 16px/1 var(--display); text-decoration: none; transition: transform .15s ease, background .15s ease; border: 0; cursor: pointer; }
+.btn:hover { transform: translateY(-2px); }
+.btn.gold { background: var(--gold); color: var(--ink); }
+.btn.line { box-shadow: inset 0 0 0 2px rgba(233,237,242,.5); color: var(--white); background: transparent; }
+.btn.line:hover { background: rgba(233,237,242,.08); }
+.btn svg { width: 20px; height: 20px; flex: none; }
+
+.art { position: relative; display: grid; place-items: center; min-width: 0; }
+.art .ring { position: absolute; width: 112%; aspect-ratio: 1; max-width: 560px; border-radius: 50%; border: 2px solid rgba(224,180,59,.35); }
+.art .ring.two { width: 132%; max-width: 660px; border-color: rgba(233,237,242,.10); }
+.art img { position: relative; width: 100%; max-width: 440px; aspect-ratio: 1; border-radius: 22px; transform: rotate(-3deg); box-shadow: 0 40px 80px -24px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.08); }
+@media (prefers-reduced-motion: no-preference) {
+  .art img { animation: float 7s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: rotate(-3deg) translateY(0); } 50% { transform: rotate(-2deg) translateY(-10px); } }
+}
+.eq { position: absolute; left: 0; right: 0; bottom: 0; height: 120px; display: flex; align-items: flex-end; gap: 6px; padding-inline: 28px; opacity: .22; pointer-events: none; }
+.eq i { flex: 1; background: var(--royal); border-radius: 6px 6px 0 0; height: var(--h); transform-origin: bottom; }
+@media (prefers-reduced-motion: no-preference) {
+  .eq i { animation: eq 1.8s ease-in-out infinite; animation-delay: var(--d); }
+  @keyframes eq { 0%,100% { transform: scaleY(1); } 50% { transform: scaleY(.35); } }
+}
+
+/* Ticker */
+.ticker { background: var(--gold); color: var(--ink); overflow: hidden; white-space: nowrap; }
+.ticker .track { display: inline-flex; gap: 0; padding-block: 14px; font: 900 22px/1 var(--display); letter-spacing: .02em; text-transform: uppercase; }
+.ticker span { padding-inline: 22px; display: inline-flex; align-items: center; gap: 44px; }
+.ticker span::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--navy); }
+@media (prefers-reduced-motion: no-preference) {
+  .ticker .track { animation: slide 28s linear infinite; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+}
+
+/* Sections */
+section.band { padding-block: 88px; }
+.label { font: 600 12.5px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+h2 { font: 900 clamp(34px, 5vw, 58px)/1 var(--display); letter-spacing: -.025em; margin: 14px 0 16px; text-wrap: balance; }
+.sub { color: var(--soft); max-width: 40em; margin: 0; }
+
+/* Studio desk */
+.desk { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: start; }
+.desk > * { min-width: 0; }
+.flow { list-style: none; padding: 0; margin: 34px 0 0; display: grid; gap: 0; }
+.flow li { display: grid; grid-template-columns: 64px 1fr; gap: 12px; align-items: baseline; padding-block: 20px; border-top: 1px solid var(--line); }
+.flow li:last-child { border-bottom: 1px solid var(--line); }
+.flow .n { font: 900 34px/1 var(--display); color: var(--gold); font-variant-numeric: tabular-nums; }
+.flow b { display: block; font: 800 28px/1.1 var(--display); letter-spacing: -.01em; }
+.panel { background: var(--white); color: var(--ink); border-radius: 22px; padding: 30px; box-shadow: 0 30px 70px -30px rgba(0,0,0,.7); border-top: 8px solid var(--gold); }
+.panel h3 { font: 900 30px/1.05 var(--display); letter-spacing: -.02em; margin: 0 0 6px; color: var(--navy); }
+.panel p.hint { margin: 0 0 18px; color: rgba(22,58,112,.82); font-size: 15.5px; }
+.panel label { display: block; font: 600 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--royal); margin-bottom: 8px; }
+.panel textarea { width: 100%; min-height: 150px; resize: vertical; border: 2px solid var(--mist); background: var(--mist); color: var(--ink); border-radius: 14px; padding: 14px 16px; font: 500 15px/1.5 var(--mono); }
+.panel textarea:focus, .panel input:focus { outline: none; border-color: var(--royal); background: var(--white); }
+.panel input { width: 100%; border: 2px solid var(--mist); background: var(--mist); color: var(--ink); border-radius: 14px; padding: 13px 16px; font: 500 15px/1.4 var(--body); }
+.emailnote { margin: 6px 0 16px; min-height: 1.2em; font-size: 13.5px; color: var(--royal); font-weight: 600; }
+.count { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 12px 0 18px; font-size: 14px; color: rgba(22,58,112,.82); }
+.count b { color: var(--navy); }
+.count .bad { color: var(--royal); }
+.send { width: 100%; justify-content: center; font-size: 18px; padding: 18px 22px; }
+.send[aria-disabled="true"] { background: var(--mist); color: rgba(22,58,112,.5); cursor: not-allowed; transform: none; }
+.panel .after { margin: 14px 0 0; font-size: 14px; color: rgba(22,58,112,.82); min-height: 1.5em; }
+.panel .after b { color: var(--navy); }
+.panel .after.good { background: var(--mist); color: var(--navy); font-weight: 700; padding: 12px 14px; border-radius: 12px; border-left: 6px solid var(--gold); }
+.panel .after.warn { background: var(--mist); color: var(--royal); font-weight: 700; padding: 12px 14px; border-radius: 12px; border-left: 6px solid var(--royal); }
+.lanes-key { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--mist); }
+
+/* Lane pills */
+.pill { display: inline-flex; align-items: center; padding: 7px 13px; border-radius: 999px; font: 800 13px/1 var(--display); letter-spacing: .04em; text-transform: uppercase; }
+.pill.med { background: var(--royal); color: var(--white); }
+.pill.hea { background: var(--mist); color: var(--navy); }
+.pill.home { background: var(--gold); color: var(--ink); }
+.pill.auto { background: var(--navy); color: var(--white); box-shadow: inset 0 0 0 2px var(--gold); }
+
+/* Week */
+.week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin-top: 40px; }
+.day { position: relative; border-radius: 18px; padding: 18px 16px 20px; background: rgba(233,237,242,.05); border: 1px solid var(--line); display: grid; gap: 14px; align-content: start; min-height: 168px; }
+.day .d { font: 900 34px/1 var(--display); letter-spacing: -.02em; }
+.day .t { font: 600 12px/1 var(--mono); color: var(--soft); letter-spacing: .06em; }
+.day.today { background: var(--gold); color: var(--ink); border-color: var(--gold); transform: translateY(-6px); box-shadow: 0 24px 40px -20px rgba(224,180,59,.6); }
+.day.today .t { color: var(--ink); }
+.day .now { display: none; position: absolute; top: 14px; right: 14px; font: 600 10.5px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+.day.today .now { display: block; }
+.season { margin-top: 24px; color: var(--soft); font-size: 15px; display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+.season b { color: var(--gold); font-family: var(--mono); font-weight: 600; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+
+/* Calendar */
+.cal-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+.cal-head > div:first-child { min-width: 0; flex: 1 1 420px; }
+.cal-nav { display: flex; align-items: center; gap: 14px; font: 800 20px/1 var(--display); }
+.cal-nav button { width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(233,237,242,.1); color: var(--white); font-size: 20px; cursor: pointer; }
+.cal-nav button:hover { background: var(--gold); color: var(--ink); }
+.cal-nav span { min-width: 9.5em; text-align: center; }
+.cal { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; margin-top: 32px; }
+.dow { font: 600 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--soft); padding: 0 4px 6px; }
+.cell { min-width: 0; height: 92px; border-radius: 12px; background: rgba(233,237,242,.05); border: 1px solid var(--line); padding: 10px; display: flex; flex-direction: column; justify-content: space-between; }
+.cell.empty { background: transparent; border-color: transparent; }
+.cell.past { opacity: .45; }
+.cell.today { border: 2px solid var(--gold); background: rgba(224,180,59,.1); }
+.cell .num { font: 800 18px/1 var(--display); display: flex; justify-content: space-between; align-items: baseline; gap: 4px; }
+.cell .num em { font: 600 10px/1 var(--mono); font-style: normal; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
+.cell .pill { align-self: flex-start; max-width: 100%; padding: 6px 10px; font-size: 11.5px; }
+.cell .pill .short { display: none; }
+.legend { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+
+/* Deliverables */
+.gets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 36px; border-top: 2px solid var(--gold); }
+.gets div { padding: 24px 24px 0 0; min-width: 0; }
+.gets b { display: block; font: 900 26px/1.1 var(--display); margin-bottom: 8px; color: var(--gold); }
+.gets span { color: var(--soft); font-size: 15.5px; }
+
+/* Latest */
+.latest { background: var(--white); color: var(--ink); }
+.latest .wrap { display: grid; grid-template-columns: .55fr 1.45fr; gap: 48px; align-items: center; padding-block: 80px; }
+.latest .wrap > * { min-width: 0; }
+.latest img { width: 100%; max-width: 340px; aspect-ratio: 1; border-radius: 20px; box-shadow: 0 30px 60px -28px rgba(14,38,80,.55); display: block; }
+.latest .label { color: var(--royal); }
+.latest h2 { color: var(--navy); font-size: clamp(30px, 4vw, 46px); }
+.latest .meta { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 18px; font: 600 13px/1 var(--mono); color: rgba(22,58,112,.82); }
+.latest p { color: rgba(22,58,112,.82); margin: 0 0 26px; max-width: 40em; }
+.latest .btn.line { box-shadow: inset 0 0 0 2px var(--navy); color: var(--navy); }
+.latest .btn.line:hover { background: var(--mist); }
+.latest .btn.gold { background: var(--navy); color: var(--white); }
+
+/* Promise strip */
+.promise { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 44px; border-top: 2px solid var(--gold); }
+.promise div { padding: 24px 24px 0 0; }
+.promise b { display: block; font: 900 24px/1.15 var(--display); margin-bottom: 8px; }
+.promise span { color: var(--soft); font-size: 15.5px; }
+
+footer { border-top: 1px solid var(--line); }
+footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding-block: 30px 40px; font-size: 14px; color: var(--soft); }
+footer .love { color: var(--white); font-weight: 600; }
+footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55); }
+
+@media (max-width: 960px) {
+  .hero .wrap, .desk, .latest .wrap { grid-template-columns: 1fr; }
+  .art { order: -1; }
+  .art img { max-width: 320px; }
+  .week { grid-template-columns: repeat(4, 1fr); }
+  .gets { grid-template-columns: 1fr 1fr; }
+  .cell { height: 80px; padding: 8px; }
+  .cell .pill .long { display: none; }
+  .cell .pill .short { display: inline; }
+  .latest img { max-width: 260px; }
+}
+@media (max-width: 560px) {
+  .top img { height: 40px; }
+  .hero .wrap { padding-block: 48px 64px; }
+  section.band { padding-block: 60px; }
+  .week { grid-template-columns: repeat(2, 1fr); }
+  .panel { padding: 22px 18px; }
+  .ticker .track { font-size: 18px; }
+  .gets { grid-template-columns: 1fr; }
+  .cal { gap: 4px; }
+  .dow { font-size: 10px; letter-spacing: .04em; padding-inline: 2px; }
+  .cell { height: 62px; padding: 5px; border-radius: 8px; }
+  .cell .num { font-size: 14px; }
+  .cell .num em { display: none; }
+  .cell .pill { padding: 4px 5px; font-size: 9px; letter-spacing: 0; }
+}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <img src="logo.png" alt="The Jordan Insurance Agency: We've got you covered">
+    <span class="onair"><i></i>Podcast studio</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="eq" aria-hidden="true">
+    <i style="--h:40%;--d:0s"></i><i style="--h:75%;--d:.2s"></i><i style="--h:55%;--d:.4s"></i><i style="--h:95%;--d:.1s"></i><i style="--h:60%;--d:.5s"></i><i style="--h:80%;--d:.3s"></i><i style="--h:45%;--d:.7s"></i><i style="--h:70%;--d:.15s"></i><i style="--h:100%;--d:.45s"></i><i style="--h:50%;--d:.6s"></i><i style="--h:85%;--d:.25s"></i><i style="--h:40%;--d:.8s"></i><i style="--h:65%;--d:.35s"></i><i style="--h:90%;--d:.05s"></i><i style="--h:55%;--d:.55s"></i><i style="--h:75%;--d:.65s"></i><i style="--h:45%;--d:.3s"></i><i style="--h:80%;--d:.75s"></i>
+  </div>
+  <div class="wrap">
+    <div class="copy">
+      <div class="kicker">The insurance podcast from The Jordan Insurance Agency</div>
+      <h1>Smart Coverage.<span class="g">Real Advice.</span></h1>
+      <p class="lede">A new episode <b>every day</b>. Each one takes a real question about Medicare, Health, Home or Auto and answers it in <b>5 to 7 minutes</b>, then publishes to Apple, Spotify and our website at <b>9:00 AM</b>.</p>
+      <div class="btns">
+        <a class="btn gold" href="#studio">Request an episode</a>
+        <a class="btn line" href="https://podcasts.apple.com/us/podcast/id1772935091" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="10" r="3"/><path d="M12 13v8M7.5 15.5a7 7 0 1 1 9 0"/></svg>Apple Podcasts</a>
+        <a class="btn line" href="https://open.spotify.com/show/1xYbNAPNgPHkc2FKOyhhfS" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M7.5 9.5c3-1 6.5-.7 9 .8M8 12.8c2.4-.7 5.2-.4 7.2.7M8.6 15.8c1.9-.5 3.9-.3 5.5.6"/></svg>Spotify</a>
+      </div>
+    </div>
+    <div class="art">
+      <span class="ring two" aria-hidden="true"></span><span class="ring" aria-hidden="true"></span>
+      <img src="cover.jpg" alt="Podcast cover: Smart Coverage. Real Advice. The insurance podcast from The Jordan Insurance Agency">
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="track">
+    <span>Medicare</span><span>Health</span><span>Home</span><span>Auto</span><span>Charlotte, NC</span><span>Nashville, TN</span><span>New episode daily</span>
+    <span>Medicare</span><span>Health</span><span>Home</span><span>Auto</span><span>Charlotte, NC</span><span>Nashville, TN</span><span>New episode daily</span>
+  </div>
+</div>
+
+<section class="band" id="studio">
+  <div class="wrap desk">
+    <div>
+      <div class="label">The studio desk</div>
+      <h2>Turn a blog post into an episode</h2>
+      <p class="sub">Paste one or more of our blog post links. Each one becomes its own episode, and nothing goes live until it's approved.</p>
+      <ol class="flow">
+        <li><span class="n">1.</span><b>The request</b></li>
+        <li><span class="n">2.</span><b>The approval</b></li>
+        <li><span class="n">3.</span><b>On air</b></li>
+      </ol>
+    </div>
+    <div class="panel">
+      <h3>Request an episode</h3>
+      <p class="hint">Agency email required. Up to 14 blog links per request, one per line.</p>
+      <label for="email">Your work email</label>
+      <input id="email" type="email" autocomplete="email" placeholder="you@thejordaninsuranceagency.com">
+      <p class="emailnote" id="emailnote"></p>
+      <label for="links">Blog post links</label>
+      <textarea id="links" spellcheck="false" placeholder="https://thejordaninsuranceagency.com/blog/is-home-insurance-more-expensive-for-older-homes-north-carolina-costs-coverage-guide"></textarea>
+      <div class="count" aria-live="polite"><span id="ok"><b>0</b> episodes ready to request</span><span id="skip" class="bad"></span></div>
+      <a id="send" class="btn gold send" href="#studio" target="_blank" rel="noopener" aria-disabled="true">Send to the studio</a>
+      <p class="after" id="after">The studio form opens in a new tab with your details filled in. Press <b>Make episodes</b> there, and Slack confirms your request.</p>
+      <div class="lanes-key"><span class="pill med">Medicare</span><span class="pill hea">Health</span><span class="pill home">Home</span><span class="pill auto">Auto</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" style="padding-top:0">
+  <div class="wrap">
+    <div class="cal-head">
+      <div>
+        <div class="label">Publishing calendar</div>
+        <h2>One episode, every day, 9:00 AM</h2>
+        <p class="sub">Every day of the month has its own topic, so the show stays balanced across Medicare, Health, Home and Auto.</p>
+      </div>
+      <div class="cal-nav">
+        <button type="button" id="prev" aria-label="Previous month">&#8592;</button>
+        <span id="month" aria-live="polite">October 2026</span>
+        <button type="button" id="next" aria-label="Next month">&#8594;</button>
+      </div>
+    </div>
+    <div class="cal" id="cal" role="grid" aria-label="Publishing calendar"></div>
+    <div class="legend"><span class="pill med">Medicare</span><span class="pill hea">Health</span><span class="pill home">Home</span><span class="pill auto">Auto</span></div>
+  </div>
+</section>
+
+<section class="band" style="padding-top:0">
+  <div class="wrap">
+    <div class="label">What the studio delivers</div>
+    <h2>A podcast that publishes itself</h2>
+    <div class="gets">
+      <div><b>Daily</b><span>A new episode every day of the year, on schedule.</span></div>
+      <div><b>Everywhere</b><span>Apple Podcasts, Spotify and an episode page on our own website.</span></div>
+      <div><b>One tap</b><span>Approve from your phone. Nothing airs without it.</span></div>
+      <div><b>Found in search</b><span>Every episode becomes a question-and-answer page AI search can quote.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="latest">
+  <div class="wrap">
+    <img src="cover.jpg" alt="">
+    <div>
+      <div class="label">Now playing · Episode 1</div>
+      <h2>Lost Your Health Insurance? The 60-Day Special Enrollment Clock in North Carolina</h2>
+      <div class="meta"><span class="pill hea" style="box-shadow:inset 0 0 0 1.5px #163A70">Health</span><span>Episode 1</span></div>
+      <p>Lose job-based health insurance and you get a 60-day Special Enrollment window. You can even pick your new plan up to 60 days before the old one ends. This episode explains how to avoid a gap in coverage.</p>
+      <div class="btns">
+        <a class="btn gold" href="https://open.spotify.com/episode/3jliOgDeTP15usFM1g5Cdq" target="_blank" rel="noopener">Listen on Spotify</a>
+        <a class="btn line" href="https://podcasts.apple.com/us/podcast/id1772935091" target="_blank" rel="noopener">Apple Podcasts</a>
+        <a class="btn line" href="https://thejordaninsuranceagency.com/podcast" target="_blank" rel="noopener">All episodes</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Smart Coverage. Real Advice. · The Jordan Insurance Agency · Charlotte, NC and Nashville, TN</span>
+    <span class="love">Built with ❤️ by Breakpoint Systems LLC.</span>
+    <span class="fine">Episodes are general education, not advice for a listener's situation. Not affiliated with or endorsed by Medicare or any government agency.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var FORM = "https://systems.breakpointsystems.com/form/smart-coverage-batch";
+  var RX = /^https?:\/\/(www\.)?thejordaninsuranceagency\.com\/blog\/[a-z0-9-]+\/?$/i;
+  var box = document.getElementById("links"), send = document.getElementById("send");
+  var ok = document.getElementById("ok"), skip = document.getElementById("skip"), after = document.getElementById("after");
+  var good = [];
+  var mail = document.getElementById("email"), note = document.getElementById("emailnote");
+  var DOMAINS = ["agencyhlpc.com", "thejordaninsuranceagency.com", "breakpointsystems.com"];
+  function emailOk() {
+    var v = mail.value.trim().toLowerCase();
+    return /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/.test(v) && DOMAINS.indexOf(v.split("@").pop()) > -1;
+  }
+  function read() {
+    var seen = {}, bad = 0; good = [];
+    box.value.split(/[\s,]+/).forEach(function (s) {
+      s = s.trim(); if (!s) return;
+      var clean = s.replace(/[?#].*$/, "");
+      if (!RX.test(clean)) { bad++; return; }
+      var k = clean.replace(/\/$/, "").toLowerCase();
+      if (seen[k]) return; seen[k] = 1; good.push(clean.replace(/\/$/, ""));
+    });
+    ok.innerHTML = "<b>" + good.length + "</b> " + (good.length === 1 ? "episode" : "episodes") + " ready to request";
+    skip.textContent = bad ? bad + (bad === 1 ? " line isn't a blog link" : " lines aren't blog links") : "";
+    if (good.length > 14) { skip.textContent = "Only the first 14 links will be sent"; good = good.slice(0, 14); }
+    var em = mail.value.trim();
+    note.textContent = em && !emailOk() ? "Use your agency email address." : "";
+    if (good.length && emailOk()) {
+      send.href = FORM + "?work_email=" + encodeURIComponent(em) + "&blog_urls=" + encodeURIComponent(good.join("\n"));
+      send.setAttribute("aria-disabled", "false");
+    } else {
+      send.href = "#studio"; send.setAttribute("aria-disabled", "true");
+    }
+    try { localStorage.setItem("scs-draft", box.value); } catch (e) {}
+  }
+  try { var d = localStorage.getItem("scs-draft"); if (d) box.value = d; } catch (e) {}
+  try { var m = localStorage.getItem("scs-email"); if (m) mail.value = m; } catch (e) {}
+  box.addEventListener("input", read);
+  mail.addEventListener("input", function () { try { localStorage.setItem("scs-email", mail.value); } catch (e) {} read(); });
+  // On our own web address the page submits directly and shows the result here.
+  // Inside Claude it can't reach outside systems, so it opens the studio form instead.
+  var HOSTED = /(^|\.)thejordaninsuranceagency\.com$|\.vercel\.app$/i.test(location.hostname);
+  var API = "https://systems.breakpointsystems.com/webhook/smart-coverage-studio";
+  if (HOSTED) { send.removeAttribute("target"); after.innerHTML = "Press <b>Send to the studio</b>. You'll see the result right here, and Slack confirms every request."; }
+  var busy = false;
+  send.addEventListener("click", function (e) {
+    if (!emailOk()) { e.preventDefault(); mail.focus(); note.textContent = "Use your agency email address."; return; }
+    if (!good.length) { e.preventDefault(); box.focus(); return; }
+    if (HOSTED) {
+      e.preventDefault();
+      if (busy) return;
+      busy = true; send.textContent = "Sending…"; send.setAttribute("aria-disabled", "true");
+      after.className = "after"; after.textContent = "";
+      fetch(API, { method: "POST", body: new URLSearchParams({ work_email: mail.value.trim(), blog_urls: good.join("\n") }) })
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          after.className = "after " + (d.ok ? "good" : "warn");
+          after.textContent = d.message || (d.ok ? "Request received." : "That request wasn't accepted.");
+          if (d.ok) { box.value = ""; try { localStorage.removeItem("scs-draft"); } catch (x) {} }
+        })
+        .catch(function () { after.className = "after warn"; after.textContent = "Couldn't reach the studio. Check your connection and try again in a minute."; })
+        .then(function () { busy = false; send.textContent = "Send to the studio"; read(); });
+      return;
+    }
+    var text = good.join("\n");
+    var done = function () { after.innerHTML = "Opened the studio form. Your links are also copied: if the box there is empty, paste them in and press <b>Make episodes</b>."; };
+    try { navigator.clipboard.writeText(text).then(done, done); } catch (err) { done(); }
+  });
+  read();
+
+  // Publishing calendar (Eastern time). Mon/Wed/Fri Medicare, Tue/Thu Health, Sat Home, Sun Auto.
+  // Dec 8 - Jan 15: Medicare days switch to Health (ACA Open Enrollment).
+  var LANES = { 1: "med", 2: "hea", 3: "med", 4: "hea", 5: "med", 6: "home", 0: "auto" };
+  var NAMES = { med: ["Medicare", "MED"], hea: ["Health", "HLTH"], home: ["Home", "HOME"], auto: ["Auto", "AUTO"] };
+  var MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  var today;
+  try {
+    var parts = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", year: "numeric", month: "numeric", day: "numeric" }).formatToParts(new Date());
+    var g = function (t) { return +parts.filter(function (p) { return p.type === t; })[0].value; };
+    today = { y: g("year"), m: g("month") - 1, d: g("day") };
+  } catch (e) { var n0 = new Date(); today = { y: n0.getFullYear(), m: n0.getMonth(), d: n0.getDate() }; }
+  var view = { y: today.y, m: today.m };
+  var cal = document.getElementById("cal"), monthEl = document.getElementById("month");
+  function laneFor(y, m, d) {
+    var wd = new Date(y, m, d).getDay(), lane = LANES[wd];
+    var md = (m + 1) * 100 + d;
+    if (lane === "med" && (md >= 1208 || md <= 115)) lane = "hea";
+    return lane;
+  }
+  function render() {
+    monthEl.textContent = MONTHS[view.m] + " " + view.y;
+    var html = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(function (d) { return '<div class="dow">' + d + "</div>"; }).join("");
+    var first = new Date(view.y, view.m, 1).getDay(), lead = (first + 6) % 7;
+    var days = new Date(view.y, view.m + 1, 0).getDate();
+    for (var i = 0; i < lead; i++) html += '<div class="cell empty" aria-hidden="true"></div>';
+    for (var d = 1; d <= days; d++) {
+      var lane = laneFor(view.y, view.m, d);
+      var isToday = view.y === today.y && view.m === today.m && d === today.d;
+      var past = view.y < today.y || (view.y === today.y && (view.m < today.m || (view.m === today.m && d < today.d)));
+      html += '<div class="cell' + (isToday ? " today" : "") + (past ? " past" : "") + '" role="gridcell" aria-label="' + MONTHS[view.m] + " " + d + ": " + NAMES[lane][0] + ' episode at 9:00 AM">' +
+        '<span class="num">' + d + (isToday ? '<em>Today</em>' : "") + "</span>" +
+        '<span class="pill ' + lane + '"><span class="long">' + NAMES[lane][0] + '</span><span class="short">' + NAMES[lane][1] + "</span></span></div>";
+    }
+    var tail = (7 - ((lead + days) % 7)) % 7;
+    for (var j = 0; j < tail; j++) html += '<div class="cell empty" aria-hidden="true"></div>';
+    cal.innerHTML = html;
+  }
+  document.getElementById("prev").addEventListener("click", function () { view.m--; if (view.m < 0) { view.m = 11; view.y--; } render(); });
+  document.getElementById("next").addEventListener("click", function () { view.m++; if (view.m > 11) { view.m = 0; view.y++; } render(); });
+  render();
+})();
+</script>
+</body></html>
