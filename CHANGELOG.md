@@ -15,6 +15,7 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 - Each script is now **emailed to billy@agencyhlpc.com** with the title, topic, length, any editor changes, the source link, the full script, and **Approve / Decline** buttons at the bottom.
 - Slack gets one short line: "script emailed for approval".
 - Same rules as before: Approve makes the audio and schedules the next open 9:00 AM slot; Decline stops it with nothing spent; no answer in 12 hours goes ahead on weekends and is skipped on weekdays.
+- The request form, the Slack "request received" note and the studio page's reply now say the script will be emailed for approval. The studio webhook also accepts the Vercel project address (`smart-coverage-podcast.vercel.app`).
 
 ### Fixed — the script writer no longer cuts or hedges facts from our own blog posts (n8n Episode Producer)
 - Billy's call: a post from our website has already been fact-checked and approved, so the podcast must not remove, soften or "can't verify" anything in it.
