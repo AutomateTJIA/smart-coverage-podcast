@@ -10,6 +10,14 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
+### Changed — cleaner icons on the four lane covers (assets)
+- Billy said the first icons looked a little cheesy. All four are redrawn as one matching set: a simple line icon inside a round badge, in white with a gold accent.
+  - Medicare: a shield with a gold cross.
+  - Health Insurance: a heart with a gold pulse line.
+  - Home & Auto: a clean house outline with a gold car in front.
+  - Life Insurance: a gold umbrella over two adults and a child.
+- The title, lane bar, colors and logo are unchanged.
+
 ### Built — cover art for the four lane shows (assets; Transistor setup sheet)
 - Four 3000x3000 covers in the same family as the current one: Medicare (shield with a cross), Health Insurance (heart with a pulse line), Home & Auto (house and car), Life Insurance (umbrella over a family). Each has the lane name in a big gold bar so it reads at phone-thumbnail size. Brand colors only.
 - `references/transistor-lane-shows.md` has the title, categories and description for each show, ready to paste into Transistor.
