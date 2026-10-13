@@ -10,6 +10,10 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
+### Built — "Clear and start over" button on the studio page — d6a5a6e
+- One click empties the links, the air date and any message, so nobody has to erase line by line. Email and passcode stay, because the page remembers them on purpose.
+- Also: Billy set the team passcode in n8n. A test with a wrong passcode was refused ("That team passcode isn't right"), which confirms the lock is on and checking against his value.
+
 ### Fixed — Air date box no longer spills outside the white card on iPhones (studio page) — 52c8efb
 - iPhone Safari draws date boxes wider than the card unless its built-in style is switched off. It now matches the other boxes.
 - On the smallest phones, the decorative rings and the scrolling topic strip no longer make the page scroll sideways. The "Links" label also got a little breathing room under the new passcode box.
