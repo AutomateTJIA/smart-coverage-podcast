@@ -5,6 +5,7 @@
 Makes two copies from studio/src/studio-template.html:
   studio/site/index.html        hosted site (studio.thejordaninsuranceagency.com, via Vercel)
   studio/podcast-studio.html    single-file copy for the private Claude artifact (images inlined)
+  studio/site/playbook.html     Studio Playbook, copied from studio/src/playbook.html
 """
 import base64, pathlib
 HERE = pathlib.Path(__file__).parent
@@ -23,4 +24,6 @@ site = site.replace('data:image/jpeg;base64,', 'cover.jpg').replace('data:image/
 b64 = lambda p: base64.b64encode((HERE / 'site' / p).read_bytes()).decode()
 art = t.replace('{{COVER}}', b64('cover.jpg')).replace('{{LOGO}}', b64('logo.png'))
 (HERE / 'podcast-studio.html').write_text(art)
+# The Studio Playbook (one page for the team) is published as-is next to the studio page.
+(HERE / 'site' / 'playbook.html').write_text((HERE / 'src' / 'playbook.html').read_text())
 print('built', len(site), len(art))

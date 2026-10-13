@@ -263,6 +263,8 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
       <label for="email">Email</label>
       <input id="email" type="email" autocomplete="email" placeholder="Email">
       <p class="emailnote" id="emailnote"></p>
+      <label for="pass">Team passcode</label>
+      <input id="pass" type="password" autocomplete="off" placeholder="Team passcode">
       <label for="links">Links</label>
       <textarea id="links" spellcheck="false" placeholder="Paste a link"></textarea>
       <label for="airdate" style="margin-top:16px">Air date <span style="text-transform:none;letter-spacing:0;font-family:var(--body);color:rgba(22,58,112,.82)">(optional)</span></label>
@@ -271,6 +273,7 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
       <div class="count" aria-live="polite"><span id="ok"><b>0</b> episodes ready to request</span><span id="skip" class="bad"></span></div>
       <a id="send" class="btn gold send" href="#studio" target="_blank" rel="noopener" aria-disabled="true">Send to the studio</a>
       <p class="after" id="after">The studio form opens in a new tab with your details filled in. Press <b>Make episodes</b> there.</p>
+      <p class="after" style="margin-top:10px">New to the studio? Read the <a href="https://studio.thejordaninsuranceagency.com/playbook.html" target="_blank" rel="noopener">Studio Playbook</a> first.</p>
       <div class="lanes-key"><span class="pill med">Medicare</span><span class="pill hea">Health</span><span class="pill home">Home</span><span class="pill auto">Auto</span></div>
     </div>
   </div>
@@ -360,7 +363,7 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
     if (good.length > 14) { skip.textContent = "Only the first 14 links will be sent"; good = good.slice(0, 14); }
     var em = mail.value.trim();
     note.textContent = em && !emailOk() ? "Use your agency email address." : "";
-    if (good.length && emailOk()) {
+    if (good.length && emailOk() && pass.value.trim()) {
       send.href = FORM + "?work_email=" + encodeURIComponent(em) + "&blog_urls=" + encodeURIComponent(good.join("\n")) + (air.value ? "&air_date=" + encodeURIComponent(air.value) : "");
       send.setAttribute("aria-disabled", "false");
     } else {
@@ -370,6 +373,10 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
   }
   try { var d = localStorage.getItem("scs-draft"); if (d) box.value = d; } catch (e) {}
   try { var m = localStorage.getItem("scs-email"); if (m) mail.value = m; } catch (e) {}
+  // The passcode is remembered on this device only. The studio checks it privately; this page never knows the right one.
+  var pass = document.getElementById("pass");
+  try { var pc = localStorage.getItem("scs-pass"); if (pc) pass.value = pc; } catch (e) {}
+  pass.addEventListener("input", function () { try { localStorage.setItem("scs-pass", pass.value); } catch (e) {} read(); });
   box.addEventListener("input", read);
   air.addEventListener("input", read);
   try { var t0 = new Date(); t0.setDate(t0.getDate() + 1); air.min = t0.toISOString().slice(0, 10); } catch (e) {}
@@ -382,13 +389,14 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
   var busy = false;
   send.addEventListener("click", function (e) {
     if (!emailOk()) { e.preventDefault(); mail.focus(); note.textContent = "Use your agency email address."; return; }
+    if (!pass.value.trim()) { e.preventDefault(); pass.focus(); note.textContent = "Enter the team passcode."; return; }
     if (!good.length) { e.preventDefault(); box.focus(); return; }
     if (HOSTED) {
       e.preventDefault();
       if (busy) return;
       busy = true; send.textContent = "Sending…"; send.setAttribute("aria-disabled", "true");
       after.className = "after"; after.textContent = "";
-      fetch(API, { method: "POST", body: new URLSearchParams({ work_email: mail.value.trim(), blog_urls: good.join("\n"), air_date: air.value || "" }) })
+      fetch(API, { method: "POST", body: new URLSearchParams({ work_email: mail.value.trim(), passcode: pass.value.trim(), blog_urls: good.join("\n"), air_date: air.value || "" }) })
         .then(function (r) { return r.json(); })
         .then(function (d) {
           after.className = "after " + (d.ok ? "good" : "warn");
