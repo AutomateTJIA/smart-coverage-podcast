@@ -15,7 +15,7 @@ n8n instance: `systems.breakpointsystems.com`. All three workflows live in Billy
 | **Smart Coverage — Front Door (batch form + daily pick)** | `rPtQJ37gJT4o29t3` | (a) the batch form, (b) every morning at 10:15 AM ET | Collects blog links and sends them to the Producer **one at a time** |
 | **Smart Coverage — Episode Producer (one episode)** | `JSKBgEYlncxIZMz0` | Called by the Front Door | Script, compliance edit, gate, duplicate check, email approval, voices, music, Transistor (scheduled), website draft, ledger |
 | **Smart Coverage — Studio Page Requests** | `zmb6a0YAfxYXibfI` | The hosted Studio page (POST to webhook `smart-coverage-studio`) | Checks the email and links, answers the page right away, hands accepted requests to the Front Door |
-| **Smart Coverage — Daily Release (website)** | `A3h2y2PVfOeJPZ8r` | Every morning at 9:05 AM ET | Publishes the website page for each episode whose release time has passed, marks it published, posts the link in Slack |
+| **Smart Coverage — Daily Release (website)** | `A3h2y2PVfOeJPZ8r` | Every morning at 8:58 AM ET | Publishes the website page for each episode due at 9:00, marks it published, then checks the page loads and Transistor shows it published; reports pass or FAILED in Slack and by email |
 
 All three run on Eastern time (`America/New_York`).
 
@@ -79,7 +79,8 @@ All three run on Eastern time (`America/New_York`).
      publish can't put it live early.
    - Write the ledger row (`scheduled`, `release_at`).
    - Check ElevenLabs usage (warns at 75%) and post ":white_check_mark: Episode N is built and
-     scheduled" in Slack.
+     scheduled" in Slack. The finished MP3 is emailed to billy@agencyhlpc.com to hear before release.
+     (The episode page link is not sent here: it only works after release.)
 5. **Stopped early.** Gate failures, duplicates, declines and weekday no-answers are written to
    the ledger (`gate_failed`, `duplicate`, `declined`, `expired`), so the daily pick won't offer
    that post again.

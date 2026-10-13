@@ -10,6 +10,12 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
+### Fixed — no more links that only work later, and every release now proves itself (n8n)
+- Billy clicked the episode link in the "built and scheduled" Slack message and got a 404. Nothing was broken: that page is a draft until release time. But a link that doesn't work yet is useless, and nobody had checked that a release really goes live.
+- **Episode Producer:** the "built and scheduled" message no longer includes the not-yet-live page link. Instead, the finished MP3 is **emailed to billy@agencyhlpc.com** so he can listen before it airs.
+- **Daily Release:** now runs at **8:58 AM** (was 9:05), so the website page goes up with Apple and Spotify at 9:00. Three minutes later it **checks** that the page loads and that Transistor shows the episode as published. Then it sends a pass ("live and checked", with working links) or a FAILED alert, in Slack and by email.
+- The failure alert was tested with a simulated broken page and fired correctly. The first real release check runs Tue Oct 13 at 8:58 AM (Episode 2).
+
 ### Changed — episode approval now comes by email, not a long Slack post (n8n Episode Producer)
 - Billy's call: reading a full script in Slack isn't productive, especially with several episodes in a batch.
 - Each script is now **emailed to billy@agencyhlpc.com** with the title, topic, length, any editor changes, the source link, the full script, and **Approve / Decline** buttons at the bottom.
