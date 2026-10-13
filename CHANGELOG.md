@@ -10,6 +10,11 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
+### Fixed — Air date box no longer spills outside the white card on iPhones (studio page) — 52c8efb
+- iPhone Safari draws date boxes wider than the card unless its built-in style is switched off. It now matches the other boxes.
+- On the smallest phones, the decorative rings and the scrolling topic strip no longer make the page scroll sideways. The "Links" label also got a little breathing room under the new passcode box.
+- Checked at 375 and 320 pixels wide, where every box lines up. Billy to confirm on his iPhone, since iPhone Safari itself couldn't be tested here.
+
 ### Changed — the disclaimer is said once, up front, as "A quick disclaimer" (n8n Episode Producer; brand file, PLAYBOOK.md)
 - Billy's note: the old way had Billy blurt out "We're not affiliated with Medicare…" on its own, then repeat "general education" at the end. It sounded awkward and said the same thing twice.
 - **Now:** Billy's first line is a warm hello, then "A quick disclaimer: …", then straight into the topic. Medicare episodes: "…we're not affiliated with or endorsed by Medicare or any government agency, and this is general education, not advice for your situation." Other episodes: "…this is general education, not advice for your situation."
