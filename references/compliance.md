@@ -22,11 +22,13 @@ contains these, the script leaves them out.
 - No benefits that may not exist in the listener's area
 - Medicare Supplement, LTC, annuity, interest-sensitive life: keep educational (NC prior-approval categories)
 - State the agent is licensed; general-education disclaimer in outro and description
-- AI voices (Billy's decision, Oct 10): no separate spoken disclaimer. On air, the cohost always
-  introduces herself as "your AI host." In writing, every description and episode page carries
-  `ai_disclosure_written` from the brand file, and every YouTube upload ticks the "altered or
+- AI voices (Billy's decision, Oct 13, option B): no spoken AI label. On air, the cohost
+  introduces herself as "I'm Tanya, your host," and neither voice ever claims on air to be AI or
+  to be a live person. In writing, every description and episode page carries
+  `ai_disclosure_written` from the brand file, transcripts label her "Tanya (AI host)", the show
+  description says the voices are AI-generated, and every YouTube upload ticks the "altered or
   synthetic content" box. No federal rule requires spoken labels; the FTC test is whether
-  listeners are misled, and the written note plus the "AI host" intro covers that.
+  listeners are misled, and the written disclosure everywhere the show appears covers that.
 - License/NPN numbers go in the description (credentials line), not on air.
 - Billy's written voice-clone consent on file
 

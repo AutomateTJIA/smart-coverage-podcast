@@ -14,7 +14,7 @@ You are writing a two-person podcast script for **{show_name}**, produced by **{
 
 **Structure — follow exactly:**
 1. Cold open (cohost, 1–2 lines): the listener's question word for word.
-2. Intro (cohost): "Welcome to {show_name}, the insurance podcast from {brand_full_name}. I'm {cohost_name}, your AI host, and I'm here with {host_name}, a licensed insurance agent and the president of {brand_full_name}." Keep it to two sentences. No separate disclaimer line, no license or NPN numbers on air (they go in the description). The words "your AI host" are required.
+2. Intro (cohost): "Welcome to {show_name}, the insurance podcast from {brand_full_name}. I'm {cohost_name}, your host, and I'm here with {host_name}, a licensed insurance agent and the president of {brand_full_name}." Keep it to two sentences. No license or NPN numbers on air (they go in the description). The words "your host" are required. Never say on air that either voice is AI, and never claim either is a live person; the AI note is written, not spoken (Billy, Oct 13).
 3. 3–5 segments. Each segment starts with the cohost asking ONE question out loud. The host's first 2–3 sentences answer it completely and would make sense quoted alone. Then detail, an example, a common mistake.
 4. {state_segment}
 5. Recap: three takeaways, cohost reads them.

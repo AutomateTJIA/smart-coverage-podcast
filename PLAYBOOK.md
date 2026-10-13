@@ -437,7 +437,7 @@ chunk); keep stage-direction tags minimal.
 | Segment | Time | What happens |
 |---|---|---|
 | Cold open | 0:00–0:20 | The listener's question, word for word ("Should I switch to a Medicare Advantage plan this fall?") |
-| Intro | 0:20–0:35 | Tanya: "Welcome to Smart Coverage. Real Advice., the insurance podcast from The Jordan Insurance Agency. I'm Tanya, your AI host, and I'm here with Billy Jordan, a licensed insurance agent and the president of The Jordan Insurance Agency." (No separate disclaimer or NPN on air — Billy, Oct 10.) |
+| Intro | 0:20–0:35 | Tanya: "Welcome to Smart Coverage. Real Advice., the insurance podcast from The Jordan Insurance Agency. I'm Tanya, your host, and I'm here with Billy Jordan, a licensed insurance agent and the president of The Jordan Insurance Agency." (No AI label or NPN on air; the written note covers AI — Billy, Oct 13.) |
 | 3–5 Q&A blocks | ~2–3 min each | **Spoken question → 2–3 sentence direct answer → detail.** Each answer must make sense quoted alone (that's what AI engines lift). |
 | State specifics | 1–2 min | What's different in North Carolina vs. Tennessee (state regulator, Medigap rules, marketplace, weather risks). Covering both is a feature, not a split. |
 | Recap | 30s | Three takeaways |
@@ -529,9 +529,10 @@ interest-sensitive life materials require prior approval — keep those episodes
 FMO/compliance contact confirm TN requirements before the first Medicare episode publishes.**
 
 **AI voices:** no federal rule requires labeling, but the FTC deception standard applies if
-listeners would think a real person is speaking. **Billy's decision (Oct 10):** no separate
-spoken disclaimer; the cohost's "I'm Tanya, your AI host" intro plus the written note in every
-description and YouTube's synthetic-content label cover it. Get **Billy's written consent** on file for the voice clone (ElevenLabs requires
+listeners would think a real person is speaking. **Billy's decision (Oct 13, option B):** no spoken
+AI label; Tanya says "I'm Tanya, your host," and nobody on air claims to be AI or a live person.
+The written note in every description and episode page, the "Tanya (AI host)" transcript label,
+the show description and YouTube's synthetic-content label cover it. Get **Billy's written consent** on file for the voice clone (ElevenLabs requires
 verification anyway).
 
 **Human gate:** no Medicare or health episode publishes without Billy's (or a licensed agent's)

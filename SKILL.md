@@ -82,7 +82,7 @@ If the brand-image skill can't be loaded, stop and tell Billy. Don't continue fr
 - [ ] Title ≤ 60 characters, question/keyword first
 - [ ] Brand name spoken in full in the intro and CTA
 - [ ] Every booking or follow-up mention says "Billy and his team", never Billy alone
-- [ ] Cohost introduced as "your AI host"; written AI-voice note in the description; YouTube synthetic-content box ticked
+- [ ] Cohost introduced as "I'm Tanya, your host" (no spoken AI label, no claim of being live); written AI-voice note in the description and episode page; YouTube synthetic-content box ticked
 - [ ] Compliance class and approver recorded
 - [ ] Transistor episode published or scheduled, with transcript and ≥ 3 timestamps
 - [ ] YouTube upload live in the podcast playlist

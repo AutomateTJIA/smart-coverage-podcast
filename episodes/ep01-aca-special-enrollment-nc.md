@@ -42,7 +42,7 @@ Read the full guide: https://thejordaninsuranceagency.com/blog/aca-special-enrol
 Book a free 30-minute chat with Billy and his team: https://thejordaninsuranceagency.com/podcast#book
 
 Billy Jordan is a licensed insurance agent (NPN 8699876) with The Jordan Insurance Agency, with offices in Charlotte, NC and Nashville, TN.
-Voices in this episode are AI-generated, including Billy's, from a script written and approved by Billy Jordan, licensed insurance agent. General education only, not advice for your specific situation.
+Voices in this episode are AI-generated, including Billy's, from a script reviewed and approved by Billy Jordan, licensed insurance agent. General education only, not advice for your specific situation.
 ```
 
 Chapter times were estimated from pauses in the audio (no transcript tool available); they land
