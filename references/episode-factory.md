@@ -26,8 +26,10 @@ All three run on Eastern time (`America/New_York`).
   **14 links** per request. Accepted requests start right away, and Slack posts "Podcast request
   received". Anything else gets "request not accepted" in Slack. The email-confirmation step from
   Oct 12 was removed; Billy's email approval of each episode is the safety check.
-- **Batch form** (path `smart-coverage-batch`). Paste blog links, one per line. Only
-  `thejordaninsuranceagency.com/blog/...` links are accepted. Links that already have a live or
+- **Batch form** (path `smart-coverage-batch`) and the studio page. Paste links, one per line.
+  Our blog posts (`thejordaninsuranceagency.com/blog/...`) and outside articles are both accepted
+  (Oct 12). Outside articles use only the article's facts, credit it by name, and are flagged in the
+  approval email as not checked by our team. Links that already have a live or
   scheduled episode are skipped. Declined or failed links *can* be re-run from the form.
 - **Daily pick** (10:15 AM ET). Looks at blog posts published in the last 3 weeks that have no
   ledger row, and picks one:

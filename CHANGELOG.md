@@ -10,6 +10,29 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
+### Fixed — a formatting slip no longer rejects an episode (n8n Episode Producer)
+- Billy's request for the "North Carolina Medicare Eligibility" post was rejected. It was not the length (1,003 words, about 6.6 minutes). The recap was written as separate "One: / Two: / Three:" lines without "Tanya:" in front, and the final check rejects any line without a speaker.
+- The script is now repaired automatically: a line without a speaker is joined to the line before it. The approval email notes when that happened. The writer and editor were also told to keep every recap item on a "Tanya:" line.
+- Length never rejects an episode. Target 5 to 7 minutes; the approval email flags anything over 7 minutes, and anything over 10 minutes with "Consider declining". Only a broken script (under 500 or over 2,000 words) stops.
+
+### Built — outside articles can become episodes (n8n Front Door, Studio Page Requests, Episode Producer; studio page)
+- Any web link is now accepted, not just our blog posts.
+- **Our blog posts** (already checked by Billy): every fact used as written, nothing hedged.
+- **Outside articles** (not checked by our team): only facts in that article, credited out loud by name ("According to …"), explained in Billy's own words with no long copied passages. The approval email marks it "OUTSIDE ARTICLE … please check the facts", and the episode page credits the source.
+- A link the system can't read (blocked or behind a login) now gets a Slack note instead of failing silently.
+
+### Changed — Podcast Studio page wording (`c9d4893`, `3bbb4be`)
+- The cover art floats more noticeably.
+- "Request an episode" no longer says "agency email required" or shows a sample blog address. The box is just "Links".
+- No Slack mentions on the page.
+- "Turn a blog post into an episode" is now "From one link to a finished episode".
+- Calendar copy: "Each day can have its own topic… Requested episodes take the next open 9:00 AM slot, whatever the topic."
+
+### Released — Episode 2 went live tonight, and the release check passed
+- At Billy's request, Episode 2 (Turning 65) was published Oct 12 at about 10:08 PM instead of waiting for 9:00 AM. The Daily Release then published the website page and its new check passed: the page loads and Transistor shows it published. The "live and checked" email was sent.
+- Episode 1's website date was corrected to Oct 11 (both cards showed Oct 12).
+- The next approved episode takes the Tue Oct 13 9:00 AM slot.
+
 ### Fixed — no more links that only work later, and every release now proves itself (n8n)
 - Billy clicked the episode link in the "built and scheduled" Slack message and got a 404. Nothing was broken: that page is a draft until release time. But a link that doesn't work yet is useless, and nobody had checked that a release really goes live.
 - **Episode Producer:** the "built and scheduled" message no longer includes the not-yet-live page link. Instead, the finished MP3 is **emailed to billy@agencyhlpc.com** so he can listen before it airs.
