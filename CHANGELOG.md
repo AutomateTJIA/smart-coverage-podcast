@@ -31,6 +31,7 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 ### Released — Episode 2 went live tonight, and the release check passed
 - At Billy's request, Episode 2 (Turning 65) was published Oct 12 at about 10:08 PM instead of waiting for 9:00 AM. The Daily Release then published the website page and its new check passed: the page loads and Transistor shows it published. The "live and checked" email was sent.
 - Episode 1's website date was corrected to Oct 11 (both cards showed Oct 12).
+- **Safeguard (n8n Daily Release):** when an episode goes live, the release now also sets the website date to the day it actually went live. Every episode already gets its own day (one per day), and this keeps the card date right even if a release is moved.
 - The next approved episode takes the Tue Oct 13 9:00 AM slot.
 
 ### Fixed — no more links that only work later, and every release now proves itself (n8n)
