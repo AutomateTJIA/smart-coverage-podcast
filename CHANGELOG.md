@@ -10,6 +10,13 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
+### Changed — approved emails go straight through, no email click (n8n Front Door)
+- Billy's call: a request from an approved agency email should just work. The "click Confirm in your email" step is removed.
+- A request from @agencyhlpc.com, @thejordaninsuranceagency.com or @breakpointsystems.com now starts writing right away, and Slack posts "Podcast request received".
+- Each episode still needs Billy's Approve in Slack before any audio is made or anything goes live.
+- Anything else gets a "request not accepted" note in Slack.
+- The studio page wording is updated to match.
+
 ### Fixed — every podcast request now reports back in Slack (n8n Front Door)
 - Billy's first test request was turned away silently because the blog link landed in the email box, and the form still said "Thanks". His second request worked and was waiting for the Confirm click in the email, but nothing said so.
 - #podcast-approvals now gets a message for every outcome:
