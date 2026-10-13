@@ -333,7 +333,7 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
 <script>
 (function () {
   var FORM = "https://systems.breakpointsystems.com/form/smart-coverage-batch";
-  var RX = /^https?:\/\/(www\.)?thejordaninsuranceagency\.com\/blog\/[a-z0-9-]+\/?$/i;
+  var RX = /^https?:\/\/[^\s\/]+\.[^\s\/]+\S*$/i; // our blog posts or outside articles
   var box = document.getElementById("links"), send = document.getElementById("send");
   var ok = document.getElementById("ok"), skip = document.getElementById("skip"), after = document.getElementById("after");
   var good = [];
@@ -347,7 +347,7 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
     var seen = {}, bad = 0; good = [];
     box.value.split(/[\s,]+/).forEach(function (s) {
       s = s.trim(); if (!s) return;
-      var clean = s.replace(/[?#].*$/, "");
+      var clean = s.replace(/[),.;]+$/, "");
       if (!RX.test(clean)) { bad++; return; }
       var k = clean.replace(/\/$/, "").toLowerCase();
       if (seen[k]) return; seen[k] = 1; good.push(clean.replace(/\/$/, ""));
