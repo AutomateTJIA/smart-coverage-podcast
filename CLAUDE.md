@@ -33,4 +33,4 @@ Every page, artifact, document, email template or tool ends with this line at th
 
 - Playbook: `PLAYBOOK.md`. Current plan: `references/operating-plan.md`.
 - The production system: `references/episode-factory.md` (n8n workflows and their IDs).
-- Studio page: `studio/podcast-studio.html` (published as a private Claude artifact).
+- Studio page: edit `studio/src/studio-template.html`, then run `python3 studio/build.py`. It builds `studio/site/` (hosted at studio.thejordaninsuranceagency.com via Vercel) and `studio/podcast-studio.html` (the private Claude artifact copy).

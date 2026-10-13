@@ -10,6 +10,14 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
+### Built — the Podcast Studio page can submit requests on the page itself (`6db464f`)
+- Billy wanted to submit a request and see "received" on the same page, without being sent to another site.
+- That isn't possible inside Claude, because Claude pages can't send data to outside systems. So the page now has a hosted version that will live at **studio.thejordaninsuranceagency.com**.
+- On that address, **Send to the studio** submits right on the page and shows the result there: request received, or what's wrong.
+- New n8n workflow **"Smart Coverage — Studio Page Requests"** (`zmb6a0YAfxYXibfI`) receives those submissions. It answers the page immediately, then hands the request to the Front Door, which now accepts requests from the page as well as from its form.
+- The page source and build script are in `studio/`. Run `python3 studio/build.py` to rebuild both the hosted site and the Claude copy.
+- Still to do (Billy): import this repository into Vercel (project name `smart-coverage-studio`, root folder `studio/site`) and add the `studio` DNS record.
+
 ### Changed — approved emails go straight through, no email click (n8n Front Door)
 - Billy's call: a request from an approved agency email should just work. The "click Confirm in your email" step is removed.
 - A request from @agencyhlpc.com, @thejordaninsuranceagency.com or @breakpointsystems.com now starts writing right away, and Slack posts "Podcast request received".

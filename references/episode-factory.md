@@ -14,6 +14,7 @@ n8n instance: `systems.breakpointsystems.com`. All three workflows live in Billy
 |---|---|---|---|
 | **Smart Coverage — Front Door (batch form + daily pick)** | `rPtQJ37gJT4o29t3` | (a) the batch form, (b) every morning at 10:15 AM ET | Collects blog links and sends them to the Producer **one at a time** |
 | **Smart Coverage — Episode Producer (one episode)** | `JSKBgEYlncxIZMz0` | Called by the Front Door | Script, compliance edit, gate, duplicate check, Slack approval, voices, music, Transistor (scheduled), website draft, ledger |
+| **Smart Coverage — Studio Page Requests** | `zmb6a0YAfxYXibfI` | The hosted Studio page (POST to webhook `smart-coverage-studio`) | Checks the email and links, answers the page right away, hands accepted requests to the Front Door |
 | **Smart Coverage — Daily Release (website)** | `A3h2y2PVfOeJPZ8r` | Every morning at 9:05 AM ET | Publishes the website page for each episode whose release time has passed, marks it published, posts the link in Slack |
 
 All three run on Eastern time (`America/New_York`).
