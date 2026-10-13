@@ -128,3 +128,21 @@ All three run on Eastern time (`America/New_York`).
   - links only from our site or "Smart Coverage Approved Sources"
   - lockout after 10 wrong passcodes in an hour, logged in "Smart Coverage Studio Wrong Tries"; one Slack alert when it locks; delete those rows to unlock early
 
+## Show lanes (Oct 13)
+
+Four lanes, each able to become its own Transistor show with its own RSS feed (Billy, Oct 13). There's no quota: a lane gets an episode only when there's a good post for it.
+
+| Lane | Topics that route there | Show |
+|---|---|---|
+| `medicare` | Medicare | own show once its ID is filled in |
+| `health` | Health (ACA/Marketplace, non-Medicare health) | own show once its ID is filled in |
+| `home_auto` | Home, Auto | own show once its ID is filled in |
+| `life` | Life, Retirement | own show once its ID is filled in |
+| `main` | (fallback) | Smart Coverage. Real Advice., Transistor show `84410` |
+
+- The routing table is the n8n data table **Smart Coverage Shows** (`vCxFnYRsxi2jLOyX`). A lane with an empty `transistor_show_id` airs on the `main` show, exactly as before.
+- **To turn a lane on:** create the show in Transistor, then paste its show ID into that lane's `transistor_show_id`. Nothing else changes.
+- Slots (9 AM, plus the purposeful afternoon slot) and episode numbers are counted **per show**, so three shows can each air at 9 AM on the same day, and each new show starts at Episode 1.
+- The ledger has a `show_id` column. Rows without one count as the main show.
+- The Producer reads the table in **Get Shows**, picks the show in **Preview Air Date** and **Plan Release**, uploads to that show in **Create Transistor Episode**, and the approval email shows a **Show:** line.
+- **Not done yet (do it when the first new show launches):** a Show label and per-show Apple/Spotify links on the website cards and episode pages, plus /podcast filters. Each show restarts at EP 1, so cards need the show label.

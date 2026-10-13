@@ -10,6 +10,14 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
+### Built — four show lanes: Medicare, Health Insurance, Home & Auto, Life Insurance (n8n Episode Producer; new n8n table)
+- Each lane can become its own podcast with its own RSS feed, so episodes are sorted by topic instead of all landing in one feed. There's no quota: a lane gets an episode only when there's a good post for it.
+- **How a lane turns on:** create the show in Transistor, then paste its show ID into the n8n table "Smart Coverage Shows." Until then, the lane's episodes air on the current show, exactly as today.
+- Each show keeps its own 9 AM slot and its own episode numbers, so three shows can each air at 9 AM on the same day without bumping each other.
+- The approval email now has a "Show:" line telling you which feed the episode goes to.
+- Life Insurance is its own lane, and retirement topics ride with it.
+- Still to do when the first new show launches: the show label, per-show subscribe links and filters on the website.
+
 ### Changed — "$0 premium" from your post is allowed in any spoken form; rules written down as you stated them (n8n Episode Producer; docs)
 - If your blog post mentions a $0 premium, the script can say it out loud as "zero-dollar premium" without the final check stopping it. Before, the spoken wording didn't match the post's "$0" and would have been flagged.
 - Your policy is now written into the rules: your posts never name carriers, a "$0 premium" mention is general information, and your posts go to the podcast with no extra restrictions. Outside sources come only from the approved list (Medicare.gov, KFF and similar) and keep the stricter checks.
