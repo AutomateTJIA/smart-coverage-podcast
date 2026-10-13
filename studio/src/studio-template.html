@@ -111,6 +111,8 @@ h2 { font: 900 clamp(34px, 5vw, 58px)/1 var(--display); letter-spacing: -.025em;
 .count .bad { color: var(--royal); }
 .send { width: 100%; justify-content: center; font-size: 18px; padding: 18px 22px; }
 .send[aria-disabled="true"] { background: var(--mist); color: #6C7E9C; cursor: not-allowed; transform: none; }
+.clearbtn { display: block; width: 100%; margin-top: 10px; background: transparent; border: 2px solid var(--mist); color: var(--navy); border-radius: 999px; padding: 13px 22px; font: 800 15px/1 var(--display); cursor: pointer; }
+.clearbtn:hover { background: var(--mist); }
 .panel .after { margin: 14px 0 0; font-size: 14px; color: #3B4F70; min-height: 1.5em; }
 .panel .after b { color: var(--navy); }
 .panel .after.good { background: var(--mist); color: var(--navy); font-weight: 700; padding: 12px 14px; border-radius: 12px; border-left: 6px solid var(--gold); }
@@ -278,6 +280,7 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
       <p class="emailnote" style="color:#3B4F70;font-weight:500">Leave blank for the next open day. If that date already has an episode, this one airs as the second that day.</p>
       <div class="count" aria-live="polite"><span id="ok"><b>0</b> episodes ready to request</span><span id="skip" class="bad"></span></div>
       <a id="send" class="btn gold send" href="#studio" target="_blank" rel="noopener" aria-disabled="true">Send to the studio</a>
+      <button type="button" id="clear" class="clearbtn">Clear and start over</button>
       <p class="after" id="after">The studio form opens in a new tab with your details filled in. Press <b>Make episodes</b> there.</p>
       <p class="after" style="margin-top:10px">New to the studio? Read the <a href="https://studio.thejordaninsuranceagency.com/playbook.html" target="_blank" rel="noopener">Studio Playbook</a> first.</p>
       <div class="lanes-key"><span class="pill med">Medicare</span><span class="pill hea">Health</span><span class="pill home">Home</span><span class="pill auto">Auto</span></div>
@@ -392,6 +395,14 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
   var HOSTED = /(^|\.)thejordaninsuranceagency\.com$|\.vercel\.app$/i.test(location.hostname);
   var API = "https://systems.breakpointsystems.com/webhook/smart-coverage-studio";
   if (HOSTED) { send.removeAttribute("target"); after.innerHTML = "Press <b>Send to the studio</b>. You'll see the result right here."; }
+  // One button clears the request (links, air date, messages). Email and passcode stay, since the page remembers them on purpose.
+  var afterDefault = after.innerHTML;
+  document.getElementById("clear").addEventListener("click", function () {
+    box.value = ""; air.value = ""; note.textContent = "";
+    after.className = "after"; after.innerHTML = afterDefault;
+    try { localStorage.removeItem("scs-draft"); } catch (e) {}
+    read(); box.focus();
+  });
   var busy = false;
   send.addEventListener("click", function (e) {
     if (!emailOk()) { e.preventDefault(); mail.focus(); note.textContent = "Use your agency email address."; return; }
