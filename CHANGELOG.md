@@ -10,6 +10,21 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
+### Changed — the disclaimer is said once, up front, as "A quick disclaimer" (n8n Episode Producer; brand file, PLAYBOOK.md)
+- Billy's note: the old way had Billy blurt out "We're not affiliated with Medicare…" on its own, then repeat "general education" at the end. It sounded awkward and said the same thing twice.
+- **Now:** Billy's first line is a warm hello, then "A quick disclaimer: …", then straight into the topic. Medicare episodes: "…we're not affiliated with or endorsed by Medicare or any government agency, and this is general education, not advice for your situation." Other episodes: "…this is general education, not advice for your situation."
+- **Outro:** Billy just signs off ("I'm Billy Jordan with The Jordan Insurance Agency. Thanks for listening."). Tanya's line before it, "For a personalized look at your situation…", already tells listeners their case may be different.
+- The written disclaimers in the show notes and on the website are unchanged.
+- The writer and the editor both follow the new rule, and the final check still confirms the disclaimer is there. Brand file and PLAYBOOK.md updated.
+- Applies to new episodes. The divorce episode waiting for approval was written before this change.
+
+### Built — team passcode, approved sources, Studio Playbook (n8n Front Door, Studio Page Requests; studio page) — 68ad03b
+- **Team passcode:** every request now needs it, on the studio page and on the backup form. Billy sets it himself in the n8n table "Smart Coverage Studio Settings" (it is never stored in code or chat). **While it is blank, the studio accepts no requests** (tested live: refused, nothing made). Wrong passcodes are refused and show up in Slack.
+- The studio page has a "Team passcode" box, remembered on each computer. The Send button stays off until it's filled in.
+- **Approved sources:** outside links are only accepted from sites in the n8n table "Smart Coverage Approved Sources" (12 starter sites: Medicare.gov, CMS, Social Security, HealthCare.gov, KFF, NC Department of Insurance, Tennessee state sites, NAIC, Insurance Information Institute, FloodSmart, FEMA, NHTSA). Our own site is always allowed. Other links are skipped and named on the page and in Slack. Lookalike addresses (e.g. "medicare.gov.someothersite.com") are refused. Tested on 8 cases.
+- **Studio Playbook:** a one-page guide for the team at studio.thejordaninsuranceagency.com/playbook.html, linked from the studio page. It covers how to send, what makes a good pick, the season calendar, how many to send, what each message means, when to ask Billy, and three don'ts.
+- Billy stays the only approver (option A).
+
 ### Fixed — Episode 2 no longer says "Check the current figure for employer size requirements" (Transistor, Webflow)
 - Episode 2 was made before the "don't soften vetted facts" fix, so Billy's AI voice read that hedge out loud.
 - Only the one section containing it (about 1,250 characters) was re-recorded with the line removed, then swapped into the live MP3. Before uploading, it checked the file was the exact size expected and that the section edges lined up, and it would have stopped if not.

@@ -442,7 +442,7 @@ chunk); keep stage-direction tags minimal.
 | State specifics | 1–2 min | What's different in North Carolina vs. Tennessee (state regulator, Medigap rules, marketplace, weather risks). Covering both is a feature, not a split. |
 | Recap | 30s | Three takeaways |
 | CTA | 20s | One action: book a review / call the office. Same CTA every episode in a lane. |
-| Compliance outro | under 15s | "Quick reminder: this is general education, not advice for your situation." plus Billy's sign-off. No TPMO disclaimer (Billy, Oct 11; see §7) |
+| Disclaimer | under 10s | Said once, in Billy's first line: "A quick disclaimer: ..." (Medicare episodes add the non-affiliation line). Outro is Billy's sign-off only. No TPMO disclaimer (Billy, Oct 11; see §7). Changed Oct 13 so it is never said twice. |
 
 **Titles:** question or keyword first, ≤ 60 characters, how people ask ChatGPT.
 - ✅ "Medicare Advantage vs. Medigap in North Carolina"
