@@ -631,9 +631,8 @@ The Jordan Insurance Agency is the live demo. Price it, package it, and use the 
 4. **OK to clone your voice** with ElevenLabs (needs ~30 min of clean audio + consent)?
 5. Who is the licensed approver for scripts if you're unavailable?
 7. Breakpoint brand kit — where does it live?
-8. Where should this engine live long term? It's in the Cashville repo because that's this
-   session's working branch; it belongs in the agency's blog-automation repo or
-   `breakpoint-agentic-os`.
+8. ~~Where should this engine live long term?~~ Answered Oct 13: its own private repository,
+   `AutomateTJIA/smart-coverage-podcast`. n8n reads the episode music from it as of Oct 13.
 
 ---
 

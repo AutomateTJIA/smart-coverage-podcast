@@ -114,7 +114,7 @@ All three run on Eastern time (`America/New_York`).
   emails, each arriving after the previous one is answered.
 - **Webflow:** the website item is created through the Webflow OAuth credential. If its scopes
   don't include CMS write, step 4 fails with a 403. Reconnect the credential with CMS read/write.
-- **Music file location:** the Producer pulls music from branch `claude/laughing-cannon-hro47m`.
+- **Music file location:** the Producer pulls music from `AutomateTJIA/smart-coverage-podcast`, branch `main`, folder `assets/audio/factory/` (switched from Cashville-Project on Oct 13, after a read test; the files are byte-identical).
   Switch it to `main` after this branch is merged.
 - **Duration** on the website card is estimated from the file size (128 kbps), so it can be off
   by a few seconds.
