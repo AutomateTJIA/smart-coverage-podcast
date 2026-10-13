@@ -10,6 +10,10 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
+### Changed — "$0 premium" from your post is allowed in any spoken form; rules written down as you stated them (n8n Episode Producer; docs)
+- If your blog post mentions a $0 premium, the script can say it out loud as "zero-dollar premium" without the final check stopping it. Before, the spoken wording didn't match the post's "$0" and would have been flagged.
+- Your policy is now written into the rules: your posts never name carriers, a "$0 premium" mention is general information, and your posts go to the podcast with no extra restrictions. Outside sources come only from the approved list (Medicare.gov, KFF and similar) and keep the stricter checks.
+
 ### Changed — your blog posts are now treated as approved content, start to finish (n8n Episode Producer; docs)
 - **What happened:** the editor removed "copays" and "lower copays" from the Medicare plan review episode, citing "rule 4." That rule wasn't written by Billy. It came from his Oct 11 decision to skip the TPMO disclaimer, which depends on Medicare episodes staying general. The rule was meant for plan-specific prices ("Plan X has a $10 copay"), but the AI applied it to the plain word "copays." Both the writer and the editor were also told to drop prices from the post.
 - **Now:** for our own blog posts, the writer keeps the post's words, numbers and cost terms (premiums, copays, deductibles, out-of-pocket limits) as written. The editor may only remove something the AI ADDED that isn't in the post: a plan or carrier name, a dollar amount, "$0 premium" or "giveback," or a superlative. The final check ignores any word that appears in the post. Tested on 8 cases: words from the post pass, words the AI adds are caught, and outside articles keep the full strict rules.

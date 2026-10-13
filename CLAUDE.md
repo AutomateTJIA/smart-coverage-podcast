@@ -25,7 +25,9 @@ Every page, artifact, document, email template or tool ends with this line at th
 - Booking or follow-up always says **"Billy and his team"**, never Billy alone.
 - Medicare stays general education: no plan or carrier names, no premiums, no "$0" or giveback
   claims. No TPMO disclaimer. Exception (Billy, Oct 13): our own blog posts are approved content.
-  Episodes use their words and numbers as written; only things the AI adds get checked.
+  Episodes use their words and numbers as written; only things the AI adds get checked. Billy's posts
+  never name carriers, and a "$0 premium" mention in a post is general information. Outside sources: approved
+  list only (Medicare.gov, KFF and similar), with the strict rules.
 - Episodes run 5 to 7 minutes. Don't quote an exact length in public copy.
 - Release time is 9:00 AM Eastern, one episode per day.
 - Never paste or store API keys or tokens. Billy adds keys to n8n himself.
