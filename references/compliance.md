@@ -17,7 +17,7 @@ contains these, the script leaves them out.
 
 ## Always
 
-- No "free," "best," "lowest," "#1," "guaranteed"
+- No "free," "best," "lowest," "#1," "guaranteed" as a claim. A warning against them is fine ("a common mistake is assuming preferred means lowest cost"); the final check blocks only the claim (Oct 13)
 - No misuse of the Medicare name or logo; never imply government affiliation
 - No benefits that may not exist in the listener's area
 - Medicare Supplement, LTC, annuity, interest-sensitive life: keep educational (NC prior-approval categories)

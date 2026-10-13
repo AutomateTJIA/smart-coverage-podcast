@@ -10,6 +10,13 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
+### Fixed — episode length format, the "Read & listen" gold, and a false alarm in the final script check (n8n Daily Release and Episode Producer; website)
+- **Episode 3 showed "6:30" instead of "6 min 30 sec."** It was built before the format fix. It's corrected now. To stop it for good, the release step now writes the length itself, as "X min Y sec", from the real audio length on Transistor, right when the episode goes live. Any episode built by an older version gets fixed automatically.
+- **"Read & listen ›", the "EP 3" label and the "ALL EPISODES" label on /podcast** were a dark brownish gold (#9A7614). They're now the logo gold (#E0B43B). The site was republished, and the brown is gone from the live stylesheet.
+- **The 1:12 PM "Script did not pass the checks" message was a false alarm.** Your annual review post says "a common mistake is assuming the preferred label means it's always the lowest cost." That's a warning, not a sales claim, but the final check blocked any use of "lowest." Now "lowest" and "best plan" block only when used as a claim ("this plan has the lowest premium"). Warnings and questions pass. Tested on that exact script, which now passes. A real claim is still caught, and the message now quotes the sentence. Nothing was spent on voices. **Resend that blog link from the studio to make the episode.**
+- Episode 3's Transistor description now says "reviewed and approved," matching the website.
+- The 10:55 AM "No answer in 12 hours" message was the first, duplicate divorce email timing out as planned. Nothing to do.
+
 ### Changed — Tanya no longer says "AI" on air; the written AI note stays everywhere (option B) (n8n Episode Producer; Transistor; website; docs, 11084f6)
 - **Billy's call (option B):** Tanya now introduces herself as "I'm Tanya, your host." Nobody on air says they're AI, and nobody claims to be a live person. The script writer has that rule, and the final check now looks for "your host" instead of "your AI host".
 - **The written disclosure stays on everything:** show notes, episode pages ("Tanya (AI host)" in transcripts), the show's main description on Transistor, and YouTube's "altered or synthetic content" box.
