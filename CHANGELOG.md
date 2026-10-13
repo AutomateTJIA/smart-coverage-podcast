@@ -10,7 +10,7 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-13
 
-### Changed — cleaner icons on the four lane covers (assets)
+### Changed — cleaner icons on the four lane covers (assets; commit 6350262)
 - Billy said the first icons looked a little cheesy. All four are redrawn as one matching set: a simple line icon inside a round badge, in white with a gold accent.
   - Medicare: a shield with a gold cross.
   - Health Insurance: a heart with a gold pulse line.
