@@ -22,7 +22,7 @@ until they have steady volume.
      EP 1, so without the label the site would show two "EP 1" cards.
 - Target: at least 2 Health episodes a week through Marketplace open enrollment (Nov 1 to Jan 15).
 
-Every show: Author **Billy Jordan**, Owner **The Jordan Insurance Agency**, Language **English**, Explicit **No**.
+Every show: Author **Billy Jordan Jr | The Jordan Insurance Agency**, Owner **The Jordan Insurance Agency**, Language **English**, Explicit **No**.
 
 ## Medicare
 - **Title:** Smart Coverage. Real Advice.: Medicare
