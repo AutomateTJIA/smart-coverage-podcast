@@ -17,6 +17,13 @@ contains these, the script leaves them out. (Outside articles only. See the next
 
 **Outside sources (Billy, Oct 13):** only verifiable sources on the approved list (Medicare.gov, CMS, SSA, HealthCare.gov, KFF, state insurance departments, NAIC, III, FloodSmart, FEMA, NHTSA). The studio refuses any other site. These get more scrutiny: facts must come from the article, the article is credited by name, and the strict Medicare rules apply.
 
+**Decision (Billy, Oct 14): the spoken disclaimer is for Medicare episodes only.** A Medicare episode says, once, in
+Billy's first line: "A quick disclaimer: we're not affiliated with or endorsed by Medicare or any government agency, and
+this is general education, not advice for your situation." A health insurance episode (ACA, Marketplace,
+off-Marketplace, employer, COBRA, alternative plans) says no disclaimer of any kind, even if Medicare comes up in
+passing. Whether a post is Medicare is decided by code from its title and web address (Build Script Input), never by
+the AI, and the final check stops any non-Medicare script that contains a disclaimer.
+
 **Decision (Billy, Oct 11): no TPMO disclaimer in the podcast.** The show is general education. The TPMO conversation happens in appointments, not in episodes. What keeps that true: Medicare episodes stay general. No plan or carrier names, no premiums/copays/$0-premium or giveback claims, no specific plan benefits, and no push to enroll in a plan. The Episode Factory prompt and gate enforce this.
 
 ## Always

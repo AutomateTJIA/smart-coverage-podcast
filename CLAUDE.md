@@ -28,6 +28,10 @@ Every page, artifact, document, email template or tool ends with this line at th
   Episodes use their words and numbers as written; only things the AI adds get checked. Billy's posts
   never name carriers, and a "$0 premium" mention in a post is general information. Outside sources: approved
   list only (Medicare.gov, KFF and similar), with the strict rules.
+- Spoken disclaimer (Billy, Oct 14): ONLY Medicare episodes say "A quick disclaimer: we're not affiliated with or endorsed by
+  Medicare or any government agency, and this is general education, not advice for your situation." Health insurance
+  episodes (ACA, Marketplace, off-Marketplace, employer, COBRA) say NO disclaimer at all. Medicare vs not is decided from
+  the post's title and web address in the Producer's Build Script Input, never by the AI.
 - Episodes run 5 to 7 minutes. Don't quote an exact length in public copy.
 - Two shows (Billy, Oct 14): the original show (Transistor 84410) is **Smart Coverage. Real Advice.: Medicare**; Health
   episodes go to **Smart Coverage. Real Advice.: Health Insurance** (84545). Routing is the n8n table "Smart Coverage Shows".

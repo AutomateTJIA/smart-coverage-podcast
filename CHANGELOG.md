@@ -10,6 +10,13 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-14
 
+### Fixed — the Medicare disclaimer is now on Medicare episodes only (n8n Episode Producer; compliance docs)
+- **What happened:** the COBRA vs Marketplace health episode came to Billy with the Medicare disclaimer in it. The editor added it because its instructions said "if the episode mentions Medicare at all," and it decided this one did. It didn't. Billy caught it before approving.
+- **Billy's rule:** only Medicare episodes read a disclaimer. Health insurance episodes (ACA, Marketplace, off-Marketplace, employer, COBRA) read none.
+- **The fix:** the system now decides "Medicare or not" from the post's title and web address, in code, before the AI writes anything. Medicare posts get the Medicare disclaimer. Every other post gets the instruction "no disclaimer of any kind," and the writer and editor both follow it. The final check now STOPS any non-Medicare script that contains a disclaimer, and still requires the disclaimer on Medicare scripts. The same decision sets the episode's topic, so a Medicare post always goes to the Medicare show and a health post always goes to the Health Insurance show.
+- **Tested** on the real COBRA script: as emailed it's now blocked; with the disclaimer removed it passes. All of Billy's past posts sort correctly (three Medicare, two health).
+- The COBRA approval email was made before this fix and before the Health show was switched on, so Billy declines it and resends the link.
+
 ### Fixed — Medicare show settings re-applied after an old page overwrote them (Transistor)
 - Saving a Transistor settings page that was opened before the update put the old general description and mixed keywords back on the Medicare show. Re-applied the Medicare title, description and keywords through the API, then read both shows back from Transistor to confirm (02:06 ET check): Medicare show = Medicare-only text and keywords; Health show = health-only text and keywords; both Health & Fitness / Education; author "Billy Jordan Jr | The Jordan Insurance Agency" on both. Billy's new Medicare cover is on the Medicare show.
 - Lesson: after an API change, always read the live settings back instead of asking Billy to reload.
