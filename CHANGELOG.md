@@ -10,7 +10,7 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-14
 
-### Changed — main show leads with Medicare and Health Insurance (assets; Transistor settings sheet; Studio page)
+### Changed — main show leads with Medicare and Health Insurance (assets; Transistor settings sheet; Studio page; commit 4dc4d52)
 - Billy's call: Medicare and health insurance are the agency's highest-commission lines and it's peak season, so the main show now says so. New cover, same clean design: "Medicare & Health Insurance" on top; "Medicare and health insurance, plus life, home & auto — explained in plain English."; pills Medicare, Health Insurance, Life, Home & Auto.
 - New Transistor settings for the main show in `references/transistor-show-settings.md`: title "Smart Coverage. Real Advice. — Medicare & Health Insurance Podcast", a Medicare-and-health-first description (keeps the Medicare non-affiliation line), category Health & Fitness then Education (it was wrongly Business › Investing), and Medicare/health keywords. Billy pastes these into Transistor.
 - The Studio page uses the new cover too.
