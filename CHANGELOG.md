@@ -10,7 +10,7 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-14
 
-### Fixed — the COBRA episode read "Tanya" out loud; pulled, root cause fixed, remade (n8n Episode Producer; commit PENDING)
+### Fixed — the COBRA episode read "Tanya" out loud; pulled, root cause fixed, remade (n8n Episode Producer; commit 42f74b7)
 - **What happened:** in the recap, the voice said "Tanya" before each of the three takeaways. Our own editor instructions told the AI to write "Tanya: One, ..." for every recap item. The AI put all three on one line, so the voice read the extra "Tanya:" labels as words.
 - **Pulled (Billy, Oct 14):** taken off the Health Insurance feed in Transistor (now a draft), its website page unpublished and deleted, and the ledger marked "pulled". Transistor's API can't delete episodes, so Billy deletes the leftover draft in the Transistor dashboard.
 - **Fixed in four places:**
