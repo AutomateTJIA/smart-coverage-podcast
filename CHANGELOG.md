@@ -10,6 +10,15 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-14
 
+### Added — pick the show and the air date with buttons on the Studio page (Studio page; n8n Studio Page Requests, Front Door, Episode Producer; Playbook; commit PENDING)
+- **What Billy saw:** the Studio page made you type a date, and nothing said whether a link was Medicare or Health. The system guessed from the post's title, so you couldn't tell where it would go or when.
+- **Studio page:** a required **Show** choice: Medicare (airs 9:00 AM ET) or Health Insurance (airs 3:00 PM ET). The **Air date** is now four buttons: Next open, Today, Tomorrow, Pick a date (opens a calendar). No typing. A gold box spells out the result, for example "Goes to the Health Insurance show. Airs Wednesday, Oct 14 at 3:00 PM ET." **Today** grays out once that show's time is less than 30 minutes away. The page clears the show after each send, so every request is a fresh, deliberate choice.
+- **Behind the page:** the chosen show travels with the request through every step. Studio Page Requests refuses a request with no show ("Pick the show first"). The Front Door passes it on. The daily automatic pick now labels its two posts Medicare and Health too. The backup n8n form also got a required Show dropdown.
+- **In the Producer, the pick wins:** it sets the show, the disclaimer (Medicare only) and the time slot (Medicare 9 AM, Health 3 PM). The title check only runs when no show was picked. If the pick and the title disagree, the approval email says so, and the episode still follows the pick.
+- **The page's answer** now names the show and the time, for example "Request received: 1 episode for the Health Insurance show."
+- **Also fixed:** a speaker name in the middle of a line ("...three things to remember. Tanya: One, ...") is now moved to its own line before voicing, so it is never read aloud. The final check also flags any that slip through.
+- **Studio Playbook** updated with the new steps.
+
 ### Fixed — the Medicare disclaimer is now on Medicare episodes only (n8n Episode Producer; compliance docs; commit 8813c54)
 - **What happened:** the COBRA vs Marketplace health episode came to Billy with the Medicare disclaimer in it. The editor added it because its instructions said "if the episode mentions Medicare at all," and it decided this one did. It didn't. Billy caught it before approving.
 - **Billy's rule:** only Medicare episodes read a disclaimer. Health insurance episodes (ACA, Marketplace, off-Marketplace, employer, COBRA) read none.

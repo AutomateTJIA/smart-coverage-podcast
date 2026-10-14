@@ -149,3 +149,11 @@ Four lanes, each able to become its own Transistor show with its own RSS feed (B
 - The ledger has a `show_id` column. Rows without one count as the main show.
 - The Producer reads the table in **Get Shows**, picks the show in **Preview Air Date** and **Plan Release**, uploads to that show in **Create Transistor Episode**, and the approval email shows a **Show:** line.
 - **Not done yet (do it when the first new show launches):** a Show label and per-show Apple/Spotify links on the website cards and episode pages, plus /podcast filters. Each show restarts at EP 1, so cards need the show label.
+
+## Show pick (Oct 14)
+
+- The Studio page sends `lane` = `medicare` or `health` (required). The backup form has a required Show dropdown. The daily pick sends `show_lane`.
+- Path: Studio Page Requests (Check Request) → Front Door (Studio Page Request trigger, Check Requester, Clean Up Links, Make Episode) → Producer (Episode Request input `lane`).
+- Producer Build Script Input: `is_medicare` = the pick when present, otherwise the title/web-address check. It outputs `lane_pick` and `lane_note`, and the note is shown in the approval email when the pick and the title disagree.
+- Read Episode Details: a Health pick always gets topic Health, so the episode goes to the Health Insurance show (84545) and the 3:00 PM slot.
+- Read Editor Output and Split Dialogue split a mid-line "Tanya:" or "Billy:" label onto its own line. The gate flags `speaker_name_inside_a_line_would_be_read_aloud`.

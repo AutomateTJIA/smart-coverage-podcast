@@ -105,6 +105,18 @@ h2 { font: 900 clamp(34px, 5vw, 58px)/1 var(--display); letter-spacing: -.025em;
 .panel input { display: block; max-width: 100%; min-width: 0; }
 .panel input[type=date] { -webkit-appearance: none; appearance: none; min-height: 50px; text-align: left; }
 .panel input[type=date]::-webkit-date-and-time-value { text-align: left; }
+.choice { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px; }
+.choice.four { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.choice button { border: 2px solid var(--mist); background: var(--mist); color: var(--navy); border-radius: 14px; padding: 12px 10px; font: 800 15px/1.2 var(--display); cursor: pointer; text-align: center; min-width: 0; }
+.choice button small { display: block; margin-top: 4px; font: 600 11px/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: rgba(22,58,112,.82); }
+.choice.four button { padding: 11px 6px; font-size: 14px; }
+.choice button:hover { border-color: var(--royal); }
+.choice button[aria-pressed="true"] { background: var(--navy); border-color: var(--navy); color: var(--white); }
+.choice button[aria-pressed="true"] small { color: var(--gold); }
+.choice button:disabled { opacity: .45; cursor: not-allowed; border-color: var(--mist); }
+.slot { margin: 4px 0 16px; padding: 12px 14px; border-radius: 12px; background: var(--mist); color: var(--navy); font-size: 14.5px; font-weight: 600; border-left: 6px solid var(--gold); }
+.slot.need { border-left-color: var(--royal); color: var(--royal); }
+@media (max-width: 520px) { .choice.four { grid-template-columns: 1fr 1fr; } }
 .emailnote { margin: 6px 0 16px; min-height: 1.2em; font-size: 13.5px; color: var(--royal); font-weight: 600; }
 .count { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 12px 0 18px; font-size: 14px; color: rgba(22,58,112,.82); }
 .count b { color: var(--navy); }
@@ -277,11 +289,22 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
       <p class="emailnote" id="emailnote"></p>
       <label for="pass">Team passcode</label>
       <input id="pass" type="password" autocomplete="off" placeholder="Team passcode">
-      <label for="links" style="margin-top:18px">Links</label>
+      <label style="margin-top:18px" id="showlbl">Show</label>
+      <div class="choice" role="group" aria-labelledby="showlbl">
+        <button type="button" data-lane="medicare" aria-pressed="false">Medicare<small>Airs 9:00 AM ET</small></button>
+        <button type="button" data-lane="health" aria-pressed="false">Health Insurance<small>Airs 3:00 PM ET</small></button>
+      </div>
+      <label for="links" style="margin-top:16px">Links</label>
       <textarea id="links" spellcheck="false" placeholder="Paste a link"></textarea>
-      <label for="airdate" style="margin-top:16px">Air date <span style="text-transform:none;letter-spacing:0;font-family:var(--body);color:rgba(22,58,112,.82)">(optional)</span></label>
-      <input id="airdate" type="date">
-      <p class="emailnote" style="color:rgba(22,58,112,.82);font-weight:500">Leave blank for the next open slot. Through Jan 15, Medicare episodes air at 9:00 AM and Health episodes at 3:00 PM, so a date you pick keeps its topic's time. After Jan 15: the next open day at 9:00 AM.</p>
+      <label style="margin-top:16px" id="whenlbl">Air date</label>
+      <div class="choice four" role="group" aria-labelledby="whenlbl">
+        <button type="button" data-when="next" aria-pressed="true">Next open</button>
+        <button type="button" data-when="today" aria-pressed="false">Today</button>
+        <button type="button" data-when="tomorrow" aria-pressed="false">Tomorrow</button>
+        <button type="button" data-when="pick" aria-pressed="false">Pick a date</button>
+      </div>
+      <input id="airdate" type="date" aria-label="Pick an air date" hidden>
+      <p class="slot need" id="slot" aria-live="polite">Pick the show first: Medicare or Health Insurance.</p>
       <div class="count" aria-live="polite"><span id="ok"><b>0</b> episodes ready to request</span><span id="skip" class="bad"></span></div>
       <a id="send" class="btn gold send" href="#studio" target="_blank" rel="noopener" aria-disabled="true">Send to the studio</a>
       <button type="button" id="clear" class="clearbtn">Clear and start over</button>
@@ -357,6 +380,48 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
   var ok = document.getElementById("ok"), skip = document.getElementById("skip"), after = document.getElementById("after");
   var good = [];
   var mail = document.getElementById("email"), note = document.getElementById("emailnote"), air = document.getElementById("airdate");
+  // Show and air date are picked with buttons (Billy, Oct 14): the show decides where the episode goes and its time slot.
+  // Through Jan 15: Medicare airs at 9:00 AM ET, Health Insurance at 3:00 PM ET. All times are Eastern.
+  var lane = "", when = "next", slotEl = document.getElementById("slot");
+  var laneBtns = [].slice.call(document.querySelectorAll("[data-lane]")), whenBtns = [].slice.call(document.querySelectorAll("[data-when]"));
+  var SLOT = { medicare: [9, 0, "9:00 AM"], health: [15, 0, "3:00 PM"] }, SHOW = { medicare: "Medicare", health: "Health Insurance" };
+  function eastern(offsetDays) {
+    var d = new Date(Date.now() + (offsetDays || 0) * 864e5), o = {};
+    new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" })
+      .formatToParts(d).forEach(function (p) { o[p.type] = p.value; });
+    return { iso: o.year + "-" + o.month + "-" + o.day, mins: +o.hour * 60 + +o.minute };
+  }
+  function nice(iso) { var p = iso.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]).toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" }); }
+  // Today only works if the show's time is still at least 30 minutes away (the studio needs time to schedule it).
+  function todayOpen() { if (!lane) return true; var n = eastern(0); return n.mins + 30 < SLOT[lane][0] * 60 + SLOT[lane][1]; }
+  function setWhen(w) {
+    when = w;
+    if (w === "today") air.value = eastern(0).iso;
+    else if (w === "tomorrow") air.value = eastern(1).iso;
+    else if (w === "next") air.value = "";
+    air.hidden = w !== "pick";
+    whenBtns.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-when") === w ? "true" : "false"); });
+  }
+  function paintSlot() {
+    var t = whenBtns.filter(function (b) { return b.getAttribute("data-when") === "today"; })[0];
+    t.disabled = !todayOpen();
+    if (when === "today" && t.disabled) setWhen("tomorrow");
+    if (!lane) { slotEl.className = "slot need"; slotEl.textContent = "Pick the show first: Medicare or Health Insurance."; return; }
+    slotEl.className = "slot";
+    var where = "Goes to the " + SHOW[lane] + " show. ";
+    if (when === "pick" && !air.value) { slotEl.className = "slot need"; slotEl.textContent = where + "Choose a date."; return; }
+    slotEl.textContent = where + (air.value ? "Airs " + nice(air.value) + " at " + SLOT[lane][2] + " ET" : "Airs at the next open " + SLOT[lane][2] + " ET slot") + (good.length > 1 ? "; extra links go on the next open days." : ".") + " The approval email confirms the exact time.";
+  }
+  laneBtns.forEach(function (b) { b.addEventListener("click", function () {
+    lane = b.getAttribute("data-lane");
+    laneBtns.forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+    read();
+  }); });
+  whenBtns.forEach(function (b) { b.addEventListener("click", function () {
+    setWhen(b.getAttribute("data-when"));
+    if (when === "pick") { air.min = eastern(0).iso; try { air.showPicker(); } catch (e) { air.focus(); } }
+    read();
+  }); });
   var DOMAINS = ["agencyhlpc.com", "thejordaninsuranceagency.com", "breakpointsystems.com"];
   function emailOk() {
     var v = mail.value.trim().toLowerCase();
@@ -376,8 +441,9 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
     if (good.length > 14) { skip.textContent = "Only the first 14 links will be sent"; good = good.slice(0, 14); }
     var em = mail.value.trim();
     note.textContent = em && !emailOk() ? "Use your agency email address." : "";
-    if (good.length && emailOk() && pass.value.trim()) {
-      send.href = FORM + "?work_email=" + encodeURIComponent(em) + "&blog_urls=" + encodeURIComponent(good.join("\n")) + (air.value ? "&air_date=" + encodeURIComponent(air.value) : "");
+    paintSlot();
+    if (good.length && emailOk() && pass.value.trim() && lane && !(when === "pick" && !air.value)) {
+      send.href = FORM + "?work_email=" + encodeURIComponent(em) + "&lane=" + encodeURIComponent(SHOW[lane]) + "&blog_urls=" + encodeURIComponent(good.join("\n")) + (air.value ? "&air_date=" + encodeURIComponent(air.value) : "");
       send.setAttribute("aria-disabled", "false");
     } else {
       send.href = "#studio"; send.setAttribute("aria-disabled", "true");
@@ -392,7 +458,8 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
   pass.addEventListener("input", function () { try { localStorage.setItem("scs-pass", pass.value); } catch (e) {} read(); });
   box.addEventListener("input", read);
   air.addEventListener("input", read);
-  try { var t0 = new Date(); t0.setDate(t0.getDate() + 1); air.min = t0.toISOString().slice(0, 10); } catch (e) {}
+  air.addEventListener("change", read);
+  try { air.min = eastern(0).iso; } catch (e) {}
   mail.addEventListener("input", function () { try { localStorage.setItem("scs-email", mail.value); } catch (e) {} read(); });
   // On our own web address the page submits directly and shows the result here.
   // Inside Claude it can't reach outside systems, so it opens the studio form instead.
@@ -401,8 +468,10 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
   if (HOSTED) { send.removeAttribute("target"); after.innerHTML = "Press <b>Send to the studio</b>. You'll see the result right here."; }
   // One button clears the request (links, air date, messages). Email and passcode stay, since the page remembers them on purpose.
   var afterDefault = after.innerHTML;
+  // A new request starts with no show picked, so nobody sends to the wrong show by accident.
+  function resetPicks() { lane = ""; laneBtns.forEach(function (x) { x.setAttribute("aria-pressed", "false"); }); setWhen("next"); }
   document.getElementById("clear").addEventListener("click", function () {
-    box.value = ""; air.value = ""; note.textContent = "";
+    box.value = ""; note.textContent = ""; resetPicks();
     after.className = "after"; after.innerHTML = afterDefault;
     try { localStorage.removeItem("scs-draft"); } catch (e) {}
     read(); box.focus();
@@ -411,18 +480,20 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
   send.addEventListener("click", function (e) {
     if (!emailOk()) { e.preventDefault(); mail.focus(); note.textContent = "Use your agency email address."; return; }
     if (!pass.value.trim()) { e.preventDefault(); pass.focus(); note.textContent = "Enter the team passcode."; return; }
+    if (!lane) { e.preventDefault(); laneBtns[0].focus(); return; }
+    if (when === "pick" && !air.value) { e.preventDefault(); air.focus(); return; }
     if (!good.length) { e.preventDefault(); box.focus(); return; }
     if (HOSTED) {
       e.preventDefault();
       if (busy) return;
       busy = true; send.textContent = "Sending…"; send.setAttribute("aria-disabled", "true");
       after.className = "after"; after.textContent = "";
-      fetch(API, { method: "POST", body: new URLSearchParams({ work_email: mail.value.trim(), passcode: pass.value.trim(), blog_urls: good.join("\n"), air_date: air.value || "" }) })
+      fetch(API, { method: "POST", body: new URLSearchParams({ work_email: mail.value.trim(), passcode: pass.value.trim(), blog_urls: good.join("\n"), air_date: air.value || "", lane: lane }) })
         .then(function (r) { return r.json(); })
         .then(function (d) {
           after.className = "after " + (d.ok ? "good" : "warn");
           after.textContent = d.message || (d.ok ? "Request received." : "That request wasn't accepted.");
-          if (d.ok) { box.value = ""; air.value = ""; try { localStorage.removeItem("scs-draft"); } catch (x) {} }
+          if (d.ok) { box.value = ""; resetPicks(); try { localStorage.removeItem("scs-draft"); } catch (x) {} }
         })
         .catch(function () { after.className = "after warn"; after.textContent = "Couldn't reach the studio. Check your connection and try again in a minute."; })
         .then(function () { busy = false; send.textContent = "Send to the studio"; read(); });
@@ -433,6 +504,7 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
     try { navigator.clipboard.writeText(text).then(done, done); } catch (err) { done(); }
   });
   read();
+  setInterval(paintSlot, 60000);
 
   // Publishing calendar (Eastern time). Mon/Wed/Fri Medicare, Tue/Thu Health, Sat Home, Sun Auto.
   // Dec 8 - Jan 15: Medicare days switch to Health (ACA Open Enrollment).
