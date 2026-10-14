@@ -10,7 +10,7 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-14
 
-### Changed — Health Insurance show cover and listing (assets; setup sheet)
+### Changed — Health Insurance show cover and listing (assets; setup sheet; commit cefce25)
 - Billy wanted the Health show to look like the main show and to cover all health insurance, not just the Marketplace. The new cover is the main cover's clean design: "The Health Insurance Podcast" on top, "Every health insurance option — explained in plain English.", and Marketplace, Off-Marketplace, Employer and Alternatives along the bottom. No icon.
 - The show description now covers plans on and off the Marketplace, employer and group coverage, and short-term and other alternative plans. All the Transistor fields (copyright, keywords, website, owner email) are in `references/transistor-lane-shows.md`.
 - The show is being set up but stays unused: all episodes keep going to the main show.
