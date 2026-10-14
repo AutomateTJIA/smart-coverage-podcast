@@ -2,16 +2,16 @@
 
 | Field | Value |
 |---|---|
-| Podcast Title | Smart Coverage. Real Advice. — The Insurance Podcast from The Jordan Insurance Agency |
-| Description | Smart Coverage. Real Advice. is the insurance podcast from The Jordan Insurance Agency. Licensed insurance agent Billy Jordan and AI host Tanya answer the questions real people ask about Medicare, health insurance, life insurance, and home and auto coverage, in plain English. One question per episode, like how long you have to get new coverage after losing a job, or what to compare before Medicare enrollment. General education, not personalized advice. Voices are AI-generated from scripts reviewed and approved by Billy Jordan. Not affiliated with or endorsed by Medicare or any government agency. Episodes and written guides: thejordaninsuranceagency.com/podcast |
+| Podcast Title | Smart Coverage. Real Advice. — Medicare & Health Insurance Podcast (Oct 14, Billy: lead with the two peak-season lines; was "— The Insurance Podcast from The Jordan Insurance Agency") |
+| Description | Smart Coverage. Real Advice. is the Medicare and health insurance podcast from The Jordan Insurance Agency. Licensed insurance agent Billy Jordan and AI host Tanya answer the questions people ask about Medicare and health insurance, in plain English: when to enroll, how to compare your options, plans on and off the Marketplace, employer coverage and alternative plans. Life, home and auto coverage come up too. General education, not personalized advice. Voices are AI-generated from scripts reviewed and approved by Billy Jordan. Not affiliated with or endorsed by Medicare or any government agency. Episodes and written guides: thejordaninsuranceagency.com/podcast |
 | Artwork | assets/the-jordan-insurance-agency-podcast-cover-3000.jpg |
 | Type | Episodic |
 | Explicit | No (unchecked) |
-| Primary Category | Business › Investing |
-| Secondary Category | Education › How To |
+| Primary Category | Health & Fitness (Oct 14; was Business › Investing) |
+| Secondary Category | Education |
 | Author | Billy Jordan \| The Jordan Insurance Agency |
 | Copyright | © 2026 The Jordan Insurance Agency |
-| Keywords | insurance, medicare, health insurance, ACA marketplace, life insurance, home insurance, auto insurance, insurance agent, North Carolina, Tennessee |
+| Keywords | medicare, medicare enrollment, medicare advantage, medicare supplement, medicare part d, health insurance, ACA marketplace, off-marketplace health insurance, employer health insurance, insurance agent, North Carolina, Tennessee |
 | Website | https://thejordaninsuranceagency.com/podcast |
 | Spoken Language | English |
 | Publishing Time Zone | Eastern Time (US & Canada) |
