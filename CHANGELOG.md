@@ -10,7 +10,7 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-14
 
-### Changed — two shows: the original show is now the Medicare show, Health has its own (n8n; Transistor; covers; Studio; docs)
+### Changed — two shows: the original show is now the Medicare show, Health has its own (n8n; Transistor; covers; Studio; docs; commit f58bbf1)
 - Billy's plan, now done properly: the original show is **Smart Coverage. Real Advice.: Medicare** and only gets Medicare episodes. Health episodes go to **Smart Coverage. Real Advice.: Health Insurance**. Medicare and health are the agency's highest-commission lines, and it's peak season for both.
 - **Routing (n8n Shows table):** Health → Transistor show 84545, Medicare → 84410. From the next Health episode on, it publishes to the Health Insurance show automatically, starting at its own Episode 1.
 - **Transistor (set through the API and confirmed):** the Medicare show's title, Medicare-only description (with the Medicare non-affiliation line), category Health & Fitness then Education (it was wrongly Business › Investing), and Medicare keywords. The Health show's title, broader health description, categories and health keywords. The author is "Billy Jordan | The Jordan Insurance Agency" on both. Followers, reviews and existing episodes stay where they are.
