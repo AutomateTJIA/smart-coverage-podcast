@@ -10,6 +10,10 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-14
 
+### Fixed — Medicare show settings re-applied after an old page overwrote them (Transistor)
+- Saving a Transistor settings page that was opened before the update put the old general description and mixed keywords back on the Medicare show. Re-applied the Medicare title, description and keywords through the API, then read both shows back from Transistor to confirm (02:06 ET check): Medicare show = Medicare-only text and keywords; Health show = health-only text and keywords; both Health & Fitness / Education; author "Billy Jordan Jr | The Jordan Insurance Agency" on both. Billy's new Medicare cover is on the Medicare show.
+- Lesson: after an API change, always read the live settings back instead of asking Billy to reload.
+
 ### Changed — two shows: the original show is now the Medicare show, Health has its own (n8n; Transistor; covers; Studio; docs; commit f58bbf1)
 - Billy's plan, now done properly: the original show is **Smart Coverage. Real Advice.: Medicare** and only gets Medicare episodes. Health episodes go to **Smart Coverage. Real Advice.: Health Insurance**. Medicare and health are the agency's highest-commission lines, and it's peak season for both.
 - **Routing (n8n Shows table):** Health → Transistor show 84545, Medicare → 84410. From the next Health episode on, it publishes to the Health Insurance show automatically, starting at its own Episode 1.

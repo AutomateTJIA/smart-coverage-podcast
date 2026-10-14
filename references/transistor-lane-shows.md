@@ -37,7 +37,7 @@ same clean design as the main show (no icon).
 - **Title:** Smart Coverage. Real Advice.: Health Insurance
 - **Artwork:** `assets/the-jordan-insurance-agency-podcast-cover-health-3000.jpg`
 - **Categories:** Health & Fitness; Education
-- **Author:** Billy Jordan | The Jordan Insurance Agency · **Show Owner:** The Jordan Insurance Agency (same as the main show)
+- **Author:** Billy Jordan Jr | The Jordan Insurance Agency · **Show Owner:** The Jordan Insurance Agency (same as the main show)
 - **Copyright:** © 2026 The Jordan Insurance Agency
 - **Keywords:** health insurance, health insurance options, ACA marketplace, off-marketplace health insurance, individual and family health insurance, employer health insurance, short-term health insurance, insurance agent, North Carolina, Tennessee
 - **Website:** https://thejordaninsuranceagency.com/podcast

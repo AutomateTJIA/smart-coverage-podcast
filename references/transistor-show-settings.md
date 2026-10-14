@@ -9,7 +9,7 @@
 | Explicit | No (unchecked) |
 | Primary Category | Health & Fitness (Oct 14; was Business › Investing) |
 | Secondary Category | Education |
-| Author | Billy Jordan \| The Jordan Insurance Agency |
+| Author | Billy Jordan Jr \| The Jordan Insurance Agency (Billy, Oct 14; same on both shows) |
 | Copyright | © 2026 The Jordan Insurance Agency |
 | Keywords | medicare, medicare enrollment, medicare advantage, medicare supplement, medigap, medicare part d, original medicare, medicare annual enrollment, turning 65, insurance agent, North Carolina, Tennessee |
 | Website | https://thejordaninsuranceagency.com/podcast |
