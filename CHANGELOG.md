@@ -10,6 +10,15 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-14
 
+### Changed — each show now holds only its own topic, numbered in air order (Transistor, n8n ledger, Webflow; commit PENDING)
+- **Billy's call (Oct 14): "done right from the beginning."** The Medicare show's Episode 1 was the health episode "Lost Your Health Insurance?". It was made Oct 12, before the shows split.
+- **Removed from the Medicare show:** set to draft in Transistor, its website page unpublished and deleted, and the ledger marked "pulled". Billy deletes the Transistor draft by hand, because the API can't delete episodes.
+- **Not moved as-is:** its audio ends with "Quick reminder: this is general education, not advice" and calls Tanya "your AI host". Both break today's rules (no disclaimer on health episodes, no AI mention on air). So it's being **remade** on the Health Insurance show by the fixed system, and Billy approves the new script before any voices are made.
+- **Renumbered in air order**, in Transistor, the ledger and the website:
+  - **Medicare:** 1 Turning 65 · 2 Divorce · 3 Plan Review · 4 Enrollment Windows (Oct 15) · 5 Ozempic (Oct 16)
+  - **Health Insurance:** 1 Charlotte options (Oct 15) · 2 COBRA (Oct 16) · 3 Lost Your Health Insurance? (remake)
+- Changed the published website pages for Medicare 1 to 3 to show the new numbers.
+
 ### Fixed — the COBRA episode read "Tanya" out loud; pulled, root cause fixed, remade (n8n Episode Producer; commit 42f74b7)
 - **What happened:** in the recap, the voice said "Tanya" before each of the three takeaways. Our own editor instructions told the AI to write "Tanya: One, ..." for every recap item. The AI put all three on one line, so the voice read the extra "Tanya:" labels as words.
 - **Pulled (Billy, Oct 14):** taken off the Health Insurance feed in Transistor (now a draft), its website page unpublished and deleted, and the ledger marked "pulled". Transistor's API can't delete episodes, so Billy deletes the leftover draft in the Transistor dashboard.
