@@ -298,7 +298,7 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
       <div>
         <div class="label">Publishing calendar</div>
         <h2>Through Jan 15: two a day</h2>
-        <p class="sub">Open enrollment season (Oct 15 to Jan 15): every day has a Medicare episode at 9:00 AM and a Health episode at 3:00 PM. After Jan 15 it goes back to one episode a day at 9:00 AM, with the topic set by the day of the week.</p>
+        <p class="sub">Open enrollment season (through Jan 15): every day has a Medicare episode at 9:00 AM and a Health episode at 3:00 PM. After Jan 15 it goes back to one episode a day at 9:00 AM, with the topic set by the day of the week.</p>
       </div>
       <div class="cal-nav">
         <button type="button" id="prev" aria-label="Previous month">&#8592;</button>
@@ -454,7 +454,7 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
     return lane;
   }
   // Two a day through open enrollment (Billy, Oct 14): Medicare 9:00 AM + Health 3:00 PM
-  function pairDay(y, m, d) { var k = y * 10000 + (m + 1) * 100 + d; return k >= 20261015 && k <= 20270115; }
+  function pairDay(y, m, d) { var k = y * 10000 + (m + 1) * 100 + d; return k >= 20261014 && k <= 20270115; }
   function pill(lane) { return '<span class="pill ' + lane + '"><span class="long">' + NAMES[lane][0] + '</span><span class="short">' + NAMES[lane][1] + "</span></span>"; }
   function render() {
     monthEl.textContent = MONTHS[view.m] + " " + view.y;

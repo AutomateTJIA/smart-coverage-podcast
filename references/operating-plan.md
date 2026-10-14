@@ -5,7 +5,7 @@ this file wins.
 
 ## Cadence
 
-- **Oct 15, 2026 to Jan 15, 2027: two episodes a day** (Billy, Oct 14), covering Medicare AEP and Marketplace open
+- **Oct 14, 2026 to Jan 15, 2027: two episodes a day** (Billy, Oct 14), covering Medicare AEP and Marketplace open
   enrollment. **Medicare at 9:00 AM** and **Health at 3:00 PM** Eastern, every day. The blog goal for the same 90 days is
   two posts a day (one Medicare, one Health); each post becomes one episode. All on the one main show.
   - Voice budget: about 6,300 ElevenLabs credits an episode, so about 380,000 a month. The Creator plan has 211,000.

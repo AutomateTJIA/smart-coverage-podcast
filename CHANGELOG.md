@@ -11,9 +11,9 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 ## 2026-10-14
 
 ### Changed — two episodes a day through open enrollment (n8n Episode Producer, Front Door; Studio page; docs; commit 42154c3)
-- From Oct 15 to Jan 15, every day gets two episodes on the main show: **Medicare at 9:00 AM** and **Health at 3:00 PM** Eastern. This matches the blog goal of two posts a day for the same 90 days. On Jan 16 it goes back to one a day at 9:00 AM automatically.
+- From Oct 14 to Jan 15, every day gets two episodes on the main show: **Medicare at 9:00 AM** and **Health at 3:00 PM** Eastern. This matches the blog goal of two posts a day for the same 90 days. On Jan 16 it goes back to one a day at 9:00 AM automatically.
 - **Scheduling:** Medicare and Health each have their own queue, so a busy Medicare week never pushes Health off its time, and the reverse. A date you pick keeps that topic's time slot.
-- **Daily auto-pick (10:15 AM):** now starts two episodes a day, the oldest unused Medicare post and the oldest unused Health post from the last three weeks. It starts tomorrow, Oct 15, instead of Oct 19. If there's no new post for one topic, that slot stays empty for the day rather than doubling up the other topic.
+- **Daily auto-pick (10:15 AM):** now starts two episodes a day, the oldest unused Medicare post and the oldest unused Health post from the last three weeks. Its first run is Wednesday, Oct 14 at 10:15 AM (it was going to start Oct 19). If there's no new post for one topic, that slot stays empty for the day rather than doubling up the other topic.
 - **Studio page:** the calendar shows both episodes on each day through Jan 15, and the wording explains the two time slots. The backup form's description says the same.
 - Tested before going live: a week of Medicare and Health episodes against the real schedule, dated requests, and the switch back after Jan 15.
 - **Action for Billy:** two a day needs about 380,000 ElevenLabs credits a month, and the current Creator plan has 211,000 (11,834 used so far this cycle, which resets about Nov 12). Without an upgrade, voicing stops around Nov 3.
