@@ -29,6 +29,8 @@ Every page, artifact, document, email template or tool ends with this line at th
   never name carriers, and a "$0 premium" mention in a post is general information. Outside sources: approved
   list only (Medicare.gov, KFF and similar), with the strict rules.
 - Episodes run 5 to 7 minutes. Don't quote an exact length in public copy.
+- Two shows (Billy, Oct 14): the original show (Transistor 84410) is **Smart Coverage. Real Advice.: Medicare**; Health
+  episodes go to **Smart Coverage. Real Advice.: Health Insurance** (84545). Routing is the n8n table "Smart Coverage Shows".
 - Release time is 9:00 AM Eastern, one episode per day. Exception, Oct 14, 2026 to Jan 15, 2027 (Billy): two a day,
   Medicare at 9:00 AM and Health at 3:00 PM.
 - Never paste or store API keys or tokens. Billy adds keys to n8n himself.

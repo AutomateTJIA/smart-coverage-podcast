@@ -7,7 +7,7 @@ this file wins.
 
 - **Oct 14, 2026 to Jan 15, 2027: two episodes a day** (Billy, Oct 14), covering Medicare AEP and Marketplace open
   enrollment. **Medicare at 9:00 AM** and **Health at 3:00 PM** Eastern, every day. The blog goal for the same 90 days is
-  two posts a day (one Medicare, one Health); each post becomes one episode. All on the one main show.
+  two posts a day (one Medicare, one Health); each post becomes one episode. Medicare episodes go to the Medicare show (the original show, 84410) and Health episodes to the Health Insurance show (84545).
   - Voice budget: about 6,300 ElevenLabs credits an episode, so about 380,000 a month. The Creator plan has 211,000.
     **Billy upgrades ElevenLabs** before the month runs out, or production stops about halfway through the month.
 - **After Jan 15: one episode per day, 7 days a week, released at 9:00 AM Eastern** (office hours, so the team can check it as it goes live; Billy, Oct 12).

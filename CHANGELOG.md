@@ -10,6 +10,14 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-14
 
+### Changed — two shows: the original show is now the Medicare show, Health has its own (n8n; Transistor; covers; Studio; docs)
+- Billy's plan, now done properly: the original show is **Smart Coverage. Real Advice.: Medicare** and only gets Medicare episodes. Health episodes go to **Smart Coverage. Real Advice.: Health Insurance**. Medicare and health are the agency's highest-commission lines, and it's peak season for both.
+- **Routing (n8n Shows table):** Health → Transistor show 84545, Medicare → 84410. From the next Health episode on, it publishes to the Health Insurance show automatically, starting at its own Episode 1.
+- **Transistor (set through the API and confirmed):** the Medicare show's title, Medicare-only description (with the Medicare non-affiliation line), category Health & Fitness then Education (it was wrongly Business › Investing), and Medicare keywords. The Health show's title, broader health description, categories and health keywords. The author is "Billy Jordan | The Jordan Insurance Agency" on both. Followers, reviews and existing episodes stay where they are.
+- **New Medicare cover**, the same clean design as the Health cover: "The Medicare Podcast"; "Enrollment, costs and coverage choices — explained in plain English."; Enrollment, Medicare Advantage, Supplements, Part D. Billy uploads it in Transistor (images can't be set through the API).
+- **Website:** until Apple approves the Health show, a Health episode's listen link opens that episode's own Transistor page, so it never sends people to the Medicare show.
+- Replaces the earlier entries today that kept everything on one feed or labeled the main show "Medicare & Health Insurance."
+
 ### Changed — main show leads with Medicare and Health Insurance (assets; Transistor settings sheet; Studio page; commit 4dc4d52)
 - Billy's call: Medicare and health insurance are the agency's highest-commission lines and it's peak season, so the main show now says so. New cover, same clean design: "Medicare & Health Insurance" on top; "Medicare and health insurance, plus life, home & auto — explained in plain English."; pills Medicare, Health Insurance, Life, Home & Auto.
 - New Transistor settings for the main show in `references/transistor-show-settings.md`: title "Smart Coverage. Real Advice. — Medicare & Health Insurance Podcast", a Medicare-and-health-first description (keeps the Medicare non-affiliation line), category Health & Fitness then Education (it was wrongly Business › Investing), and Medicare/health keywords. Billy pastes these into Transistor.

@@ -5,7 +5,7 @@ send Claude its show ID, or paste it into that lane's `transistor_show_id` in th
 From then on that lane's episodes go to the new feed. Then use Transistor's **Distribution** page to submit to
 Apple Podcasts and Spotify. Apple review usually takes 1 to 5 days.
 
-## Plan as of Oct 13: Medicare and Health Insurance only
+## Plan (Billy, Oct 14): the original show is the Medicare show; Health Insurance has its own show
 
 Billy's call: the two lanes we play in most get fed all the time. Home & Auto and Life stay on the main show
 until they have steady volume.
@@ -33,7 +33,7 @@ Every show: Author **Billy Jordan**, Owner **The Jordan Insurance Agency**, Lang
 ## Health Insurance
 Updated Oct 14 (Billy): the show covers every kind of health coverage, not just the Marketplace. The cover uses the
 same clean design as the main show (no icon).
-- **Status (Oct 14): created in Transistor, reserved, NOT in use.** Feed: https://feeds.transistor.fm/smart-coverage-real-advice-health-insurance (slug `smart-coverage-real-advice-health-insurance`). Its ID is deliberately NOT in the Shows table, so every episode stays on the main show. To turn it on later: put its numeric show ID in the `health` row's `transistor_show_id`, add the website show label, then submit it on Transistor's Distribution page once it has an episode.
+- **Status (Oct 14, Billy): LIVE.** Transistor show ID **84545**, feed https://feeds.transistor.fm/smart-coverage-real-advice-health-insurance. The `health` row in Smart Coverage Shows points here, so every Health episode goes to this show. Title, description, categories and keywords were set through the Transistor API. To do: once its first episode is published, submit it on Transistor's Distribution page (Apple, Spotify); when Apple approves, paste the Apple link into the `health` row's `apple_podcasts_url`.
 - **Title:** Smart Coverage. Real Advice.: Health Insurance
 - **Artwork:** `assets/the-jordan-insurance-agency-podcast-cover-health-3000.jpg`
 - **Categories:** Health & Fitness; Education
