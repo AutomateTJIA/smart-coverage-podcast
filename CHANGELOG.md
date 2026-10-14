@@ -10,7 +10,7 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-14
 
-### Changed — each show now holds only its own topic, numbered in air order (Transistor, n8n ledger, Webflow; commit PENDING)
+### Changed — each show now holds only its own topic, numbered in air order (Transistor, n8n ledger, Webflow; commit 82ae597)
 - **Billy's call (Oct 14): "done right from the beginning."** The Medicare show's Episode 1 was the health episode "Lost Your Health Insurance?". It was made Oct 12, before the shows split.
 - **Removed from the Medicare show:** set to draft in Transistor, its website page unpublished and deleted, and the ledger marked "pulled". Billy deletes the Transistor draft by hand, because the API can't delete episodes.
 - **Not moved as-is:** its audio ends with "Quick reminder: this is general education, not advice" and calls Tanya "your AI host". Both break today's rules (no disclaimer on health episodes, no AI mention on air). So it's being **remade** on the Health Insurance show by the fixed system, and Billy approves the new script before any voices are made.
