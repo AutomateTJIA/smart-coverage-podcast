@@ -31,10 +31,17 @@ Every show: Author **Billy Jordan**, Owner **The Jordan Insurance Agency**, Lang
 - **Description:** Smart Coverage. Real Advice.: Medicare is the Medicare podcast from The Jordan Insurance Agency. Licensed insurance agent Billy Jordan and AI host Tanya answer the questions people ask about Medicare, in plain English: when to enroll, how the parts work, and what to compare during Annual Enrollment. General education, not personalized advice. Voices are AI-generated from scripts reviewed and approved by Billy Jordan. Not affiliated with or endorsed by Medicare or any government agency. Episodes and written guides: thejordaninsuranceagency.com/podcast
 
 ## Health Insurance
+Updated Oct 14 (Billy): the show covers every kind of health coverage, not just the Marketplace. The cover uses the
+same clean design as the main show (no icon).
 - **Title:** Smart Coverage. Real Advice.: Health Insurance
 - **Artwork:** `assets/the-jordan-insurance-agency-podcast-cover-health-3000.jpg`
 - **Categories:** Health & Fitness; Education
-- **Description:** Smart Coverage. Real Advice.: Health Insurance is the health insurance podcast from The Jordan Insurance Agency. Licensed insurance agent Billy Jordan and AI host Tanya answer the questions people ask about health coverage, in plain English: Marketplace plans, Special Enrollment, losing job-based coverage, and what to compare before you enroll. General education, not personalized advice. Voices are AI-generated from scripts reviewed and approved by Billy Jordan. Episodes and written guides: thejordaninsuranceagency.com/podcast
+- **Author:** Billy Jordan | The Jordan Insurance Agency · **Show Owner:** The Jordan Insurance Agency (same as the main show)
+- **Copyright:** © 2026 The Jordan Insurance Agency
+- **Keywords:** health insurance, health insurance options, ACA marketplace, off-marketplace health insurance, individual and family health insurance, employer health insurance, short-term health insurance, insurance agent, North Carolina, Tennessee
+- **Website:** https://thejordaninsuranceagency.com/podcast
+- **Owner Email:** podcast@thejordaninsuranceagency.com (tick "add to RSS feed" if offered)
+- **Description:** Smart Coverage. Real Advice.: Health Insurance is the health insurance podcast from The Jordan Insurance Agency. Licensed insurance agent Billy Jordan and AI host Tanya walk through every kind of health coverage in plain English: Marketplace plans and plans sold outside the Marketplace, employer and group coverage, short-term and other alternative plans, and how to compare them, so you can find more options and choose with confidence. General education, not personalized advice. Voices are AI-generated from scripts reviewed and approved by Billy Jordan. Episodes and written guides: thejordaninsuranceagency.com/podcast
 
 ## Home & Auto
 - **Title:** Smart Coverage. Real Advice.: Home & Auto

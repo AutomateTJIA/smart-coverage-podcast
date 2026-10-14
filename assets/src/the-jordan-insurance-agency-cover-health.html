@@ -1,38 +1,32 @@
 <!doctype html>
 <html><head><meta charset="utf-8">
 <style>
-  /* HEALTH INSURANCE show cover art — 3000x3000 (Apple/Spotify spec). Brand: navy/royal dominant, gold accent only. */
+  /* Health Insurance show cover (Billy, Oct 14: same clean look as the main cover, no icon) — 3000x3000 (Apple/Spotify spec). Brand: navy/royal dominant, gold accent only. */
   * { margin:0; padding:0; box-sizing:border-box; }
   body { width:3000px; height:3000px; font-family:"Inter","Inter Display",sans-serif; overflow:hidden; }
   .c { position:relative; width:3000px; height:3000px; color:#fff;
        background: radial-gradient(1800px 1500px at 85% 10%, #1F5AA6 0%, rgba(31,90,166,0) 70%),
                    linear-gradient(160deg, #163A70 0%, #102C57 60%, #0B2145 100%); }
   /* sound-wave motif, royal blue, behind the title */
-  .icon { position:absolute; right:190px; top:440px; width:700px; height:700px; filter: drop-shadow(0 30px 60px rgba(6,20,45,.45)); }
-  .icon svg { width:100%; height:100%; overflow:visible; }
-  .lane { position:absolute; left:200px; top:1600px; background:#E0B43B; color:#163A70; border-radius:44px; padding:34px 84px 40px; font-family:"Inter Display","Inter",sans-serif; font-weight:900; font-size:172px; letter-spacing:4px; line-height:1; }
+  .wave { position:absolute; right:170px; top:560px; display:flex; gap:44px; align-items:center; height:700px; opacity:.55; }
   .wave i { display:block; width:56px; border-radius:28px; background:#5B8FD6; }
   .kicker { position:absolute; left:210px; top:300px; font-weight:800; font-size:104px; letter-spacing:12px;
             color:#E0B43B; text-transform:uppercase; }
   .title { position:absolute; left:200px; top:500px; font-family:"Inter Display","Inter",sans-serif;
            font-weight:900; font-size:350px; line-height:.97; letter-spacing:-12px; }
   .title .gold { color:#E0B43B; }
-  .sub { position:absolute; left:210px; top:1960px; width:2500px; font-weight:600; font-size:118px; line-height:1.22; color:#E9EDF2; }
-  .topics { position:absolute; left:210px; top:2040px; display:flex; gap:36px; flex-wrap:wrap; width:2600px; }
-  .topics span { border:6px solid rgba(233,237,242,.55); border-radius:999px; padding:26px 64px; font-size:84px; font-weight:700; color:#fff; }
+  .sub { position:absolute; left:210px; top:1660px; width:2500px; font-weight:600; font-size:118px; line-height:1.22; color:#E9EDF2; }
+  .topics { position:absolute; left:210px; top:2040px; display:flex; gap:30px; flex-wrap:wrap; width:2640px; }
+  .topics span { border:6px solid rgba(233,237,242,.55); border-radius:999px; padding:26px 54px; font-size:76px; font-weight:700; color:#fff; }
   .panel { position:absolute; left:0; right:0; bottom:0; height:560px; background:#fff; display:flex; align-items:center; justify-content:center; }
   .panel::before { content:""; position:absolute; top:0; left:0; right:0; height:30px; background:#E0B43B; }
   .panel img { width:1500px; }
 </style></head>
 <body><div class="c">
-  <div class="icon"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="96" fill="#1B4886"/><circle cx="100" cy="100" r="96" fill="none" stroke="#E9EDF2" stroke-opacity=".28" stroke-width="2.5"/>
-<g transform="translate(40,42) scale(5)" fill="none" stroke-linecap="round" stroke-linejoin="round">
- <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" stroke="#E9EDF2" stroke-width="1.35"/>
- <path d="M3.4 11.6H9.3l.7-1.4 2 4.4 2-6.6 1.5 3.6h5.1" stroke="#E0B43B" stroke-width="1.6"/>
-</g></svg></div>
-  <div class="kicker">The Insurance Podcast</div>
+  <div class="wave"><i style="height:180px"></i><i style="height:420px"></i><i style="height:640px"></i><i style="height:300px"></i><i style="height:520px"></i><i style="height:220px"></i></div>
+  <div class="kicker">The Health Insurance Podcast</div>
   <div class="title">Smart<br>Coverage.<br><span class="gold">Real Advice.</span></div>
-  <div class="lane">HEALTH INSURANCE</div>
-  <div class="sub">Marketplace plans, enrollment and costs, explained in plain English.</div>
+  <div class="sub">Every health insurance option — explained in plain English.</div>
+  <div class="topics"><span>Marketplace</span><span>Off-Marketplace</span><span>Employer</span><span>Alternatives</span></div>
   <div class="panel"><img src="the-jordan-insurance-agency-logo-cropped.png" alt="The Jordan Insurance Agency"></div>
 </div></body></html>
