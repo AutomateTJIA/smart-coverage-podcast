@@ -5,9 +5,14 @@ this file wins.
 
 ## Cadence
 
-- **One episode per day, 7 days a week, released at 9:00 AM Eastern** (office hours, so the team can check it as it goes live; Billy, Oct 12).
+- **Oct 15, 2026 to Jan 15, 2027: two episodes a day** (Billy, Oct 14), covering Medicare AEP and Marketplace open
+  enrollment. **Medicare at 9:00 AM** and **Health at 3:00 PM** Eastern, every day. The blog goal for the same 90 days is
+  two posts a day (one Medicare, one Health); each post becomes one episode. All on the one main show.
+  - Voice budget: about 6,300 ElevenLabs credits an episode, so about 380,000 a month. The Creator plan has 211,000.
+    **Billy upgrades ElevenLabs** before the month runs out, or production stops about halfway through the month.
+- **After Jan 15: one episode per day, 7 days a week, released at 9:00 AM Eastern** (office hours, so the team can check it as it goes live; Billy, Oct 12).
 - Episodes run **5 to 7 minutes**. Don't quote an exact length in public copy.
-- **Batches of 7 to 14** blog posts are fine: each approved episode takes the next open 9:00 AM slot.
+- **Batches of 7 to 14** blog posts are fine: each approved episode takes the next open slot for its topic (through Jan 15: Medicare 9 AM, Health 3 PM; after: the next open 9:00 AM).
 - About 30 a month, around 180–200 in six months.
   This matches AEO Engine's pace (#224 → #256 in about 5 weeks).
 - **Ramp:** 3 episodes in the first week to prove quality and the approval flow, then daily.

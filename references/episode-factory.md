@@ -69,8 +69,9 @@ All three run on Eastern time (`America/New_York`).
      the script was emailed. (Changed from a long Slack post on Oct 12, Billy's request.)
    - No answer in 12 hours: on a **weekend it goes ahead**; on a weekday it is skipped.
 3. **Make the audio.**
-   - Plan Release assigns the next episode number and the next open day at **9:00 AM ET** (office hours; Billy, Oct 12)
-     (one per day, after the last scheduled one).
+   - Plan Release assigns the next episode number and the next open slot. **Through Jan 15, 2027 (Billy, Oct 14): two
+     a day**, Medicare in the 9:00 AM slot and Health (and any other topic) in the afternoon slot, each lane in its own
+     queue. After Jan 15: the next open day at **9:00 AM ET** (one per day, after the last scheduled one).
    - ElevenLabs v4 text-to-dialogue voices the episode chunk by chunk.
    - The music parts are pulled from GitHub (`assets/audio/factory/`) and joined: hook → gap →
      intro → dialogue → gap → outro.
@@ -121,7 +122,8 @@ All three run on Eastern time (`America/New_York`).
 
 ## Release slots and studio gate (Oct 13)
 
-- **One episode a day at 9:00 AM ET.** A second episode on a day only when someone picks that date on purpose. It airs in the afternoon slot, `second_slot_time` in the n8n table "Smart Coverage Studio Settings" (default `15:00`, 3:00 PM ET; Billy can change it to `17:00`). Same rule in the Producer's Preview Air Date and Plan Release.
+- **Two a day through Jan 15, 2027 (Billy, Oct 14):** Medicare at 9:00 AM, Health and other topics in the afternoon slot. A dated request keeps its topic's slot on that day, or the next day that slot is free. The Front Door's 10:15 AM daily pick starts one Medicare post and one Health post (oldest unused first, each lane only; an empty lane leaves its slot empty). `PAIR_UNTIL` in Preview Air Date, Plan Release and Pick Today's Post holds the end date.
+- **After Jan 15: one episode a day at 9:00 AM ET.** A second episode on a day only when someone picks that date on purpose. It airs in the afternoon slot, `second_slot_time` in the n8n table "Smart Coverage Studio Settings" (default `15:00`, 3:00 PM ET; Billy can change it to `17:00`). Same rule in the Producer's Preview Air Date and Plan Release.
 - **Studio gate** (Studio Page Requests `Check Request` and Front Door `Check Requester`, same logic):
   - team passcode from "Smart Coverage Studio Settings" (`studio_passcode`; blank = nothing accepted)
   - agency email

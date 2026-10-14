@@ -154,6 +154,8 @@ h2 { font: 900 clamp(34px, 5vw, 58px)/1 var(--display); letter-spacing: -.025em;
 .cell .num { font: 800 18px/1 var(--display); display: flex; justify-content: space-between; align-items: baseline; gap: 4px; }
 .cell .num em { font: 600 10px/1 var(--mono); font-style: normal; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
 .cell .pill { align-self: flex-start; max-width: 100%; padding: 6px 10px; font-size: 11.5px; }
+.cell .pills { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; max-width: 100%; }
+.cell .pills .pill { padding: 4px 8px; font-size: 10.5px; }
 .cell .pill .short { display: none; }
 .legend { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
 
@@ -212,6 +214,8 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
   .cell .num { font-size: 14px; }
   .cell .num em { display: none; }
   .cell .pill { padding: 4px 5px; font-size: 9px; letter-spacing: 0; }
+  .cell .pills { gap: 2px; }
+  .cell .pills .pill { padding: 3px 4px; font-size: 8.5px; letter-spacing: 0; }
 }
 </style>
 
@@ -230,7 +234,7 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
     <div class="copy">
       <div class="kicker">The insurance podcast from The Jordan Insurance Agency</div>
       <h1>Smart Coverage.<span class="g">Real Advice.</span></h1>
-      <p class="lede">A new episode <b>every day</b>. Each one takes a real question about Medicare, Health, Home or Auto and answers it in <b>5 to 7 minutes</b>, then publishes to Apple, Spotify and our website at <b>9:00 AM</b>.</p>
+      <p class="lede">A new episode <b>every day</b>, and through Jan 15 <b>two a day</b>: Medicare at <b>9:00 AM</b> and Health at <b>3:00 PM</b>. Each one takes a real question about Medicare, Health, Home or Auto and answers it in <b>5 to 7 minutes</b>, then publishes to Apple, Spotify and our website.</p>
       <div class="btns">
         <a class="btn gold" href="#studio">Create an episode</a>
         <a class="btn line" href="https://podcasts.apple.com/us/podcast/id1772935091" target="_blank" rel="noopener">
@@ -277,7 +281,7 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
       <textarea id="links" spellcheck="false" placeholder="Paste a link"></textarea>
       <label for="airdate" style="margin-top:16px">Air date <span style="text-transform:none;letter-spacing:0;font-family:var(--body);color:rgba(22,58,112,.82)">(optional)</span></label>
       <input id="airdate" type="date">
-      <p class="emailnote" style="color:rgba(22,58,112,.82);font-weight:500">Leave blank for the next open day at 9:00 AM. Pick a date that already has a 9:00 AM episode and this one airs as that day's second episode, at 3:00 PM.</p>
+      <p class="emailnote" style="color:rgba(22,58,112,.82);font-weight:500">Leave blank for the next open slot. Through Jan 15, Medicare episodes air at 9:00 AM and Health episodes at 3:00 PM, so a date you pick keeps its topic's time. After Jan 15: the next open day at 9:00 AM.</p>
       <div class="count" aria-live="polite"><span id="ok"><b>0</b> episodes ready to request</span><span id="skip" class="bad"></span></div>
       <a id="send" class="btn gold send" href="#studio" target="_blank" rel="noopener" aria-disabled="true">Send to the studio</a>
       <button type="button" id="clear" class="clearbtn">Clear and start over</button>
@@ -293,8 +297,8 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
     <div class="cal-head">
       <div>
         <div class="label">Publishing calendar</div>
-        <h2>One episode, every day, 9:00 AM</h2>
-        <p class="sub">Each day can have its own topic, so the show stays balanced across Medicare, Health, Home and Auto. Requested episodes take the next open 9:00 AM slot, whatever the topic. A second episode on the same day only happens when someone picks that date on purpose, and it airs at 3:00 PM.</p>
+        <h2>Through Jan 15: two a day</h2>
+        <p class="sub">Open enrollment season (Oct 15 to Jan 15): every day has a Medicare episode at 9:00 AM and a Health episode at 3:00 PM. After Jan 15 it goes back to one episode a day at 9:00 AM, with the topic set by the day of the week.</p>
       </div>
       <div class="cal-nav">
         <button type="button" id="prev" aria-label="Previous month">&#8592;</button>
@@ -449,6 +453,9 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
     if (lane === "med" && (md >= 1208 || md <= 115)) lane = "hea";
     return lane;
   }
+  // Two a day through open enrollment (Billy, Oct 14): Medicare 9:00 AM + Health 3:00 PM
+  function pairDay(y, m, d) { var k = y * 10000 + (m + 1) * 100 + d; return k >= 20261015 && k <= 20270115; }
+  function pill(lane) { return '<span class="pill ' + lane + '"><span class="long">' + NAMES[lane][0] + '</span><span class="short">' + NAMES[lane][1] + "</span></span>"; }
   function render() {
     monthEl.textContent = MONTHS[view.m] + " " + view.y;
     var html = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(function (d) { return '<div class="dow">' + d + "</div>"; }).join("");
@@ -456,12 +463,12 @@ footer .fine { flex-basis: 100%; font-size: 12.5px; color: rgba(233,237,242,.55)
     var days = new Date(view.y, view.m + 1, 0).getDate();
     for (var i = 0; i < lead; i++) html += '<div class="cell empty" aria-hidden="true"></div>';
     for (var d = 1; d <= days; d++) {
-      var lane = laneFor(view.y, view.m, d);
+      var lane = laneFor(view.y, view.m, d), pair = pairDay(view.y, view.m, d);
       var isToday = view.y === today.y && view.m === today.m && d === today.d;
       var past = view.y < today.y || (view.y === today.y && (view.m < today.m || (view.m === today.m && d < today.d)));
-      html += '<div class="cell' + (isToday ? " today" : "") + (past ? " past" : "") + '" role="gridcell" aria-label="' + MONTHS[view.m] + " " + d + ": " + NAMES[lane][0] + ' episode at 9:00 AM">' +
+      html += '<div class="cell' + (isToday ? " today" : "") + (past ? " past" : "") + '" role="gridcell" aria-label="' + MONTHS[view.m] + " " + d + ": " + (pair ? "Medicare episode at 9:00 AM and Health episode at 3:00 PM" : NAMES[lane][0] + " episode at 9:00 AM") + '">' +
         '<span class="num">' + d + (isToday ? '<em>Today</em>' : "") + "</span>" +
-        '<span class="pill ' + lane + '"><span class="long">' + NAMES[lane][0] + '</span><span class="short">' + NAMES[lane][1] + "</span></span></div>";
+        (pair ? '<span class="pills">' + pill("med") + pill("hea") + "</span>" : pill(lane)) + "</div>";
     }
     var tail = (7 - ((lead + days) % 7)) % 7;
     for (var j = 0; j < tail; j++) html += '<div class="cell empty" aria-hidden="true"></div>';
