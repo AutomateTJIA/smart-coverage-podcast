@@ -10,6 +10,27 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-14
 
+### Fixed — the COBRA episode read "Tanya" out loud; pulled, root cause fixed, remade (n8n Episode Producer; commit PENDING)
+- **What happened:** in the recap, the voice said "Tanya" before each of the three takeaways. Our own editor instructions told the AI to write "Tanya: One, ..." for every recap item. The AI put all three on one line, so the voice read the extra "Tanya:" labels as words.
+- **Pulled (Billy, Oct 14):** taken off the Health Insurance feed in Transistor (now a draft), its website page unpublished and deleted, and the ledger marked "pulled". Transistor's API can't delete episodes, so Billy deletes the leftover draft in the Transistor dashboard.
+- **Fixed in four places:**
+  - The writer and editor now make the recap ONE Tanya line ("Three things to remember. One, ... Two, ... Three, ...").
+  - The formatter moves any speaker name found mid-line onto its own line.
+  - The voice step does the same as a safety net.
+  - The final check now BLOCKS any script with "Tanya:" or "Billy:" anywhere but the start of a line, before Billy is asked to approve.
+- **Remade:** the new COBRA script passed every check, the recap is one clean line, and it has no disclaimer. It's waiting on Billy's approval. It airs on the Health Insurance show and keeps the episode number 1, because a remade episode now reuses the lowest open number.
+
+### Changed — /podcast now has Medicare and Health Insurance tabs (Webflow; n8n Episode Producer)
+- **What Billy saw:** one list mixed both shows, so there were two "EP 1"s and no way to tell which show an episode was on.
+- **New "Show" field** on every website episode (Medicare or Health Insurance), filled in for all existing episodes. The Episode Factory now sets it automatically from the feed the episode airs on.
+- **/podcast:** two tabs, **Medicare** and **Health Insurance**, each with its episode count and its own "Listen on" links:
+  - Medicare: Apple, Spotify and RSS.
+  - Health Insurance: RSS only, until Apple and Spotify list that show.
+  - Links ending in #health open the Health tab.
+  - Heading changed to "Plain-English Answers on Medicare and Health Insurance". The list sorts newest first.
+- **Verified on the live site:** the n8n server fetched the page. The heading, the tab script and the Show label on each card all came back correct.
+- **Still open, Billy's call:** EP 1 on the Medicare show is the health episode "Lost Your Health Insurance?" (made Oct 12, before the shows split). It's on the Medicare feed, so it sits under the Medicare tab.
+
 ### Added — pick the show and the air date with buttons on the Studio page (Studio page; n8n Studio Page Requests, Front Door, Episode Producer; Playbook; commit 0f48ce9)
 - **What Billy saw:** the Studio page made you type a date, and nothing said whether a link was Medicare or Health. The system guessed from the post's title, so you couldn't tell where it would go or when.
 - **Studio page:** a required **Show** choice: Medicare (airs 9:00 AM ET) or Health Insurance (airs 3:00 PM ET). The **Air date** is now four buttons: Next open, Today, Tomorrow, Pick a date (opens a calendar). No typing. A gold box spells out the result, for example "Goes to the Health Insurance show. Airs Wednesday, Oct 14 at 3:00 PM ET." **Today** grays out once that show's time is less than 30 minutes away. The page clears the show after each send, so every request is a fresh, deliberate choice.

@@ -157,3 +157,11 @@ Four lanes, each able to become its own Transistor show with its own RSS feed (B
 - Producer Build Script Input: `is_medicare` = the pick when present, otherwise the title/web-address check. It outputs `lane_pick` and `lane_note`, and the note is shown in the approval email when the pick and the title disagree.
 - Read Episode Details: a Health pick always gets topic Health, so the episode goes to the Health Insurance show (84545) and the 3:00 PM slot.
 - Read Editor Output and Split Dialogue split a mid-line "Tanya:" or "Billy:" label onto its own line. The gate flags `speaker_name_inside_a_line_would_be_read_aloud`.
+
+## Recap format and website Show field (Oct 14, after the COBRA pull)
+
+- The recap is ONE Tanya line. The writer and editor prompts both say so. The gate blocks any "Tanya:" or "Billy:" that is not at the start of a line (`speaker_name_inside_a_line_would_be_read_aloud`).
+- Plan Release gives the lowest episode number not used by a published or scheduled episode on that feed, so a pulled and remade episode keeps its number.
+- Webflow field `show` (Option): Medicare `f986cb667986da83c14f74414ee82920`, Health Insurance `ba200f11840f85618acafde935715719`. Build Web Fields sets it from `show_id` (84545 = Health Insurance, everything else = Medicare).
+- /podcast (page 69579a026efc524887cf5759): the card link carries `data-show` bound to `show`. The page footer script `podcast-show-tabs` builds the tabs and switches the listen links. The collection list sorts by `publish-date`, newest first.
+- Transistor's API cannot delete episodes (DELETE is not allowed). To pull an episode, set it to draft (PATCH /episodes/:id/publish, status draft), then delete it by hand in the dashboard.
