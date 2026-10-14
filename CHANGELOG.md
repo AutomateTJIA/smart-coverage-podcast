@@ -13,7 +13,7 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 ### Changed — Health Insurance show cover and listing (assets; setup sheet; commit cefce25)
 - Billy wanted the Health show to look like the main show and to cover all health insurance, not just the Marketplace. The new cover is the main cover's clean design: "The Health Insurance Podcast" on top, "Every health insurance option — explained in plain English.", and Marketplace, Off-Marketplace, Employer and Alternatives along the bottom. No icon.
 - The show description now covers plans on and off the Marketplace, employer and group coverage, and short-term and other alternative plans. All the Transistor fields (copyright, keywords, website, owner email) are in `references/transistor-lane-shows.md`.
-- The show is being set up but stays unused: all episodes keep going to the main show.
+- Billy created the show in Transistor on Oct 14 (feed: https://feeds.transistor.fm/smart-coverage-real-advice-health-insurance). It's reserved and unused: all episodes keep going to the main show.
 
 ### Changed — two episodes a day through open enrollment (n8n Episode Producer, Front Door; Studio page; docs; commit 42154c3)
 - From Oct 14 to Jan 15, every day gets two episodes on the main show: **Medicare at 9:00 AM** and **Health at 3:00 PM** Eastern. This matches the blog goal of two posts a day for the same 90 days. On Jan 16 it goes back to one a day at 9:00 AM automatically.
