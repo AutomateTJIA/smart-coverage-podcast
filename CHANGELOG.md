@@ -8,6 +8,15 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ---
 
+## 2026-10-15
+
+### Added — Health Insurance show is on Apple Podcasts and Spotify; website links updated (Webflow /podcast)
+- Billy submitted the Health Insurance show to Apple and Spotify in Transistor. Both listings are live:
+  - Apple: https://podcasts.apple.com/us/podcast/smart-coverage-real-advice-health-insurance/id6822974021
+  - Spotify: https://open.spotify.com/show/69RNuNYgRO2M4Azg1hvneh
+- The Health tab on /podcast now shows "Listen on Apple Podcasts · Spotify · RSS feed" for the Health show. The Medicare tab keeps the Medicare show's links.
+- Checked live after publishing: both new links are on the page, with 1 Health card and 4 Medicare cards.
+
 ## 2026-10-14
 
 ### Changed — Health show release dates fixed after a manual reschedule (Transistor, n8n ledger, website)
