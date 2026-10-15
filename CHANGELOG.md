@@ -10,6 +10,15 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-14
 
+### Changed — Health show release dates fixed after a manual reschedule (Transistor, n8n ledger, website)
+- **What Billy wanted (Oct 14, evening):** one Health episode out tonight, then one a day.
+- **What went wrong:** the 8:15 PM time Billy set in the Transistor dashboard was saved as **Thursday** 8:15 PM, not tonight. A change made only in Transistor also isn't seen by our ledger or the website.
+- **Fixed, all three systems now agree:**
+  - #1 Charlotte options: **released tonight, Oct 14, about 8:48 PM ET.** The website page went up through the normal release check.
+  - #2 COBRA: **Thu, Oct 15, 3:00 PM ET** (was Fri).
+  - #3 Lost Your Health Insurance?: **Fri, Oct 16, 3:00 PM ET** (was Sat).
+- **Lesson:** change air dates through Claude or the Studio, not in Transistor directly. Otherwise the website and the ledger fall out of step.
+
 ### Changed — each show now holds only its own topic, numbered in air order (Transistor, n8n ledger, Webflow; commit 82ae597)
 - **Billy's call (Oct 14): "done right from the beginning."** The Medicare show's Episode 1 was the health episode "Lost Your Health Insurance?". It was made Oct 12, before the shows split.
 - **Removed from the Medicare show:** set to draft in Transistor, its website page unpublished and deleted, and the ledger marked "pulled". Billy deletes the Transistor draft by hand, because the API can't delete episodes.
