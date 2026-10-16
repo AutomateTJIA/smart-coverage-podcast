@@ -10,7 +10,7 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-16
 
-### Added — Breakpoint Systems podcast: its own production system (commit 51180e9, branch `breakpoint-podcast`)
+### Added — Breakpoint Systems podcast: its own production system (commits 51180e9, 03d918a; branch `breakpoint-podcast`)
 - **Billy's call (Oct 16):** he's upgrading ElevenLabs, so the focus is building the Breakpoint podcast's infrastructure. It's a separate copy; the live insurance workflows, tables and shows were **not touched**.
 - **Created in n8n:** the table "Breakpoint Podcast Ledger" (`fII8YCB84TQBpd5X`).
 - **Built and tested offline, ready to import** (`breakpoint/n8n/`):
