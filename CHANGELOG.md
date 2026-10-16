@@ -18,6 +18,7 @@ commits. Entries from Oct 13 on use this repository's own hashes.
   - Breakpoint Front Door: a request form that takes links or a written topic brief.
   - Settings live in one place, the Producer's "Show Settings" step.
 - **Not installed in n8n yet:** this session's safety filter blocked further changes to the n8n server, which also runs the live insurance shows. Billy approves an install by Claude, or imports the two files himself.
+- **Added (same day): weekly radar pick.** Every Tuesday at 10:30 AM ET the Front Door takes the oldest Breakpoint topic Billy approved in the Monday Topic Radar email (built by the insurance podcast session; table `topic_radar`, business 'bps'). Each topic is used once.
 - **Found:** the Breakpoint website's blog has no real posts; its six are archived template filler. So episodes start from Billy's topic briefs or from links for now.
 - **Still needed from Billy:** create the Transistor show (fields in `breakpoint/README.md`), plus confirm the show name, co-host voice, weekly Tuesday release and call-to-action wording, and send the logo and colors for cover art.
 

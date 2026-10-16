@@ -21,9 +21,15 @@ installing them, or import the two files himself (n8n: **Workflows → Import fr
 
 ## How it works
 
-1. **Front Door** (form at `/form/breakpoint-podcast-request`): an approved email plus the team passcode, then either
-   links (up to 7) or a written **topic brief**, or both. Breakpoint has no real blog yet (the six posts on the
-   website are archived template filler), so the brief is the main source for now.
+1. **Front Door** has two ways in:
+   - **Weekly radar pick (Tuesdays 10:30 AM ET):** takes the oldest Breakpoint topic Billy **approved** in the Monday
+     Topic Radar email. The radar is built by the insurance podcast session: workflow `5dLRAmqNY6nHcpg5`, table
+     `topic_radar` (`sEGyxPc8FQCmMicb`), rows with business = 'bps'. Topics that are only suggested are never used.
+     Each topic is used once: the episode is logged in our ledger as `radar:<row id>`. If nothing is approved, Slack says so.
+   - **Request form** (`/form/breakpoint-podcast-request`): an approved email plus the team passcode, then links
+     (up to 7), a written **topic brief**, or both.
+   - Breakpoint has no real blog yet (the six posts on the website are archived template filler), so radar topics
+     and briefs are the sources for now.
 2. **Producer**, one episode at a time:
    - Reads the link, or takes the brief.
    - The writer drafts a two-person script: the co-host plus Billy, 5 to 7 minutes.

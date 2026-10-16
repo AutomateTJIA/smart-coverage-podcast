@@ -2,7 +2,7 @@
  "name": "Breakpoint Podcast — Episode Producer (one episode)",
  "nodes": [
   {
-   "id": "314b9bc8-7e1e-485b-a5fd-f4bcca99c17a",
+   "id": "5bf16ed7-b633-42db-b865-c1b6119ee009",
    "name": "Episode Request",
    "type": "n8n-nodes-base.executeWorkflowTrigger",
    "typeVersion": 1.2,
@@ -33,13 +33,17 @@
       {
        "name": "brief",
        "type": "string"
+      },
+      {
+       "name": "radar_ref",
+       "type": "string"
       }
      ]
     }
    }
   },
   {
-   "id": "dd71eb47-32b2-44e4-9d94-3c5c8e559a0a",
+   "id": "c546f588-b399-46db-a9c7-ebdb236a5dce",
    "name": "Get Source Page",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,
@@ -64,7 +68,7 @@
    "waitBetweenTries": 3000
   },
   {
-   "id": "bbb74a23-074a-4c0e-9c2a-a4c5a68aba7b",
+   "id": "22bab91c-2dc2-4d1d-933a-aad5e1848e8a",
    "name": "Build Script Input",
    "type": "n8n-nodes-base.code",
    "typeVersion": 2,
@@ -77,7 +81,7 @@
    }
   },
   {
-   "id": "4d205e9b-6dbe-4dae-a057-1fdf13865605",
+   "id": "791c986a-3e25-440e-aae9-6331422b993c",
    "name": "Write Dialogue",
    "type": "@n8n/n8n-nodes-langchain.chainLlm",
    "typeVersion": 1.7,
@@ -91,7 +95,7 @@
    }
   },
   {
-   "id": "4aa576ec-d354-4734-8fbf-664939ecf47f",
+   "id": "95f409da-de2f-4c2a-96b4-75772e41047a",
    "name": "OpenAI Writer Model",
    "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
    "typeVersion": 1.2,
@@ -117,7 +121,7 @@
    }
   },
   {
-   "id": "5a135ae1-44f7-40fd-93bd-643cf027c337",
+   "id": "797670b8-3dd3-43d2-97f1-6f6915961e7b",
    "name": "Read Editor Output",
    "type": "n8n-nodes-base.code",
    "typeVersion": 2,
@@ -130,7 +134,7 @@
    }
   },
   {
-   "id": "54542bfe-dbd6-4035-aaa0-615c5c0a674e",
+   "id": "48e04353-b332-49d6-a1be-70f0a0024d1c",
    "name": "Gate Passed?",
    "type": "n8n-nodes-base.if",
    "typeVersion": 2.2,
@@ -160,7 +164,7 @@
    }
   },
   {
-   "id": "efa22de0-ef7f-48f2-bb1c-08f1e936e606",
+   "id": "995dfd48-be16-4567-8b2e-68bef9d97f1d",
    "name": "Get Ledger",
    "type": "n8n-nodes-base.dataTable",
    "typeVersion": 1.1,
@@ -181,7 +185,7 @@
    "alwaysOutputData": true
   },
   {
-   "id": "fcd1a64a-835c-48da-aab3-d99d62415e81",
+   "id": "4f351421-d250-4f90-a9c2-d3b806d7c2d0",
    "name": "Ledger Questions",
    "type": "n8n-nodes-base.code",
    "typeVersion": 2,
@@ -194,7 +198,7 @@
    }
   },
   {
-   "id": "9ffacd80-5a1f-42be-ade3-64ec086a2559",
+   "id": "ccfb3374-f401-4a76-85b4-5bea970555b0",
    "name": "Write Episode Details",
    "type": "@n8n/n8n-nodes-langchain.chainLlm",
    "typeVersion": 1.7,
@@ -208,7 +212,7 @@
    }
   },
   {
-   "id": "4ab7389a-7b76-4b38-a6ca-9043d69dc200",
+   "id": "b1aa9dc2-32ec-445e-bad7-1a1f14211bf2",
    "name": "OpenAI Details Model",
    "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
    "typeVersion": 1.2,
@@ -234,7 +238,7 @@
    }
   },
   {
-   "id": "554593f5-a3f8-4f22-8a9a-031af93de15f",
+   "id": "9a690831-0cf1-4fbc-bec3-683125ab7490",
    "name": "Read Episode Details",
    "type": "n8n-nodes-base.code",
    "typeVersion": 2,
@@ -247,7 +251,7 @@
    }
   },
   {
-   "id": "a1cf38b1-392d-4e2e-a60d-a270e7d6d8f2",
+   "id": "267f5595-2790-4ce9-bf79-b686702a4dc6",
    "name": "Already Answered?",
    "type": "n8n-nodes-base.if",
    "typeVersion": 2.2,
@@ -277,7 +281,7 @@
    }
   },
   {
-   "id": "20329219-c518-4e2d-acc3-9c2d0481843e",
+   "id": "e93c14db-08f0-41bc-a197-a6690ff182f8",
    "name": "Tell Slack: Duplicate",
    "type": "n8n-nodes-base.slack",
    "typeVersion": 2.7,
@@ -297,7 +301,7 @@
      "includeLinkToWorkflow": false
     }
    },
-   "webhookId": "762b896d-66a0-48cb-a146-714c55562262",
+   "webhookId": "aa68b744-e537-4545-a3d5-656905ff12af",
    "credentials": {
     "slackApi": {
      "id": "4jLTmQxQFVzfybZX",
@@ -306,7 +310,7 @@
    }
   },
   {
-   "id": "9c6ce3af-56f5-430d-aa92-d14da0921b9a",
+   "id": "db338c9a-cab8-44ec-9784-d10220da6671",
    "name": "Tell Slack: Script Emailed",
    "type": "n8n-nodes-base.slack",
    "typeVersion": 2.7,
@@ -326,7 +330,7 @@
      "includeLinkToWorkflow": false
     }
    },
-   "webhookId": "381baffe-156a-4b17-8879-217124f561da",
+   "webhookId": "26e37daf-d4b7-46f7-92ac-291c497934f7",
    "credentials": {
     "slackApi": {
      "id": "4jLTmQxQFVzfybZX",
@@ -335,7 +339,7 @@
    }
   },
   {
-   "id": "4f9aac0f-d906-42bb-b897-2833df84a10b",
+   "id": "9da00df6-c8d2-450d-82a2-4253ea698f4b",
    "name": "Decide Approval",
    "type": "n8n-nodes-base.code",
    "typeVersion": 2,
@@ -348,7 +352,7 @@
    }
   },
   {
-   "id": "114c9cd2-8062-44fa-bbe4-a2c4f9f1bfa9",
+   "id": "f21b98fa-bb41-451b-8166-6a4ccb7e15f2",
    "name": "Make It?",
    "type": "n8n-nodes-base.if",
    "typeVersion": 2.2,
@@ -378,7 +382,7 @@
    }
   },
   {
-   "id": "3b06658b-7302-45ba-b5be-f52f0481aeca",
+   "id": "941696b6-04e5-46ee-b479-ba618680ce4b",
    "name": "Get Ledger Again",
    "type": "n8n-nodes-base.dataTable",
    "typeVersion": 1.1,
@@ -400,7 +404,7 @@
    "alwaysOutputData": true
   },
   {
-   "id": "0a35b02e-91d9-49aa-9bee-ab4ffbd922e5",
+   "id": "b4757045-e997-448d-b7a0-e6e67851547f",
    "name": "Plan Release",
    "type": "n8n-nodes-base.code",
    "typeVersion": 2,
@@ -413,7 +417,7 @@
    }
   },
   {
-   "id": "9af96550-f2d5-4188-b4e3-fefbdbda6fcb",
+   "id": "5c928c03-7e94-49c8-b6c0-98b7f0d80cef",
    "name": "Split Dialogue",
    "type": "n8n-nodes-base.code",
    "typeVersion": 2,
@@ -426,7 +430,7 @@
    }
   },
   {
-   "id": "a51d9973-c2de-4285-ae25-9b090cede1b1",
+   "id": "2d3ef8f3-bc0d-4099-8d0f-5c2e59881d53",
    "name": "All Voices Done",
    "type": "n8n-nodes-base.noOp",
    "typeVersion": 1,
@@ -437,7 +441,7 @@
    "parameters": {}
   },
   {
-   "id": "c057e200-89f1-44c3-83d4-1e890cce9d22",
+   "id": "8b12c548-330e-4dca-a75e-b312dfd0097e",
    "name": "Voices + Music",
    "type": "n8n-nodes-base.merge",
    "typeVersion": 3.2,
@@ -451,7 +455,7 @@
    }
   },
   {
-   "id": "5540a359-50ec-487f-a238-28cc46f715db",
+   "id": "801db1c9-0df8-4ded-9cb7-3680506d9c35",
    "name": "ElevenLabs Dialogue v4",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.5,
@@ -497,7 +501,7 @@
    }
   },
   {
-   "id": "2d59e78e-adf9-4f69-afe3-6bda298f68e5",
+   "id": "1b8bdd24-442b-4e02-a149-75e8323339c3",
    "name": "One Chunk at a Time",
    "type": "n8n-nodes-base.splitInBatches",
    "typeVersion": 3,
@@ -511,7 +515,7 @@
    }
   },
   {
-   "id": "68e03830-4081-4630-bf90-0777cf479be0",
+   "id": "24cc4fe9-c631-4301-8ad3-121af4825b44",
    "name": "Tell Slack: Not Made",
    "type": "n8n-nodes-base.slack",
    "typeVersion": 2.7,
@@ -531,7 +535,7 @@
      "includeLinkToWorkflow": false
     }
    },
-   "webhookId": "ed4d975f-819f-404f-8c8a-aad2c0eca4f2",
+   "webhookId": "5dc8cb19-25c9-42e7-b62a-ea87f23ef647",
    "credentials": {
     "slackApi": {
      "id": "4jLTmQxQFVzfybZX",
@@ -540,7 +544,7 @@
    }
   },
   {
-   "id": "2daf7c2a-c4bc-4222-a276-9dc897c49181",
+   "id": "89232686-380d-4198-a58c-c5664ebc41e7",
    "name": "Tell Slack: Gate Failed",
    "type": "n8n-nodes-base.slack",
    "typeVersion": 2.7,
@@ -560,7 +564,7 @@
      "includeLinkToWorkflow": true
     }
    },
-   "webhookId": "aa91039d-01fc-424c-b920-c1091e58195b",
+   "webhookId": "39839a63-57ee-4a7d-9e49-0912e4f76843",
    "credentials": {
     "slackApi": {
      "id": "4jLTmQxQFVzfybZX",
@@ -569,7 +573,7 @@
    }
   },
   {
-   "id": "e677154c-bc25-41ea-9efa-fbd3576bbef9",
+   "id": "33e7bc4d-7fe7-4738-8b3a-86b9dfdf77fe",
    "name": "Music Parts List",
    "type": "n8n-nodes-base.code",
    "typeVersion": 2,
@@ -582,7 +586,7 @@
    }
   },
   {
-   "id": "8d7334e0-95c1-4e05-bc09-6434041efc50",
+   "id": "a2e1ace7-67fe-47a6-a1af-db5350be94f6",
    "name": "Download Music Part",
    "type": "n8n-nodes-base.github",
    "typeVersion": 1.1,
@@ -611,7 +615,7 @@
      "reference": "main"
     }
    },
-   "webhookId": "a2f43826-1311-4c89-9de2-72803c1e591c",
+   "webhookId": "c02e3bb8-030e-49e3-b346-9cdf882ca62e",
    "credentials": {
     "githubApi": {
      "id": "yU9TgnvhTAm7Jo3c",
@@ -620,7 +624,7 @@
    }
   },
   {
-   "id": "b8ab53e9-0f25-4e16-92cc-01737ddf0b35",
+   "id": "e9b8ad48-2376-4c18-9b5d-0986e278cd0b",
    "name": "Mix Episode MP3",
    "type": "n8n-nodes-base.code",
    "typeVersion": 2,
@@ -633,7 +637,7 @@
    }
   },
   {
-   "id": "54eb1f70-6932-4e9a-8c5c-953e26df6e09",
+   "id": "54a99a8d-dd92-4c73-ba80-e77014280537",
    "name": "Authorize Transistor Upload",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,
@@ -665,7 +669,7 @@
    }
   },
   {
-   "id": "077ca6b5-58c1-487b-b626-f9c29d1f92ab",
+   "id": "0d687710-8dce-4783-bd16-b1e17de923f2",
    "name": "Attach Audio",
    "type": "n8n-nodes-base.code",
    "typeVersion": 2,
@@ -678,7 +682,7 @@
    }
   },
   {
-   "id": "7f35784e-68d2-4da6-bde4-ef867a236082",
+   "id": "e58feab5-3222-4870-af47-ac75e1fc1d59",
    "name": "Upload MP3 to Transistor",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,
@@ -707,7 +711,7 @@
    }
   },
   {
-   "id": "2f6411b6-d132-44f0-89ba-0bc82cb8f96f",
+   "id": "9f019189-dd6c-41f8-886c-c2177ca157ee",
    "name": "Create Transistor Episode",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,
@@ -734,7 +738,7 @@
    }
   },
   {
-   "id": "dff7f048-ef37-4995-a6f8-53238d1d7eda",
+   "id": "eb35f525-87d2-4cf1-a52c-038b8774e84f",
    "name": "Build Web Fields",
    "type": "n8n-nodes-base.code",
    "typeVersion": 2,
@@ -747,7 +751,7 @@
    }
   },
   {
-   "id": "7fa3b04a-bd66-40a4-b2dc-2de62f32fdf7",
+   "id": "2cceaf06-06ca-4faa-920a-502d3caeca05",
    "name": "Add Show Notes and Transcript",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,
@@ -774,7 +778,7 @@
    }
   },
   {
-   "id": "c6adefda-8315-453b-ac1d-901ba678855c",
+   "id": "7a5477a5-1b17-4c28-9efe-58d11c26e3fe",
    "name": "Schedule Transistor Release",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,
@@ -801,7 +805,7 @@
    }
   },
   {
-   "id": "0a081914-5f1b-4659-97bd-f633742f821e",
+   "id": "9efe7968-c90e-4933-9b1e-5548b39b3397",
    "name": "Create Website Episode (draft)",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,
@@ -828,7 +832,7 @@
    }
   },
   {
-   "id": "b98ce9e9-5984-4893-826f-8feb4860801c",
+   "id": "c5bc9d20-45f5-45f1-9755-33a93e38c574",
    "name": "Log to Ledger",
    "type": "n8n-nodes-base.dataTable",
    "typeVersion": 1.1,
@@ -983,7 +987,7 @@
       "show_id": "={{ String($('Plan Release').first().json.show_id) }}",
       "slug": "={{ $('Plan Release').first().json.slug }}",
       "source_type": "={{ $('Build Script Input').first().json.source_type }}",
-      "source_url": "={{ $('Plan Release').first().json.source_url }}",
+      "source_url": "={{ $('Plan Release').first().json.source_url || $('Episode Request').first().json.radar_ref || '' }}",
       "status": "scheduled",
       "title": "={{ $('Plan Release').first().json.title }}",
       "topic": "={{ $('Plan Release').first().json.topic }}",
@@ -994,7 +998,7 @@
    }
   },
   {
-   "id": "c35c3933-9856-4d2f-abd2-7f5729194759",
+   "id": "d7c80662-5298-4fb7-a478-a5429eb13d96",
    "name": "Check ElevenLabs Usage",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,
@@ -1024,7 +1028,7 @@
    }
   },
   {
-   "id": "aedb7725-9b71-4d91-9913-c1106e535645",
+   "id": "3ce24e9a-7224-4a66-9e91-feb5f42a0993",
    "name": "Build Done Message",
    "type": "n8n-nodes-base.code",
    "typeVersion": 2,
@@ -1037,7 +1041,7 @@
    }
   },
   {
-   "id": "0f1a7407-7da2-419c-8a88-5eea8a892d16",
+   "id": "f21eeed1-18bc-42ee-b48a-bb2afdea881b",
    "name": "Tell Slack: Scheduled",
    "type": "n8n-nodes-base.slack",
    "typeVersion": 2.7,
@@ -1057,7 +1061,7 @@
      "includeLinkToWorkflow": false
     }
    },
-   "webhookId": "82c2f6c5-e6af-4dbb-830b-a2d77088fe88",
+   "webhookId": "0f1b164b-8c32-4c98-bf4e-5091306909d8",
    "credentials": {
     "slackApi": {
      "id": "4jLTmQxQFVzfybZX",
@@ -1066,7 +1070,7 @@
    }
   },
   {
-   "id": "5b85f1a7-cd72-435c-aefc-c69af1a74993",
+   "id": "ecf9f040-5389-4389-b772-d4545423c0e4",
    "name": "Log Not Made",
    "type": "n8n-nodes-base.dataTable",
    "typeVersion": 1.1,
@@ -1146,7 +1150,7 @@
       "notes": "={{ !$('Read Episode Details').isExecuted ? 'gate: ' + $('Script Gate').first().json.violations.join(', ') : ($('Read Episode Details').first().json.is_duplicate ? 'duplicate of episode ' + $('Read Episode Details').first().json.duplicate_of : 'not approved: ' + $('Decide Approval').first().json.decision) }}",
       "question": "={{ $('Read Episode Details').isExecuted ? $('Read Episode Details').first().json.question : '' }}",
       "source_type": "={{ $('Build Script Input').first().json.source_type }}",
-      "source_url": "={{ $('Build Script Input').first().json.source_url }}",
+      "source_url": "={{ $('Build Script Input').first().json.source_url || $('Episode Request').first().json.radar_ref || '' }}",
       "status": "={{ !$('Read Episode Details').isExecuted ? 'gate_failed' : ($('Read Episode Details').first().json.is_duplicate ? 'duplicate' : $('Decide Approval').first().json.decision) }}",
       "title": "={{ $('Read Episode Details').isExecuted ? $('Read Episode Details').first().json.title : $('Build Script Input').first().json.topic }}",
       "topic": "={{ $('Read Episode Details').isExecuted ? $('Read Episode Details').first().json.topic : '' }}"
@@ -1162,7 +1166,7 @@
    }
   },
   {
-   "id": "3407c510-fb19-4762-aa83-be301ca5282f",
+   "id": "e2b6d461-46c9-4bcd-81e1-fc32041ab1cb",
    "name": "Approve Episode by Email",
    "type": "n8n-nodes-base.gmail",
    "typeVersion": 2.2,
@@ -1195,7 +1199,7 @@
     "sendTo": "={{ $('Show Settings').first().json.approval_email }}",
     "subject": "={{ '[Breakpoint] Approve podcast episode: ' + $('Read Episode Details').first().json.title }}"
    },
-   "webhookId": "fc6fb3e2-c0ec-48ea-bc3e-e5f0aea096d4",
+   "webhookId": "405dc8d7-6f10-413d-8a56-1021aa9f33ff",
    "credentials": {
     "gmailOAuth2": {
      "id": "D4w2VUlhj7K6bIES",
@@ -1204,7 +1208,7 @@
    }
   },
   {
-   "id": "04f6bbe9-fca0-4371-8a85-945bbd62b34b",
+   "id": "261a59ae-60d5-4f50-97e0-49245146c40b",
    "name": "Attach Finished MP3",
    "type": "n8n-nodes-base.code",
    "typeVersion": 2,
@@ -1218,7 +1222,7 @@
    "onError": "continueRegularOutput"
   },
   {
-   "id": "503ac1d7-ccf5-45a7-99ef-2496cf2914e3",
+   "id": "8bb322a3-19b2-4a7e-a60f-9f29f024f6aa",
    "name": "Email Finished Episode",
    "type": "n8n-nodes-base.gmail",
    "typeVersion": 2.2,
@@ -1245,7 +1249,7 @@
     "subject": "={{ $json.subject }}"
    },
    "onError": "continueRegularOutput",
-   "webhookId": "4cf0c65e-60a5-41c6-97df-a8cbb8066e32",
+   "webhookId": "0ce290b0-05b0-4d32-aa53-f3aa284935e7",
    "credentials": {
     "gmailOAuth2": {
      "id": "D4w2VUlhj7K6bIES",
@@ -1254,7 +1258,7 @@
    }
   },
   {
-   "id": "1a1ec0f9-ea61-44ce-9e58-c2f6932a7bb5",
+   "id": "7706f088-f3ed-4e54-bc03-1340662a1626",
    "name": "Could Read the Link?",
    "type": "n8n-nodes-base.if",
    "typeVersion": 2.2,
@@ -1286,7 +1290,7 @@
    }
   },
   {
-   "id": "4dffba44-78d1-4da5-b879-001bf70979a1",
+   "id": "2f0c0a08-e0a1-4c2a-a963-2d5a213157dd",
    "name": "Tell Slack: Could Not Read Link",
    "type": "n8n-nodes-base.slack",
    "typeVersion": 2.7,
@@ -1306,7 +1310,7 @@
     "select": "channel",
     "text": "={{ ':warning: *[Breakpoint] Could not read this source, so no episode was started:* ' + ($json.source_url || 'topic brief (too short: write at least a few sentences)') + '\\nNothing was spent.' }}"
    },
-   "webhookId": "8ee43cf9-da02-4b58-bfde-36a54778bfca",
+   "webhookId": "6e9715f7-bcdf-4c68-9abf-25af6a7b11d2",
    "credentials": {
     "slackApi": {
      "id": "4jLTmQxQFVzfybZX",
@@ -1315,7 +1319,7 @@
    }
   },
   {
-   "id": "96c9868d-a93e-4602-bfec-0bec01afa30d",
+   "id": "dba7f5f9-baa4-4f3f-bdc7-f76b05057c7f",
    "name": "Preview Air Date",
    "type": "n8n-nodes-base.code",
    "typeVersion": 2,
@@ -1328,7 +1332,7 @@
    }
   },
   {
-   "id": "dba974f2-0486-4773-bad4-728a966762d6",
+   "id": "a74a4a5e-5817-4b01-8e30-bf7a6ffcde68",
    "name": "ElevenLabs Usage Before Approval",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,
@@ -1359,7 +1363,7 @@
    }
   },
   {
-   "id": "19610ea5-d035-4116-b20d-c30d4f32945e",
+   "id": "62f1ef5a-18a3-4cf8-add8-c2dcd13f1043",
    "name": "Script Gate",
    "type": "n8n-nodes-base.code",
    "typeVersion": 2,
@@ -1372,7 +1376,7 @@
    }
   },
   {
-   "id": "df3a2dcd-946e-4b80-a60f-8af875d19bf3",
+   "id": "d2613b01-8a12-4724-83c1-91eda3a19a81",
    "name": "Edit Script",
    "type": "@n8n/n8n-nodes-langchain.chainLlm",
    "typeVersion": 1.7,
@@ -1386,7 +1390,7 @@
    }
   },
   {
-   "id": "e4f84100-ef08-4fdf-a267-64795df1642b",
+   "id": "143ab8af-361e-4350-8e57-48d68434bec0",
    "name": "OpenAI Editor Model",
    "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
    "typeVersion": 1.2,
@@ -1422,7 +1426,7 @@
     112,
     384
    ],
-   "id": "2b0761e4-c422-433a-8edd-f8d91ca918c9"
+   "id": "4e8b1c30-5363-4941-9086-d5b3b88592c8"
   },
   {
    "parameters": {
@@ -1454,7 +1458,7 @@
     224,
     384
    ],
-   "id": "bf50eaf8-1825-4d3a-a32c-ca96260897c5"
+   "id": "fcb4ea11-f1a6-4ce9-b5d8-7291699dd898"
   },
   {
    "parameters": {
@@ -1486,7 +1490,7 @@
     7216,
     384
    ],
-   "id": "ec7936e7-05f8-4848-b2c2-53de12f94e8c"
+   "id": "c0352c2b-422b-4654-b012-1d9a3ac81e14"
   }
  ],
  "connections": {
