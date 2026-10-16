@@ -8,6 +8,19 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ---
 
+## 2026-10-16
+
+### Added — Breakpoint Systems podcast: its own production system (commit 51180e9, branch `breakpoint-podcast`)
+- **Billy's call (Oct 16):** he's upgrading ElevenLabs, so the focus is building the Breakpoint podcast's infrastructure. It's a separate copy; the live insurance workflows, tables and shows were **not touched**.
+- **Created in n8n:** the table "Breakpoint Podcast Ledger" (`fII8YCB84TQBpd5X`).
+- **Built and tested offline, ready to import** (`breakpoint/n8n/`):
+  - Breakpoint Episode Producer: a copy of the insurance Producer with Breakpoint's own writer, editor and script checks.
+  - Breakpoint Front Door: a request form that takes links or a written topic brief.
+  - Settings live in one place, the Producer's "Show Settings" step.
+- **Not installed in n8n yet:** this session's safety filter blocked further changes to the n8n server, which also runs the live insurance shows. Billy approves an install by Claude, or imports the two files himself.
+- **Found:** the Breakpoint website's blog has no real posts; its six are archived template filler. So episodes start from Billy's topic briefs or from links for now.
+- **Still needed from Billy:** create the Transistor show (fields in `breakpoint/README.md`), plus confirm the show name, co-host voice, weekly Tuesday release and call-to-action wording, and send the logo and colors for cover art.
+
 ## 2026-10-15
 
 ### Added — Health Insurance show is on Apple Podcasts and Spotify; website links updated (Webflow /podcast)
