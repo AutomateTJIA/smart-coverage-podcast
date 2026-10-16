@@ -44,7 +44,7 @@ commits. Entries from Oct 13 on use this repository's own hashes.
   - The AI step now retries up to 3 times. The first Breakpoint run failed on a dropped connection.
 - **Not a source:** Reddit blocks our server, so it is left out for now.
 - **Open question:** the daily blog writer runs from Billy's computer, outside n8n. We haven't confirmed that it picks topics from the new Subtopics before the older draft pile.
-- **Details:** `references/topic-radar.md`.
+- **Details:** `references/topic-radar.md` (commit 0c5ed3c).
 
 ---
 
