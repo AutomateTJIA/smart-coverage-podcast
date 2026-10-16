@@ -8,6 +8,46 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ---
 
+## 2026-10-16
+
+### Added — Topic Radar, one for The Jordan Insurance Agency and a separate one for Breakpoint Systems LLC (n8n)
+- **What it does:** every Monday morning each radar collects what people are searching and reading about that week. It keeps the 8 strongest topic ideas and emails Billy each one with **Approve** and **Skip** buttons. Nothing is written until Billy approves.
+- **The Jordan Insurance Agency radar** (`The Jordan Insurance Agency Blog | 01c | Topic Radar`, `6IAzZMS5WVw4bqLx`, Mondays 6:40 AM)
+  - Sources:
+    - Live Google autocomplete
+    - "People also ask" questions for Charlotte searchers
+    - This week's Medicare, ACA, North Carolina insurance and KFF news
+  - Ideas are checked against every blog title already written.
+  - Ideas get the blog's rules: no carrier names, no dollar amounts, North Carolina first.
+  - **Approve** sends the idea into the blog queue. When the post goes live, the podcast can pick it up.
+- **Breakpoint Systems radar** (`Breakpoint Systems | Podcast Topic Radar`, `5dLRAmqNY6nHcpg5`, Mondays 6:50 AM)
+  - Sources:
+    - Google autocomplete
+    - US "People also ask" questions about AI and automation
+    - This week's AI and automation news
+  - Hype and repeats are thrown out.
+  - **Approve** puts the idea on the Breakpoint podcast's topic list.
+- **Buttons** (`Topic Radar | Decide`, `8e9KreFZoxImTeFp`)
+  - A button opens a confirm page, and the choice only counts after Billy presses Confirm. This stops email security scanners, which open links on their own, from approving anything.
+  - Each link works once.
+- **Storage:** new data table `topic_radar` (`sEGyxPc8FQCmMicb`), shared by both radars.
+- **Cost:** about one cent a week per radar for the Google question data, plus one AI call.
+- **Tested:**
+  - Dry run on Oct 16 found 8 timely insurance ideas. One example: "My Medicare Advantage plan is being cancelled — what do I do next?", driven by this week's plan-exit news.
+  - That run returned 5 Medicare ideas out of 8, so each category is now capped at 3.
+- **First live run (Oct 16, 12:24 AM):** 8 ideas emailed.
+  - Billy approved 5. Each one became a new Airtable Subtopic and a queued row in the blog topic queue.
+  - Checked in the data afterwards.
+- **Fixes the same night:**
+  - Every name, label and data value now uses the full name The Jordan Insurance Agency. No initials anywhere, per the brand rule.
+  - The 8 stored ideas were re-labeled to match.
+  - The AI step now retries up to 3 times. The first Breakpoint run failed on a dropped connection.
+- **Not a source:** Reddit blocks our server, so it is left out for now.
+- **Open question:** the daily blog writer runs from Billy's computer, outside n8n. We haven't confirmed that it picks topics from the new Subtopics before the older draft pile.
+- **Details:** `references/topic-radar.md`.
+
+---
+
 ## 2026-10-15
 
 ### Added — Health Insurance show is on Apple Podcasts and Spotify; website links updated (Webflow /podcast)
