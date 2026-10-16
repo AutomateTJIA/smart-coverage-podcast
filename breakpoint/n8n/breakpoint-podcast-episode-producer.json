@@ -1,0 +1,2125 @@
+{
+ "name": "Breakpoint Podcast — Episode Producer (one episode)",
+ "nodes": [
+  {
+   "id": "314b9bc8-7e1e-485b-a5fd-f4bcca99c17a",
+   "name": "Episode Request",
+   "type": "n8n-nodes-base.executeWorkflowTrigger",
+   "typeVersion": 1.2,
+   "position": [
+    -112,
+    384
+   ],
+   "parameters": {
+    "inputSource": "workflowInputs",
+    "workflowInputs": {
+     "values": [
+      {
+       "name": "source_url",
+       "type": "string"
+      },
+      {
+       "name": "source_type",
+       "type": "string"
+      },
+      {
+       "name": "air_date",
+       "type": "string"
+      },
+      {
+       "name": "lane",
+       "type": "string"
+      },
+      {
+       "name": "brief",
+       "type": "string"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "dd71eb47-32b2-44e4-9d94-3c5c8e559a0a",
+   "name": "Get Source Page",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    336,
+    288
+   ],
+   "parameters": {
+    "method": "GET",
+    "url": "={{ $json.source_url }}",
+    "options": {
+     "response": {
+      "response": {
+       "responseFormat": "text"
+      }
+     }
+    }
+   },
+   "onError": "continueRegularOutput",
+   "retryOnFail": true,
+   "maxTries": 2,
+   "waitBetweenTries": 3000
+  },
+  {
+   "id": "bbb74a23-074a-4c0e-9c2a-a4c5a68aba7b",
+   "name": "Build Script Input",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    448,
+    384
+   ],
+   "parameters": {
+    "jsCode": "// Turn the request into script input. Two kinds of source:\n//  1. a link (our own breakpointsystems.com page, or an outside article that gets credited), or\n//  2. a written topic brief from Billy (his own notes, treated as approved).\n// Never throws: an unreadable link is reported to Slack instead.\nconst S = $('Show Settings').first().json;\nconst req = $('Episode Request').first().json;\nconst url = String(req.source_url || '').trim();\nconst brief = String(req.brief || '').trim();\nlet html = '';\ntry { if ($('Get Source Page').isExecuted) { const p = $('Get Source Page').first().json || {}; html = String(p.data || p.body || ''); } } catch (e) {}\nconst hm = url.match(/^https?:\\/\\/([^\\/?#:\\s]+)/i);\nconst host = hm ? hm[1].toLowerCase().replace(/^www\\./, '') : '';\nconst ownDomains = String(S.own_domains || '').split(',').map(s => s.trim().toLowerCase()).filter(Boolean);\nconst isOwnLink = !!host && ownDomains.some(d => host === d || host.endsWith('.' + d));\nconst kind = !url && brief ? 'brief' : isOwnLink ? 'own' : 'article';\nconst site = kind === 'article' ? (host || 'the source website') : S.brand_name;\n\nconst tm = html.match(/<h1[^>]*>([\\s\\S]*?)<\\/h1>/i) || html.match(/<title[^>]*>([\\s\\S]*?)<\\/title>/i);\nlet title = tm ? tm[1].replace(/<[^>]+>/g, '').replace(/&amp;/gi, '&').replace(/&#39;|&rsquo;/gi, \"'\").replace(/\\s*[|][^|]*$/, '').trim() : '';\nif (!title && kind === 'brief') title = brief.split(/\\r?\\n/)[0].replace(/^[#*\\-\\s]+/, '').slice(0, 120).trim();\nif (!title && url) { const last = (url.split('?')[0].split('/').filter(Boolean).pop() || '').replace(/-/g, ' ').trim(); title = last.replace(/\\b\\w/g, c => c.toUpperCase()); }\nif (!title) title = 'Automation for Business Owners';\n\nlet body = '';\nif (kind === 'brief') body = brief.replace(/\\s+/g, ' ').trim().substring(0, 20000);\nelse {\n  let main = html;\n  const art = html.match(/<article[\\s\\S]*?<\\/article>/i) || html.match(/<main[\\s\\S]*?<\\/main>/i);\n  if (art && art[0].length > 1500) main = art[0];\n  body = main.replace(/<script[\\s\\S]*?<\\/script>/gi, ' ').replace(/<style[\\s\\S]*?<\\/style>/gi, ' ')\n    .replace(/<nav[\\s\\S]*?<\\/nav>/gi, ' ').replace(/<footer[\\s\\S]*?<\\/footer>/gi, ' ').replace(/<aside[\\s\\S]*?<\\/aside>/gi, ' ')\n    .replace(/<[^>]+>/g, ' ').replace(/&nbsp;/gi, ' ').replace(/&amp;/gi, '&').replace(/&#?[a-z0-9]+;/gi, ' ')\n    .replace(/\\s+/g, ' ').trim().substring(0, 20000);\n}\n// A brief can be short (Billy's notes); a web page needs real content.\nconst readable = kind === 'brief' ? body.length >= 200 : body.length >= 1200;\n\nconst factRule = kind === 'article'\n  ? \"- The source is an OUTSIDE article from \" + site + \". It was not written by \" + S.brand_name + \". Use ONLY facts stated in it and add no facts, numbers or statistics that are not in it.\\n- Credit it out loud at least once, by name: for example the co-host says \\\"According to \" + site + \", ...\\\".\\n- Explain it in Billy's own words. Never read or copy long passages word for word.\\n- Do not present the article's opinions as Billy's advice.\"\n  : \"- The source is \" + (kind === 'brief' ? \"Billy's own topic brief\" : \"a page from the \" + S.brand_name + \" website\") + \". Billy has approved it. Use its facts, numbers and examples exactly as written. Never hedge them.\\n- Do NOT add facts, statistics, percentages, dollar figures, tool prices, client names or results that are not in the source. If the source has no numbers, the script has no numbers.\\n- You MAY add general, widely known explanations of how common business tools work (for example what a CRM or an automated follow-up does), as long as they contain no numbers, prices or claims about specific companies.\";\nconst editorFactRule = kind === 'article'\n  ? \"1. Facts: the SOURCE is an outside article from \" + site + \". Every fact, number and statistic in the script must appear in it; remove any the writer added. It must be credited by name at least once. Replace any long passage copied word for word with plain words.\"\n  : \"1. Facts: the SOURCE is approved \" + (kind === 'brief' ? \"(Billy's own brief)\" : \"(our own website)\") + \". Never remove, soften or hedge what it says. REMOVE any statistic, percentage, dollar figure, tool price, client name, testimonial or result that appears nowhere in the source: the writer may not invent them.\";\nconst words = { min: Number(S.episode_word_min) || 850, max: Number(S.episode_word_max) || 1050 };\nreturn [{ json: {\n  show_name: S.show_name, brand_name: S.brand_name, host_name: S.host_name, cohost_name: S.cohost_name,\n  listener: S.listener, cta_line: S.cta_line, spoken_ai_line: S.spoken_ai_line || '',\n  word_min: words.min, word_max: words.max,\n  topic: title,\n  source_url: url,\n  source_type: kind,\n  site: site,\n  readable: readable,\n  fact_rule: factRule,\n  editor_fact_rule: editorFactRule,\n  compiled_content: (kind === 'brief' ? \"BILLY'S TOPIC BRIEF: \" : kind === 'own' ? 'OUR PAGE: ' : 'ARTICLE: ') + title + (url ? '. SOURCE: ' + url + (kind === 'article' ? ' (' + site + ')' : '') : '') + '. BODY: ' + body\n} }];\n"
+   }
+  },
+  {
+   "id": "4d205e9b-6dbe-4dae-a057-1fdf13865605",
+   "name": "Write Dialogue",
+   "type": "@n8n/n8n-nodes-langchain.chainLlm",
+   "typeVersion": 1.7,
+   "position": [
+    672,
+    384
+   ],
+   "parameters": {
+    "promptType": "define",
+    "text": "=## ROLE ##\nYou write episodes of \"{{ $json.show_name }}\", the podcast from {{ $json.brand_name }} for {{ $json.listener }}. Turn ONE source into a warm, natural TWO-PERSON conversation, 5 to 7 minutes long.\n- {{ $json.cohost_name }} is the co-host. Curious, plain-spoken, never salesy. She asks the questions a busy owner would ask, and reads the recap.\n- Billy is {{ $json.host_name }}, founder of {{ $json.brand_name }}. He builds automation and AI systems that free owners from day-to-day work so they can work ON the business instead of IN it. His core belief: the tools usually already exist, but most businesses set them up poorly or not at all. He gives the substance in plain English, with one real-world example and one common mistake per segment.\n\nThe goal is practical: the listener should finish knowing one thing they could change this week, and why it pays off in time or money. No jargon without a plain explanation. No hype.\n\n## OUTPUT FORMAT ##\nReturn ONLY the conversation. EVERY line MUST start with \"{{ $json.cohost_name }}:\" or \"Billy:\" then their words. No narrator, no headers, no markdown. Eleven v4 audio tags in square brackets may appear at the start of a line, sparingly: [warmly], [curious], [thoughtfully], [surprised], [chuckles].\n\n## STRUCTURE — follow exactly ##\n1. HOOK ({{ $json.cohost_name }}, exactly ONE line): the owner's question, the way a real owner would ask it, ending with a reason to keep listening. Example: \"{{ $json.cohost_name }}: [curious] Why do so many small businesses pay for a CRM and still lose leads in the inbox? The answer is usually not the software.\"\n2. INTRO ({{ $json.cohost_name }}, verbatim): \"Welcome to {{ $json.show_name }}, the podcast from {{ $json.brand_name }}. I'm {{ $json.cohost_name }}, and I'm here with Billy Jordan, the founder of {{ $json.brand_name }}.\"\n3. Billy's first line: a short warm line back, then straight into the topic.{{ $json.spoken_ai_line ? ' Right after that, he says exactly: \"' + $json.spoken_ai_line + '\" Say it only once.' : '' }}\n   A speaker name followed by a colon appears ONLY at the very start of a line, never in the middle of a line, because the voice reads everything after the first name out loud. Never start a line with \"One:\", a number, a dash or a bullet.\n4. 3 to 5 SEGMENTS. Each starts with {{ $json.cohost_name }} asking ONE short question. Billy's first 2 to 3 sentences answer it completely and would make sense quoted alone. Then detail, an example, a common mistake. Keep Billy's turns under 90 words; {{ $json.cohost_name }} interjects often.\n5. RECAP ({{ $json.cohost_name }}, exactly ONE line, her name only once at the start): \"{{ $json.cohost_name }}: Three things to remember. One, ... Two, ... Three, ...\"\n6. CTA ({{ $json.cohost_name }}, verbatim): \"{{ $json.cta_line }}\"\n7. OUTRO (Billy, verbatim): \"I'm Billy Jordan with {{ $json.brand_name }}. Go build something that runs without you. Until next time.\"\n8. CLOSE ({{ $json.cohost_name }}, verbatim): \"Thanks for listening to {{ $json.show_name }}.\"\n\n## RULES ##\n{{ $json.fact_rule }}\n- The company name is always \"{{ $json.brand_name }}\". Never \"Break Point\", never initials.\n- No promises of results: never say \"guaranteed\", \"risk-free\", \"will double\", \"overnight\", \"set it and forget it\", or promise a specific saving, revenue or hours number unless the source states it.\n- Never invent client stories, client names, testimonials or case-study results. Billy may describe a TYPE of business (\"a five-person HVAC company\") in general terms only.\n- Name software tools only if the source names them. Never say one vendor is the best.\n- AI voices: the AI disclosure lives in the written show notes{{ $json.spoken_ai_line ? ' and the one line in step 3' : '' }}. Never claim either speaker is recording live, in a studio, or in the room with the listener.\n- Write numbers the way they are spoken (\"thirty minutes\", \"five people\").\n\n## LENGTH ##\n{{ $json.word_min }} to {{ $json.word_max }} words total (5 to 7 minutes). Pick the source's most useful points to fit.\n\n## SOURCE ##\nTopic: {{ $json.topic }}\n{{ $json.compiled_content }}\n\nStart with {{ $json.cohost_name }}'s hook line."
+   }
+  },
+  {
+   "id": "4aa576ec-d354-4734-8fbf-664939ecf47f",
+   "name": "OpenAI Writer Model",
+   "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+   "typeVersion": 1.2,
+   "position": [
+    752,
+    608
+   ],
+   "parameters": {
+    "model": {
+     "__rl": true,
+     "mode": "list",
+     "value": "gpt-4.1"
+    },
+    "options": {
+     "temperature": 0.6
+    }
+   },
+   "credentials": {
+    "openAiApi": {
+     "id": "xxb6XjQBi63OdrkM",
+     "name": "OpenAi MCP Server"
+    }
+   }
+  },
+  {
+   "id": "5a135ae1-44f7-40fd-93bd-643cf027c337",
+   "name": "Read Editor Output",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    1376,
+    384
+   ],
+   "parameters": {
+    "jsCode": "// Read the editor's JSON. If it is unreadable, keep the writer's script and say so.\n// Then repair formatting so a stray line never sinks an episode: lines without a speaker join the line before.\nconst CO = $('Build Script Input').first().json.cohost_name;\nconst esc = s => s.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');\nconst NAMES = '(' + esc(CO) + '|Billy)';\nconst raw = String($input.first().json.text || '').trim();\nconst txt = raw.replace(/^```(?:json)?\\s*/i, '').replace(/```\\s*$/, '');\nlet parsed = null;\ntry { parsed = JSON.parse(txt); } catch (e) {\n  const m = txt.match(/\\{[\\s\\S]*\\}/);\n  if (m) { try { parsed = JSON.parse(m[0]); } catch (e2) {} }\n}\nconst original = String($('Write Dialogue').first().json.text || '');\nconst ok = parsed && typeof parsed.script === 'string' && parsed.script.trim().length > 3000;\nfunction repair(s) {\n  const out = [];\n  // A speaker label in the middle of a line would be read aloud, so it starts a new line\n  const split = String(s).replace(new RegExp('([.!?…\"”)\\\\]:;,—–-])[ \\\\t]+(?:\\\\*\\\\*)?' + NAMES + '(?:\\\\*\\\\*)?\\\\s*:\\\\s*', 'gi'), '$1\\n$2: ');\n  for (const rawLine of split.split(/\\r?\\n/)) {\n    let l = rawLine.replace(/\\*\\*/g, '').replace(/^\\s*(?:[-*•]|#+)\\s+/, '').trim();\n    if (!l) continue;\n    l = l.replace(new RegExp('^' + NAMES + '(?:\\\\s+jordan)?(?:\\\\s*\\\\([^)]*\\\\))?\\\\s*:\\\\s*', 'i'), (m, w) => (w.toLowerCase() === 'billy' ? 'Billy' : CO) + ': ');\n    if (new RegExp('^' + NAMES + ': ').test(l)) out.push(l);\n    else if (out.length) out[out.length - 1] += ' ' + l;\n    else out.push(CO + ': ' + l);\n  }\n  return out.join('\\n');\n}\nconst chosen = ok ? parsed.script.trim() : original;\nconst fixed = repair(chosen);\nconst issues = ok && Array.isArray(parsed.issues) ? parsed.issues.slice(0, 12) : ['Editor output unreadable, so the writer script was kept as is.'];\nif (fixed !== chosen.split(/\\r?\\n/).map(x => x.trim()).filter(Boolean).join('\\n')) issues.push('Formatting repaired automatically (lines without a speaker were joined to the line before; a speaker name in the middle of a line was moved to its own line).');\nreturn [{ json: { text: fixed, editor_issues: issues } }];\n"
+   }
+  },
+  {
+   "id": "54542bfe-dbd6-4035-aaa0-615c5c0a674e",
+   "name": "Gate Passed?",
+   "type": "n8n-nodes-base.if",
+   "typeVersion": 2.2,
+   "position": [
+    1824,
+    384
+   ],
+   "parameters": {
+    "conditions": {
+     "options": {
+      "caseSensitive": true,
+      "leftValue": "",
+      "typeValidation": "loose"
+     },
+     "conditions": [
+      {
+       "leftValue": "={{ $json.pass }}",
+       "operator": {
+        "type": "boolean",
+        "operation": "true",
+        "singleValue": true
+       }
+      }
+     ],
+     "combinator": "and"
+    }
+   }
+  },
+  {
+   "id": "efa22de0-ef7f-48f2-bb1c-08f1e936e606",
+   "name": "Get Ledger",
+   "type": "n8n-nodes-base.dataTable",
+   "typeVersion": 1.1,
+   "position": [
+    2048,
+    288
+   ],
+   "parameters": {
+    "resource": "row",
+    "operation": "get",
+    "dataTableId": {
+     "__rl": true,
+     "mode": "id",
+     "value": "fII8YCB84TQBpd5X"
+    },
+    "returnAll": true
+   },
+   "alwaysOutputData": true
+  },
+  {
+   "id": "fcd1a64a-835c-48da-aab3-d99d62415e81",
+   "name": "Ledger Questions",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    2272,
+    288
+   ],
+   "parameters": {
+    "jsCode": "// Summarize the ledger for the duplicate check (questions already answered or in progress)\nconst rows = $input.all().map(i => i.json).filter(r => r && r.question);\nconst live = rows.filter(r => ['published', 'scheduled'].includes(r.status));\nconst list = live.map(r => '#' + (r.episode_number || '?') + ' [' + (r.topic || '') + '] ' + r.question).join('\\n');\nreturn [{ json: { ledger_questions: list || '(none yet)', ledger_count: live.length } }];\n"
+   }
+  },
+  {
+   "id": "9ffacd80-5a1f-42be-ade3-64ec086a2559",
+   "name": "Write Episode Details",
+   "type": "@n8n/n8n-nodes-langchain.chainLlm",
+   "typeVersion": 1.7,
+   "position": [
+    2496,
+    288
+   ],
+   "parameters": {
+    "promptType": "define",
+    "text": "=You prepare the publishing details for one episode of \"{{ $('Build Script Input').first().json.show_name }}\", the podcast from {{ $('Build Script Input').first().json.brand_name }} (host Billy Jordan, founder; AI co-host {{ $('Build Script Input').first().json.cohost_name }}) for {{ $('Build Script Input').first().json.listener }}. Plain English, no hype, no promised results.\n\nReturn ONLY a JSON object, no markdown fences, with exactly these keys:\n- \"title\": the episode title, 60 to 95 characters, question-first or answer-first, plain and specific. Example: \"Why Your CRM Isn't Following Up on Leads (and the 3 Fixes That Do)\"\n- \"slug\": lowercase words joined by hyphens, at most 80 characters, built from the title without filler words\n- \"question\": the ONE owner question this episode answers, as one plain sentence\n- \"topic\": exactly one of \"Lead Follow-Up\", \"AI Receptionists\", \"CRM\", \"Workflow Automation\", \"AI Search\", \"Operations\", \"Case Study\"\n- \"quick_answer\": 150 to 200 characters: the direct answer, then \"Billy Jordan of {{ $('Build Script Input').first().json.brand_name }} explains.\"\n- \"summary\": 1 to 2 sentences, at most 280 characters, for the podcast apps\n- \"seo_title\": at most 60 characters, keyword first\n- \"meta_description\": at most 155 characters\n- \"bullets\": exactly 3 short \"In this episode\" bullet points, each under 110 characters\n- \"duplicate_of\": if the QUESTION is essentially the same question as one already answered below, the number of that episode; otherwise null. Same topic is NOT a duplicate.\n\n## EXISTING EPISODES (number, topic, question) ##\n{{ $('Ledger Questions').first().json.ledger_questions }}\n\n## SOURCE TITLE ##\n{{ $('Build Script Input').first().json.topic }}\n\n## SCRIPT ##\n{{ $('Script Gate').first().json.final_script }}"
+   }
+  },
+  {
+   "id": "4ab7389a-7b76-4b38-a6ca-9043d69dc200",
+   "name": "OpenAI Details Model",
+   "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+   "typeVersion": 1.2,
+   "position": [
+    2576,
+    512
+   ],
+   "parameters": {
+    "model": {
+     "__rl": true,
+     "mode": "list",
+     "value": "gpt-4.1"
+    },
+    "options": {
+     "temperature": 0.3
+    }
+   },
+   "credentials": {
+    "openAiApi": {
+     "id": "xxb6XjQBi63OdrkM",
+     "name": "OpenAi MCP Server"
+    }
+   }
+  },
+  {
+   "id": "554593f5-a3f8-4f22-8a9a-031af93de15f",
+   "name": "Read Episode Details",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    2848,
+    288
+   ],
+   "parameters": {
+    "jsCode": "// Read the episode details JSON from the AI and check it\nconst raw = String($input.first().json.text || '').trim().replace(/^```(?:json)?\\s*/i, '').replace(/```\\s*$/, '');\nlet d = null;\ntry { d = JSON.parse(raw); } catch (e) { const m = raw.match(/\\{[\\s\\S]*\\}/); if (m) d = JSON.parse(m[0]); }\nif (!d) throw new Error('Episode details were not valid JSON');\nconst TOPICS = ['Lead Follow-Up', 'AI Receptionists', 'CRM', 'Workflow Automation', 'AI Search', 'Operations', 'Case Study'];\nconst topic = TOPICS.find(t => t.toLowerCase() === String(d.topic || '').toLowerCase()) || 'Operations';\nconst slugify = s => String(s || '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80).replace(/-+$/, '');\nconst gate = $('Script Gate').first().json;\nconst fix = s => String(s || '').replace(/\\bBreak\\s+Point\\b/gi, 'Breakpoint').trim();\nconst out = {\n  title: fix(d.title).slice(0, 110),\n  slug: slugify(d.slug || d.title),\n  question: String(d.question || '').trim(),\n  topic: topic,\n  quick_answer: fix(d.quick_answer).slice(0, 240),\n  summary: fix(d.summary).slice(0, 300),\n  seo_title: fix(d.seo_title).slice(0, 62),\n  meta_description: fix(d.meta_description).slice(0, 160),\n  bullets: Array.isArray(d.bullets) ? d.bullets.slice(0, 4).map(fix) : [],\n  duplicate_of: (d.duplicate_of === null || d.duplicate_of === undefined || d.duplicate_of === '' || d.duplicate_of === false) ? null : d.duplicate_of,\n  final_script: gate.final_script,\n  word_count: gate.word_count,\n  est_minutes: gate.est_minutes,\n  script_chars: gate.script_chars,\n  editor_issues: gate.editor_issues,\n  source_url: $('Build Script Input').first().json.source_url\n};\nif (!out.title || !out.slug || !out.question) throw new Error('Episode details missing title, slug or question');\nout.is_duplicate = out.duplicate_of !== null;\nreturn [{ json: out }];\n"
+   }
+  },
+  {
+   "id": "a1cf38b1-392d-4e2e-a60d-a270e7d6d8f2",
+   "name": "Already Answered?",
+   "type": "n8n-nodes-base.if",
+   "typeVersion": 2.2,
+   "position": [
+    3072,
+    288
+   ],
+   "parameters": {
+    "conditions": {
+     "options": {
+      "caseSensitive": true,
+      "leftValue": "",
+      "typeValidation": "loose"
+     },
+     "conditions": [
+      {
+       "leftValue": "={{ $json.is_duplicate }}",
+       "operator": {
+        "type": "boolean",
+        "operation": "true",
+        "singleValue": true
+       }
+      }
+     ],
+     "combinator": "and"
+    }
+   }
+  },
+  {
+   "id": "20329219-c518-4e2d-acc3-9c2d0481843e",
+   "name": "Tell Slack: Duplicate",
+   "type": "n8n-nodes-base.slack",
+   "typeVersion": 2.7,
+   "position": [
+    3296,
+    192
+   ],
+   "parameters": {
+    "select": "channel",
+    "channelId": {
+     "__rl": true,
+     "mode": "id",
+     "value": "={{ $('Show Settings').first().json.slack_channel }}"
+    },
+    "text": "={{ \":recycle: *[Breakpoint] Skipped: this question is already answered by episode \" + $json.duplicate_of + \"*\\n*Question:* \" + $json.question + \"\\nNothing was spent on voices.\" }}",
+    "otherOptions": {
+     "includeLinkToWorkflow": false
+    }
+   },
+   "webhookId": "762b896d-66a0-48cb-a146-714c55562262",
+   "credentials": {
+    "slackApi": {
+     "id": "4jLTmQxQFVzfybZX",
+     "name": "Slack account"
+    }
+   }
+  },
+  {
+   "id": "9c6ce3af-56f5-430d-aa92-d14da0921b9a",
+   "name": "Tell Slack: Script Emailed",
+   "type": "n8n-nodes-base.slack",
+   "typeVersion": 2.7,
+   "position": [
+    3296,
+    384
+   ],
+   "parameters": {
+    "select": "channel",
+    "channelId": {
+     "__rl": true,
+     "mode": "id",
+     "value": "={{ $('Show Settings').first().json.slack_channel }}"
+    },
+    "text": "={{ \":email: [Breakpoint] New episode script emailed to \" + $('Show Settings').first().json.approval_email + \" for approval: *\" + $json.title + \"* (\" + $json.topic + \", about \" + $json.est_minutes + \" min). Airs \" + $json.release_label + \" if approved.\" + ($json.show_ready ? \"\" : \" (Not ready: no Transistor show yet, so approving won't make audio.)\") }}",
+    "otherOptions": {
+     "includeLinkToWorkflow": false
+    }
+   },
+   "webhookId": "381baffe-156a-4b17-8879-217124f561da",
+   "credentials": {
+    "slackApi": {
+     "id": "4jLTmQxQFVzfybZX",
+     "name": "Slack account"
+    }
+   }
+  },
+  {
+   "id": "4f9aac0f-d906-42bb-b897-2833df84a10b",
+   "name": "Decide Approval",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    3744,
+    384
+   ],
+   "parameters": {
+    "jsCode": "// Approved, declined, or no answer in time? Weekends publish on no answer (Billy, Oct 12).\nconst r = $input.first().json || {};\nconst a = r.data ? r.data.approved : undefined;\nconst etDay = $now.setZone('America/New_York').weekday; // 6 = Sat, 7 = Sun\nconst weekend = etDay === 6 || etDay === 7;\nconst approved = a === true;\nconst declined = a === false;\nconst noAnswer = !approved && !declined;\nreturn [{ json: { go: approved || (noAnswer && weekend), approved, declined, no_answer: noAnswer, weekend,\n  decision: approved ? 'approved' : declined ? 'declined' : (weekend ? 'weekend_auto_approved' : 'expired') } }];\n"
+   }
+  },
+  {
+   "id": "114c9cd2-8062-44fa-bbe4-a2c4f9f1bfa9",
+   "name": "Make It?",
+   "type": "n8n-nodes-base.if",
+   "typeVersion": 2.2,
+   "position": [
+    3968,
+    384
+   ],
+   "parameters": {
+    "conditions": {
+     "options": {
+      "caseSensitive": true,
+      "leftValue": "",
+      "typeValidation": "loose"
+     },
+     "conditions": [
+      {
+       "leftValue": "={{ $json.go }}",
+       "operator": {
+        "type": "boolean",
+        "operation": "true",
+        "singleValue": true
+       }
+      }
+     ],
+     "combinator": "and"
+    }
+   }
+  },
+  {
+   "id": "3b06658b-7302-45ba-b5be-f52f0481aeca",
+   "name": "Get Ledger Again",
+   "type": "n8n-nodes-base.dataTable",
+   "typeVersion": 1.1,
+   "position": [
+    4192,
+    288
+   ],
+   "parameters": {
+    "resource": "row",
+    "operation": "get",
+    "dataTableId": {
+     "__rl": true,
+     "mode": "id",
+     "value": "fII8YCB84TQBpd5X"
+    },
+    "returnAll": true
+   },
+   "executeOnce": true,
+   "alwaysOutputData": true
+  },
+  {
+   "id": "0a35b02e-91d9-49aa-9bee-ab4ffbd922e5",
+   "name": "Plan Release",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    4416,
+    288
+   ],
+   "parameters": {
+    "jsCode": "// ---- Breakpoint release rule ----\n// One episode per release day (Show Settings: release_days, release_time, Eastern time).\n// No date asked: the next release day with no episode. Date asked: that day if it is free and not passed\n// (any weekday is allowed on purpose), otherwise the next free release day after it.\n// \"after:YYYY-MM-DD\" (extra links in a dated batch): the first free release day on or after that date.\nconst S = $('Show Settings').first().json;\nconst SHOW_ID = String(S.transistor_show_id || '').trim();\nconst NY = 'America/New_York';\nconst DAY = { mon: 1, tue: 2, wed: 3, thu: 4, fri: 5, sat: 6, sun: 7 };\nconst days = String(S.release_days || 'Tue').split(/[\\s,]+/).map(d => DAY[d.trim().slice(0, 3).toLowerCase()]).filter(Boolean);\nconst releaseDays = days.length ? days : [2];\nconst tm = String(S.release_time || '09:00').match(/^(\\d{1,2}):(\\d{2})$/);\nconst HM = tm ? [Math.min(23, +tm[1]), Math.min(59, +tm[2])] : [9, 0];\nfunction pickSlot(rows, airDateRaw, now) {\n  const taken = new Set();\n  for (const r of rows) {\n    if (!r || !['published', 'scheduled'].includes(r.status)) continue;\n    const t = r.release_at || r.published_at;\n    if (!t) continue;\n    const dt = DateTime.fromISO(typeof t === 'string' ? t : new Date(t).toISOString(), { zone: NY });\n    if (dt.isValid) taken.add(dt.toFormat('yyyy-LL-dd'));\n  }\n  const at = d => d.setZone(NY).set({ hour: HM[0], minute: HM[1], second: 0, millisecond: 0 });\n  const soon = now.plus({ minutes: 30 });\n  const free = d => !taken.has(d.toFormat('yyyy-LL-dd')) && at(d) > soon;\n  const nextRelease = from => { let d = at(from); for (let i = 0; i < 730; i++, d = d.plus({ days: 1 })) if (releaseDays.includes(d.weekday) && free(d)) return at(d); return at(from.plus({ days: 1 })); };\n  const raw = String(airDateRaw || '').trim();\n  const after = /^after:/i.test(raw);\n  const ds = raw.replace(/^after:/i, '');\n  let slot = null, note = '';\n  if (/^\\d{4}-\\d{2}-\\d{2}$/.test(ds)) {\n    const day = DateTime.fromISO(ds, { zone: NY });\n    if (!day.isValid) note = 'The date asked for could not be read, so this takes the next release day.';\n    else if (after) slot = nextRelease(day < now ? now : day);\n    else if (free(day)) { slot = at(day); note = 'Airs on the date you asked for.'; }\n    else { slot = nextRelease(day < now ? now : day.plus({ days: 1 })); note = day.toFormat('LLL d') + ' is taken or has passed, so this airs on the next release day.'; }\n  } else if (raw) note = 'The date asked for could not be read, so this takes the next release day.';\n  if (!slot) slot = nextRelease(now);\n  return {\n    release_at_iso: slot.toISO(),\n    release_at_utc: slot.toUTC().toISO(),\n    release_label: slot.toFormat(\"cccc, LLL d 'at' h:mm a\") + ' ET',\n    publish_date_cms: slot.toFormat('yyyy-LL-dd') + 'T16:00:00.000Z',\n    air_note: note\n  };\n}\n\n// Stop before any voice credits are spent if the Breakpoint show doesn't exist in Transistor yet.\nif (!SHOW_ID) throw new Error('Breakpoint podcast: no Transistor show ID yet. Create the show in Transistor and paste its ID into transistor_show_id in the Show Settings node. Nothing was spent on voices.');\nconst d = $('Read Episode Details').first().json;\nconst rows = $input.all().map(i => i.json).filter(r => r && (!r.show_id || String(r.show_id) === SHOW_ID));\n// The lowest episode number not in use, so a pulled and remade episode keeps its number\nconst used = new Set(rows.filter(r => ['published', 'scheduled'].includes(r.status)).map(r => Number(r.episode_number) || 0));\nlet n = 0; while (used.has(n + 1)) n++;\nconst s = pickSlot(rows, $('Episode Request').first().json.air_date, DateTime.now().setZone(NY));\nreturn [{ json: { episode_number: n + 1, ...s, ...d, show_id: SHOW_ID, show_name: S.show_name } }];\n"
+   }
+  },
+  {
+   "id": "9af96550-f2d5-4188-b4e3-fefbdbda6fcb",
+   "name": "Split Dialogue",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    4640,
+    192
+   ],
+   "parameters": {
+    "jsCode": "// Split the co-host + Billy dialogue into ElevenLabs Text to Dialogue chunks.\n// Chunk 0 is ONLY the co-host's hook line, so the intro music (if any) goes right after it.\nconst S = $('Show Settings').first().json;\nconst script = $('Plan Release').first().json.final_script || '';\nconst CO = S.cohost_name;\nconst esc = s => s.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');\nconst VOICES = { [CO.toLowerCase()]: S.cohost_voice, billy: S.host_voice };\nconst MAX_CHARS = 1500;\nconst turns = [];\nlet cur = null;\nconst names = '(' + esc(CO) + '|Billy)';\nfor (const raw of script.replace(new RegExp('([.!?…\"”)\\\\]:;,—–-])[ \\\\t]+' + names + '\\\\s*:\\\\s*', 'gi'), '$1\\n$2: ').split(/\\r?\\n/)) {\n  const line = raw.trim();\n  if (!line) continue;\n  const m = line.match(new RegExp('^' + names + '\\\\s*:\\\\s*(.*)$', 'i'));\n  if (m) { if (cur) turns.push(cur); cur = { voice_id: VOICES[m[1].toLowerCase()], text: m[2].trim() }; }\n  else if (cur) { cur.text += ' ' + line; }\n}\nif (cur) turns.push(cur);\nconst clean = turns.filter(t => t.voice_id && t.text);\nif (clean.length < 2) throw new Error('Split Dialogue: no co-host/Billy turns parsed');\nconst chunks = [[clean[0]]];\nlet chunk = [], len = 0;\nfor (const t of clean.slice(1)) {\n  const add = t.text.length + 12;\n  if (len + add > MAX_CHARS && chunk.length) { chunks.push(chunk); chunk = []; len = 0; }\n  chunk.push({ text: t.text, voice_id: t.voice_id });\n  len += add;\n}\nif (chunk.length) chunks.push(chunk);\nreturn chunks.map((inputs, i) => ({ json: { dialogue_inputs: inputs, chunk_index: i, is_hook: i === 0, total_chunks: chunks.length } }));\n"
+   }
+  },
+  {
+   "id": "a51d9973-c2de-4285-ae25-9b090cede1b1",
+   "name": "All Voices Done",
+   "type": "n8n-nodes-base.noOp",
+   "typeVersion": 1,
+   "position": [
+    5088,
+    0
+   ],
+   "parameters": {}
+  },
+  {
+   "id": "c057e200-89f1-44c3-83d4-1e890cce9d22",
+   "name": "Voices + Music",
+   "type": "n8n-nodes-base.merge",
+   "typeVersion": 3.2,
+   "position": [
+    5312,
+    192
+   ],
+   "parameters": {
+    "mode": "append",
+    "numberInputs": 2
+   }
+  },
+  {
+   "id": "5540a359-50ec-487f-a238-28cc46f715db",
+   "name": "ElevenLabs Dialogue v4",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.5,
+   "position": [
+    5088,
+    192
+   ],
+   "parameters": {
+    "method": "POST",
+    "url": "https://api.elevenlabs.io/v1/text-to-dialogue",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "sendQuery": true,
+    "queryParameters": {
+     "parameters": [
+      {
+       "name": "output_format",
+       "value": "mp3_44100_128"
+      }
+     ]
+    },
+    "sendBody": true,
+    "contentType": "json",
+    "specifyBody": "json",
+    "jsonBody": "={{ JSON.stringify({ inputs: $json.dialogue_inputs, model_id: \"eleven_v4\" }) }}",
+    "options": {
+     "response": {
+      "response": {
+       "responseFormat": "file"
+      }
+     },
+     "timeout": 180000
+    }
+   },
+   "retryOnFail": true,
+   "maxTries": 3,
+   "waitBetweenTries": 5000,
+   "credentials": {
+    "httpHeaderAuth": {
+     "id": "Xgc3CY90jcoBbC5v",
+     "name": "ElevenLabs API Key"
+    }
+   }
+  },
+  {
+   "id": "2d59e78e-adf9-4f69-afe3-6bda298f68e5",
+   "name": "One Chunk at a Time",
+   "type": "n8n-nodes-base.splitInBatches",
+   "typeVersion": 3,
+   "position": [
+    4864,
+    192
+   ],
+   "parameters": {
+    "batchSize": 1,
+    "options": {}
+   }
+  },
+  {
+   "id": "68e03830-4081-4630-bf90-0777cf479be0",
+   "name": "Tell Slack: Not Made",
+   "type": "n8n-nodes-base.slack",
+   "typeVersion": 2.7,
+   "position": [
+    4192,
+    480
+   ],
+   "parameters": {
+    "select": "channel",
+    "channelId": {
+     "__rl": true,
+     "mode": "id",
+     "value": "={{ $('Show Settings').first().json.slack_channel }}"
+    },
+    "text": "={{ \"[Breakpoint] \" + ($json.declined ? \":x: Declined\" : \":hourglass: No answer in 12 hours (weekday), so it was skipped\") + \": \" + $('Read Episode Details').first().json.title + \"\\nNothing was spent on voices. Send it through the Breakpoint form again to retry.\" }}",
+    "otherOptions": {
+     "includeLinkToWorkflow": false
+    }
+   },
+   "webhookId": "ed4d975f-819f-404f-8c8a-aad2c0eca4f2",
+   "credentials": {
+    "slackApi": {
+     "id": "4jLTmQxQFVzfybZX",
+     "name": "Slack account"
+    }
+   }
+  },
+  {
+   "id": "2daf7c2a-c4bc-4222-a276-9dc897c49181",
+   "name": "Tell Slack: Gate Failed",
+   "type": "n8n-nodes-base.slack",
+   "typeVersion": 2.7,
+   "position": [
+    2048,
+    480
+   ],
+   "parameters": {
+    "select": "channel",
+    "channelId": {
+     "__rl": true,
+     "mode": "id",
+     "value": "={{ $('Show Settings').first().json.slack_channel }}"
+    },
+    "text": "={{ \":no_entry: *[Breakpoint] Script did not pass the checks, so no audio was made*\\n*Source:* \" + ($('Build Script Input').first().json.source_url || 'topic brief') + \"\\n*Problems:* \" + $json.violations.join(\", \") + \"\\nNothing was spent on voices.\" }}",
+    "otherOptions": {
+     "includeLinkToWorkflow": true
+    }
+   },
+   "webhookId": "aa91039d-01fc-424c-b920-c1091e58195b",
+   "credentials": {
+    "slackApi": {
+     "id": "4jLTmQxQFVzfybZX",
+     "name": "Slack account"
+    }
+   }
+  },
+  {
+   "id": "e677154c-bc25-41ea-9efa-fbd3576bbef9",
+   "name": "Music Parts List",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    4864,
+    384
+   ],
+   "parameters": {
+    "jsCode": "// Audio parts fetched from GitHub (AutomateTJIA/smart-coverage-podcast, branch main).\n// The 0.6 s silence is shared and unbranded. Music is used only when Show Settings use_music = 'yes'\n// and Breakpoint's own intro/outro files exist (none yet; the insurance show's music is NOT reused).\nconst S = $('Show Settings').first().json;\nconst out = [{ json: { part: 'gap', path: 'assets/audio/factory/the-jordan-insurance-agency-factory-gap-0.6s.mp3' } }];\nif (String(S.use_music).toLowerCase() === 'yes' && S.music_intro_path && S.music_outro_path) {\n  out.push({ json: { part: 'intro', path: S.music_intro_path } });\n  out.push({ json: { part: 'outro', path: S.music_outro_path } });\n}\nreturn out;\n"
+   }
+  },
+  {
+   "id": "8d7334e0-95c1-4e05-bc09-6434041efc50",
+   "name": "Download Music Part",
+   "type": "n8n-nodes-base.github",
+   "typeVersion": 1.1,
+   "position": [
+    5088,
+    384
+   ],
+   "parameters": {
+    "resource": "file",
+    "operation": "get",
+    "authentication": "accessToken",
+    "owner": {
+     "__rl": true,
+     "mode": "name",
+     "value": "AutomateTJIA"
+    },
+    "repository": {
+     "__rl": true,
+     "mode": "name",
+     "value": "smart-coverage-podcast"
+    },
+    "filePath": "={{ $json.path }}",
+    "asBinaryProperty": true,
+    "binaryPropertyName": "data",
+    "additionalParameters": {
+     "reference": "main"
+    }
+   },
+   "webhookId": "a2f43826-1311-4c89-9de2-72803c1e591c",
+   "credentials": {
+    "githubApi": {
+     "id": "yU9TgnvhTAm7Jo3c",
+     "name": "GitHub account"
+    }
+   }
+  },
+  {
+   "id": "b8ab53e9-0f25-4e16-92cc-01737ddf0b35",
+   "name": "Mix Episode MP3",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    5536,
+    192
+   ],
+   "parameters": {
+    "jsCode": "// Join: hook -> gap -> [intro music] -> rest of the dialogue -> [gap -> sign-off music].\n// Without Breakpoint music (Show Settings use_music) it is: hook -> gap -> rest of the dialogue.\n// All parts are 44.1 kHz mono 128 kbps MP3, so frames can be joined directly once tags are stripped.\nfunction cleanMp3(buf) {\n  let start = 0, end = buf.length;\n  if (buf.length > 10 && buf[0] === 0x49 && buf[1] === 0x44 && buf[2] === 0x33) {\n    const size = (buf[6] & 0x7f) << 21 | (buf[7] & 0x7f) << 14 | (buf[8] & 0x7f) << 7 | (buf[9] & 0x7f);\n    start = 10 + size + ((buf[5] & 0x10) ? 10 : 0);\n  }\n  if (end - start > 128 && buf[end - 128] === 0x54 && buf[end - 127] === 0x41 && buf[end - 126] === 0x47) end -= 128;\n  while (start < end - 4 && !(buf[start] === 0xff && (buf[start + 1] & 0xe0) === 0xe0)) start++;\n  const br = [0,32,40,48,56,64,80,96,112,128,160,192,224,256,320][(buf[start + 2] >> 4) & 0x0f] * 1000;\n  const sr = [44100,48000,32000][(buf[start + 2] >> 2) & 0x03];\n  const pad = (buf[start + 2] >> 1) & 0x01;\n  const flen = br && sr ? Math.floor(144 * br / sr) + pad : 0;\n  if (flen) {\n    const frame = buf.slice(start, start + flen).toString('latin1');\n    if (frame.includes('Xing') || frame.includes('Info') || frame.includes('VBRI')) start += flen;\n  }\n  return buf.slice(start, end);\n}\nconst items = $input.all();\nconst voice = [];\nconst music = {};\nfor (let i = 0; i < items.length; i++) {\n  const j = items[i].json || {};\n  const bin = (items[i].binary && items[i].binary.data) || {};\n  const tag = String(j.part || '') + ' ' + String(j.path || j.name || bin.fileName || '');\n  const buf = cleanMp3(await this.helpers.getBinaryDataBuffer(i, 'data'));\n  if (/^intro\\b|factory-intro/.test(tag)) music.intro = buf;\n  else if (/^outro\\b|factory-outro/.test(tag)) music.outro = buf;\n  else if (/^gap\\b|factory-gap/.test(tag)) music.gap = buf;\n  else voice.push(buf);\n}\nif (!music.gap) throw new Error('Mix: the silence part is missing');\nconst withMusic = !!(music.intro && music.outro);\nif (voice.length < 2) throw new Error('Mix: expected the hook plus dialogue chunks, got ' + voice.length);\nconst parts = withMusic ? [voice[0], music.gap, music.intro, ...voice.slice(1), music.gap, music.outro] : [voice[0], music.gap, ...voice.slice(1)];\nconst merged = Buffer.concat(parts);\nconst p = $('Plan Release').first().json;\nconst seconds = Math.round(merged.length * 8 / 128000);\nconst duration = Math.floor(seconds / 60) + ':' + String(seconds % 60).padStart(2, '0');\nconst fileName = 'breakpoint-systems-podcast-ep' + String(p.episode_number).padStart(3, '0') + '-' + p.slug.slice(0, 50) + '.mp3';\nconst binary = await this.helpers.prepareBinaryData(merged, fileName, 'audio/mpeg');\nreturn [{ json: { file_name: fileName, bytes: merged.length, seconds, duration, voice_chunks: voice.length }, binary: { data: binary } }];\n"
+   }
+  },
+  {
+   "id": "54eb1f70-6932-4e9a-8c5c-953e26df6e09",
+   "name": "Authorize Transistor Upload",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    5760,
+    192
+   ],
+   "parameters": {
+    "method": "GET",
+    "url": "https://api.transistor.fm/v1/episodes/authorize_upload",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "sendQuery": true,
+    "queryParameters": {
+     "parameters": [
+      {
+       "name": "filename",
+       "value": "={{ $json.file_name }}"
+      }
+     ]
+    },
+    "options": {}
+   },
+   "credentials": {
+    "httpHeaderAuth": {
+     "id": "YXjL8DQGdy1qxdmm",
+     "name": "Transistor API key"
+    }
+   }
+  },
+  {
+   "id": "077ca6b5-58c1-487b-b626-f9c29d1f92ab",
+   "name": "Attach Audio",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    5984,
+    192
+   ],
+   "parameters": {
+    "jsCode": "// Pair Transistor's upload slot with the mixed MP3\nconst a = $input.first().json.data.attributes;\nreturn [{ json: { upload_url: a.upload_url, audio_url: a.audio_url, content_type: a.content_type || 'audio/mpeg' }, binary: $('Mix Episode MP3').first().binary }];\n"
+   }
+  },
+  {
+   "id": "7f35784e-68d2-4da6-bde4-ef867a236082",
+   "name": "Upload MP3 to Transistor",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    6208,
+    192
+   ],
+   "parameters": {
+    "method": "PUT",
+    "url": "={{ $json.upload_url }}",
+    "sendHeaders": true,
+    "headerParameters": {
+     "parameters": [
+      {
+       "name": "Content-Type",
+       "value": "audio/mpeg"
+      }
+     ]
+    },
+    "sendBody": true,
+    "contentType": "binaryData",
+    "inputDataFieldName": "data",
+    "options": {
+     "timeout": 300000
+    }
+   }
+  },
+  {
+   "id": "2f6411b6-d132-44f0-89ba-0bc82cb8f96f",
+   "name": "Create Transistor Episode",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    6432,
+    192
+   ],
+   "parameters": {
+    "method": "POST",
+    "url": "https://api.transistor.fm/v1/episodes",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "sendBody": true,
+    "contentType": "json",
+    "specifyBody": "json",
+    "jsonBody": "={{ JSON.stringify({ episode: { show_id: String($('Plan Release').first().json.show_id), title: $('Plan Release').first().json.title, summary: $('Plan Release').first().json.summary, number: $('Plan Release').first().json.episode_number, type: \"full\", audio_url: $('Attach Audio').first().json.audio_url } }) }}",
+    "options": {}
+   },
+   "credentials": {
+    "httpHeaderAuth": {
+     "id": "YXjL8DQGdy1qxdmm",
+     "name": "Transistor API key"
+    }
+   }
+  },
+  {
+   "id": "dff7f048-ef37-4995-a6f8-53238d1d7eda",
+   "name": "Build Web Fields",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    6656,
+    192
+   ],
+   "parameters": {
+    "jsCode": "// Build the transcript, show notes, Transistor description and (once the Breakpoint site has a Podcast collection) the website item\nconst S = $('Show Settings').first().json;\nconst p = $('Plan Release').first().json;\nconst mix = $('Mix Episode MP3').first().json;\nconst ep = $('Create Transistor Episode').first().json.data;\nconst src = $('Build Script Input').first().json;\nconst esc = s => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');\nconst SITE = String(S.website || '').replace(/\\/+$/, '');\nconst pageUrl = SITE + '/podcast/' + p.slug;\nconst CO = S.cohost_name;\nconst transcript = p.final_script.split(/\\r?\\n/).map(l => l.trim()).filter(Boolean).map(l => {\n  const m = l.match(/^([^:]{2,30})\\s*:\\s*(.*)$/);\n  if (!m) return '';\n  const who = m[1].toLowerCase() === 'billy' ? S.host_name : CO + ' (AI co-host)';\n  return '<p><strong>' + esc(who) + ':</strong> ' + esc(m[2].replace(/\\[[^\\]]{1,30}\\]\\s*/g, '').trim()) + '</p>';\n}).join('');\nconst bullets = (p.bullets || []).map(b => '<li>' + esc(b) + '</li>').join('');\nconst guide = !p.source_url ? '' : src.source_type === 'article'\n  ? '<p>Source: <a href=\"' + p.source_url + '\" rel=\"nofollow noopener\">' + esc(src.topic) + '</a> (' + esc(src.site) + ')</p>'\n  : '<p>Read more: <a href=\"' + p.source_url + '\">' + esc(src.topic) + '</a></p>';\n// AI disclosure always lives in the show notes (draft brand rule: AI-voice disclosure required)\nconst disclosure = '<p>' + esc(S.host_name) + ' is the founder of ' + esc(S.brand_name) + '. Voices in this episode are AI-generated, including Billy\\'s, from a script reviewed and approved by Billy Jordan. General information, not advice for your specific business.</p>';\nconst showNotes = '<p>' + esc(p.summary || p.quick_answer) + '</p>' + (bullets ? '<h3>In this episode</h3><ul>' + bullets + '</ul>' : '') + guide + disclosure;\nconst booking = '<p>Book an automation audit with Billy and his team: <a href=\"' + SITE + '\">' + SITE.replace(/^https?:\\/\\//, '') + '</a></p>';\nconst description = showNotes + booking + (S.webflow_collection_id ? '<p>Episode page and full transcript: <a href=\"' + pageUrl + '\">' + pageUrl + '</a></p>' : '');\nconst share = (ep.attributes && ep.attributes.share_url) || '';\nconst embed = share ? share.replace('/s/', '/e/') : '';\nconst appleLink = /^https:\\/\\/podcasts\\.apple\\.com\\//.test(String(S.apple_podcasts_url || '')) ? S.apple_podcasts_url : share;\n// Field slugs are a starting point: set them to match the Podcast collection when it is created on the Breakpoint site.\nconst fieldData = {\n  name: p.title,\n  slug: p.slug,\n  'episode-number': p.episode_number,\n  'publish-date': p.publish_date_cms,\n  duration: (() => { const m = String(mix.duration || '').match(/^(\\d+):(\\d{1,2})$/); return m ? (+m[1]) + ' min ' + (+m[2]) + ' sec' : String(mix.duration || ''); })(),\n  'quick-answer': p.quick_answer,\n  'show-notes': showNotes,\n  'full-transcript': transcript,\n  'transistor-player-url': embed,\n  'apple-podcasts-link': appleLink,\n  'episode-page-url': pageUrl,\n  'seo-title': p.seo_title,\n  'meta-description': p.meta_description\n};\nreturn [{ json: { fieldData, description, transcript_text: p.final_script.replace(/\\[[^\\]]{1,30}\\]\\s*/g, ''), page_url: pageUrl, transistor_episode_id: ep.id, share_url: share, make_web_page: !!S.webflow_collection_id } }];\n"
+   }
+  },
+  {
+   "id": "7fa3b04a-bd66-40a4-b2dc-2de62f32fdf7",
+   "name": "Add Show Notes and Transcript",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    6880,
+    192
+   ],
+   "parameters": {
+    "method": "PATCH",
+    "url": "={{ \"https://api.transistor.fm/v1/episodes/\" + $json.transistor_episode_id }}",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "sendBody": true,
+    "contentType": "json",
+    "specifyBody": "json",
+    "jsonBody": "={{ JSON.stringify({ episode: { description: $json.description, transcript_text: $json.transcript_text } }) }}",
+    "options": {}
+   },
+   "credentials": {
+    "httpHeaderAuth": {
+     "id": "YXjL8DQGdy1qxdmm",
+     "name": "Transistor API key"
+    }
+   }
+  },
+  {
+   "id": "c6adefda-8315-453b-ac1d-901ba678855c",
+   "name": "Schedule Transistor Release",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    7104,
+    192
+   ],
+   "parameters": {
+    "method": "PATCH",
+    "url": "={{ \"https://api.transistor.fm/v1/episodes/\" + $('Build Web Fields').first().json.transistor_episode_id + \"/publish\" }}",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "sendBody": true,
+    "contentType": "json",
+    "specifyBody": "json",
+    "jsonBody": "={{ JSON.stringify({ episode: { status: \"scheduled\", published_at: $('Plan Release').first().json.release_at_iso } }) }}",
+    "options": {}
+   },
+   "credentials": {
+    "httpHeaderAuth": {
+     "id": "YXjL8DQGdy1qxdmm",
+     "name": "Transistor API key"
+    }
+   }
+  },
+  {
+   "id": "0a081914-5f1b-4659-97bd-f633742f821e",
+   "name": "Create Website Episode (draft)",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    7328,
+    192
+   ],
+   "parameters": {
+    "method": "POST",
+    "url": "={{ 'https://api.webflow.com/v2/collections/' + $('Show Settings').first().json.webflow_collection_id + '/items' }}",
+    "authentication": "predefinedCredentialType",
+    "nodeCredentialType": "webflowOAuth2Api",
+    "sendBody": true,
+    "contentType": "json",
+    "specifyBody": "json",
+    "jsonBody": "={{ JSON.stringify({ isArchived: false, isDraft: true, fieldData: $('Build Web Fields').first().json.fieldData }) }}",
+    "options": {}
+   },
+   "credentials": {
+    "webflowOAuth2Api": {
+     "id": "zbgbAYu6PrTZlNEn",
+     "name": "Webflow account"
+    }
+   }
+  },
+  {
+   "id": "b98ce9e9-5984-4893-826f-8feb4860801c",
+   "name": "Log to Ledger",
+   "type": "n8n-nodes-base.dataTable",
+   "typeVersion": 1.1,
+   "position": [
+    7552,
+    192
+   ],
+   "parameters": {
+    "resource": "row",
+    "operation": "insert",
+    "dataTableId": {
+     "__rl": true,
+     "mode": "id",
+     "value": "fII8YCB84TQBpd5X"
+    },
+    "columns": {
+     "mappingMode": "defineBelow",
+     "schema": [
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "episode_number",
+       "id": "episode_number",
+       "required": false,
+       "type": "number"
+      },
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "status",
+       "id": "status",
+       "required": false,
+       "type": "string"
+      },
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "source_type",
+       "id": "source_type",
+       "required": false,
+       "type": "string"
+      },
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "source_url",
+       "id": "source_url",
+       "required": false,
+       "type": "string"
+      },
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "question",
+       "id": "question",
+       "required": false,
+       "type": "string"
+      },
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "topic",
+       "id": "topic",
+       "required": false,
+       "type": "string"
+      },
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "title",
+       "id": "title",
+       "required": false,
+       "type": "string"
+      },
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "slug",
+       "id": "slug",
+       "required": false,
+       "type": "string"
+      },
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "transistor_episode_id",
+       "id": "transistor_episode_id",
+       "required": false,
+       "type": "string"
+      },
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "webflow_item_id",
+       "id": "webflow_item_id",
+       "required": false,
+       "type": "string"
+      },
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "script_chars",
+       "id": "script_chars",
+       "required": false,
+       "type": "number"
+      },
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "release_at",
+       "id": "release_at",
+       "required": false,
+       "type": "dateTime"
+      },
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "notes",
+       "id": "notes",
+       "required": false,
+       "type": "string"
+      },
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "show_id",
+       "id": "show_id",
+       "required": false,
+       "type": "string"
+      }
+     ],
+     "value": {
+      "episode_number": "={{ $('Plan Release').first().json.episode_number }}",
+      "notes": "={{ \"approval: \" + $('Decide Approval').first().json.decision + \"; editor: \" + $('Plan Release').first().json.editor_issues.join(\" | \") }}",
+      "question": "={{ $('Plan Release').first().json.question }}",
+      "release_at": "={{ $('Plan Release').first().json.release_at_utc }}",
+      "script_chars": "={{ $('Plan Release').first().json.script_chars }}",
+      "show_id": "={{ String($('Plan Release').first().json.show_id) }}",
+      "slug": "={{ $('Plan Release').first().json.slug }}",
+      "source_type": "={{ $('Build Script Input').first().json.source_type }}",
+      "source_url": "={{ $('Plan Release').first().json.source_url }}",
+      "status": "scheduled",
+      "title": "={{ $('Plan Release').first().json.title }}",
+      "topic": "={{ $('Plan Release').first().json.topic }}",
+      "transistor_episode_id": "={{ String($('Build Web Fields').first().json.transistor_episode_id) }}",
+      "webflow_item_id": "={{ $('Create Website Episode (draft)').isExecuted ? $('Create Website Episode (draft)').first().json.id : '' }}"
+     }
+    }
+   }
+  },
+  {
+   "id": "c35c3933-9856-4d2f-abd2-7f5729194759",
+   "name": "Check ElevenLabs Usage",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    7776,
+    192
+   ],
+   "parameters": {
+    "method": "GET",
+    "url": "https://api.elevenlabs.io/v1/user/subscription",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "options": {
+     "response": {
+      "response": {
+       "neverError": true
+      }
+     }
+    }
+   },
+   "onError": "continueRegularOutput",
+   "credentials": {
+    "httpHeaderAuth": {
+     "id": "Xgc3CY90jcoBbC5v",
+     "name": "ElevenLabs API Key"
+    }
+   }
+  },
+  {
+   "id": "aedb7725-9b71-4d91-9913-c1106e535645",
+   "name": "Build Done Message",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    8000,
+    192
+   ],
+   "parameters": {
+    "jsCode": "// Final Slack message and email, with the ElevenLabs monthly usage check\nconst S = $('Show Settings').first().json;\nconst p = $('Plan Release').first().json;\nconst mix = $('Mix Episode MP3').first().json;\nconst u = $input.first().json || {};\nconst used = Number(u.character_count || 0), limit = Number(u.character_limit || 0);\nconst pct = limit ? Math.round(used / limit * 100) : null;\nlet credits = pct === null ? 'ElevenLabs usage: unavailable.' : 'ElevenLabs this month (shared with the insurance shows): ' + pct + '% used (' + used.toLocaleString() + ' of ' + limit.toLocaleString() + ').';\nif (pct !== null && u.next_character_count_reset_unix) { const r = DateTime.fromSeconds(Number(u.next_character_count_reset_unix)).setZone('America/New_York'); credits += ' Resets ' + r.toFormat('LLL d') + ' (' + Math.max(0, Math.ceil(r.diff($now, 'days').days)) + ' days). Room for about ' + Math.max(0, Math.floor((limit - used) / 6800)) + ' more episodes before then.'; }\nif (pct !== null && pct >= 75) credits = ':warning: ' + credits + ' Over 75%.';\nconst web = S.webflow_collection_id ? ' and the website' : ' (no website page yet: the Breakpoint site has no Podcast collection)';\nconst text = ':white_check_mark: *[Breakpoint] Episode ' + p.episode_number + ' is built and scheduled*\\n' +\n  '*' + p.title + '*\\n' +\n  'Show: ' + S.show_name + ' · Topic: ' + p.topic + ' · Length: ' + mix.duration + '\\n' +\n  'Goes live: ' + p.release_label + ' on Transistor' + web + '.\\n' +\n  ':headphones: The finished MP3 is in your email now.\\n' + credits;\nconst html = '<p>[Breakpoint] Episode ' + p.episode_number + ' of ' + S.show_name + ' is built and scheduled. The finished audio is attached so you can listen before it airs.</p><p><b>' + p.title + '</b></p><ul><li>Topic: ' + p.topic + '</li><li>Length: ' + mix.duration + '</li><li>Goes live: ' + p.release_label + '</li></ul><p>' + credits.replace(/^:warning: /, 'WARNING: ') + '</p><p>Built with ❤️ by Breakpoint Systems LLC.</p>';\nreturn [{ json: { text, html, subject: '[Breakpoint] Episode ' + p.episode_number + ' is ready to hear: ' + p.title } }];\n"
+   }
+  },
+  {
+   "id": "0f1a7407-7da2-419c-8a88-5eea8a892d16",
+   "name": "Tell Slack: Scheduled",
+   "type": "n8n-nodes-base.slack",
+   "typeVersion": 2.7,
+   "position": [
+    8224,
+    192
+   ],
+   "parameters": {
+    "select": "channel",
+    "channelId": {
+     "__rl": true,
+     "mode": "id",
+     "value": "={{ $('Show Settings').first().json.slack_channel }}"
+    },
+    "text": "={{ $json.text }}",
+    "otherOptions": {
+     "includeLinkToWorkflow": false
+    }
+   },
+   "webhookId": "82c2f6c5-e6af-4dbb-830b-a2d77088fe88",
+   "credentials": {
+    "slackApi": {
+     "id": "4jLTmQxQFVzfybZX",
+     "name": "Slack account"
+    }
+   }
+  },
+  {
+   "id": "5b85f1a7-cd72-435c-aefc-c69af1a74993",
+   "name": "Log Not Made",
+   "type": "n8n-nodes-base.dataTable",
+   "typeVersion": 1.1,
+   "position": [
+    2600,
+    900
+   ],
+   "parameters": {
+    "columns": {
+     "mappingMode": "defineBelow",
+     "schema": [
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "status",
+       "id": "status",
+       "required": false,
+       "type": "string"
+      },
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "source_type",
+       "id": "source_type",
+       "required": false,
+       "type": "string"
+      },
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "source_url",
+       "id": "source_url",
+       "required": false,
+       "type": "string"
+      },
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "question",
+       "id": "question",
+       "required": false,
+       "type": "string"
+      },
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "topic",
+       "id": "topic",
+       "required": false,
+       "type": "string"
+      },
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "title",
+       "id": "title",
+       "required": false,
+       "type": "string"
+      },
+      {
+       "canBeUsedToMatch": true,
+       "defaultMatch": false,
+       "display": true,
+       "displayName": "notes",
+       "id": "notes",
+       "required": false,
+       "type": "string"
+      }
+     ],
+     "value": {
+      "notes": "={{ !$('Read Episode Details').isExecuted ? 'gate: ' + $('Script Gate').first().json.violations.join(', ') : ($('Read Episode Details').first().json.is_duplicate ? 'duplicate of episode ' + $('Read Episode Details').first().json.duplicate_of : 'not approved: ' + $('Decide Approval').first().json.decision) }}",
+      "question": "={{ $('Read Episode Details').isExecuted ? $('Read Episode Details').first().json.question : '' }}",
+      "source_type": "={{ $('Build Script Input').first().json.source_type }}",
+      "source_url": "={{ $('Build Script Input').first().json.source_url }}",
+      "status": "={{ !$('Read Episode Details').isExecuted ? 'gate_failed' : ($('Read Episode Details').first().json.is_duplicate ? 'duplicate' : $('Decide Approval').first().json.decision) }}",
+      "title": "={{ $('Read Episode Details').isExecuted ? $('Read Episode Details').first().json.title : $('Build Script Input').first().json.topic }}",
+      "topic": "={{ $('Read Episode Details').isExecuted ? $('Read Episode Details').first().json.topic : '' }}"
+     }
+    },
+    "dataTableId": {
+     "__rl": true,
+     "mode": "id",
+     "value": "fII8YCB84TQBpd5X"
+    },
+    "operation": "insert",
+    "resource": "row"
+   }
+  },
+  {
+   "id": "3407c510-fb19-4762-aa83-be301ca5282f",
+   "name": "Approve Episode by Email",
+   "type": "n8n-nodes-base.gmail",
+   "typeVersion": 2.2,
+   "position": [
+    3520,
+    384
+   ],
+   "parameters": {
+    "approvalOptions": {
+     "values": {
+      "approvalType": "double",
+      "approveLabel": "Approve",
+      "disapproveLabel": "Decline"
+     }
+    },
+    "message": "={{ (() => { const S = $('Show Settings').first().json; const d = $('Read Episode Details').first().json; const g = $('Script Gate').first().json; const b = $('Build Script Input').first().json; const a = $('Preview Air Date').first().json; const u = $('ElevenLabs Usage Before Approval').first().json || {}; const used = Number(u.character_count || 0), limit = Number(u.character_limit || 0), add = Number(d.script_chars || 0); const pct = limit ? Math.round(used / limit * 100) : null; const after = limit ? Math.round((used + add) / limit * 100) : null; const eleven = pct === null ? \"ELEVENLABS: usage couldn't be checked right now.\" : \"ELEVENLABS THIS MONTH (shared with the insurance shows): \" + pct + \"% used (\" + used.toLocaleString() + \" of \" + limit.toLocaleString() + \" characters). Approving this episode uses about \" + add.toLocaleString() + \" more, bringing you to about \" + after + \"%.\" + (after >= 75 ? \" WARNING: over 75%.\" : \"\"); const src = b.source_type === \"article\" ? \"Source: OUTSIDE ARTICLE from \" + b.site + \". Not checked by our team, so please check the facts before you approve: \" + d.source_url : b.source_type === \"brief\" ? \"Source: your own topic brief.\" : \"Source: our own page (already approved): \" + d.source_url; return \"Billy, the next \" + S.show_name + \" episode (Breakpoint Systems) is ready for your approval. The Approve and Decline buttons are at the bottom of this email.\\n\\n\" + (a.show_ready ? \"\" : \"NOT READY TO AIR: the Breakpoint show doesn't exist in Transistor yet. If you approve, it stops before any voices are made, so nothing is spent.\\n\\n\") + \"Title: \" + d.title + \"\\n\" + \"Show: \" + S.show_name + \"\\n\" + \"Topic: \" + d.topic + \"\\n\" + \"Owner question: \" + d.question + \"\\n\" + \"Length: about \" + d.est_minutes + \" minutes (\" + d.word_count + \" words)\" + (g.length_note ? \" - \" + g.length_note : \"\") + \"\\n\" + \"Editor changes: \" + (d.editor_issues.length ? d.editor_issues.join(\"; \") : \"none\") + \"\\n\" + src + \"\\n\\n\" + \"AIRS: \" + a.release_label + (a.air_note ? \" (\" + a.air_note + \")\" : \"\") + \"\\n\\n\" + eleven + \"\\n\\n\" + \"Approve: the voices are made and the episode is scheduled for that day.\\n\" + \"Decline: nothing is made and nothing airs. No voices are paid for.\\n\" + \"No answer in 12 hours: on weekends it goes ahead, on weekdays it is skipped.\\n\\n\" + \"---------- THE SCRIPT ----------\\n\\n\" + d.final_script + \"\\n\\n---------- END OF SCRIPT ----------\\n\\nBuilt with ❤️ by Breakpoint Systems LLC.\"; })() }}",
+    "operation": "sendAndWait",
+    "options": {
+     "appendAttribution": false,
+     "limitWaitTime": {
+      "values": {
+       "limitType": "afterTimeInterval",
+       "resumeAmount": 12,
+       "resumeUnit": "hours"
+      }
+     }
+    },
+    "resource": "message",
+    "responseType": "approval",
+    "sendTo": "={{ $('Show Settings').first().json.approval_email }}",
+    "subject": "={{ '[Breakpoint] Approve podcast episode: ' + $('Read Episode Details').first().json.title }}"
+   },
+   "webhookId": "fc6fb3e2-c0ec-48ea-bc3e-e5f0aea096d4",
+   "credentials": {
+    "gmailOAuth2": {
+     "id": "D4w2VUlhj7K6bIES",
+     "name": "Gmail account"
+    }
+   }
+  },
+  {
+   "id": "04f6bbe9-fca0-4371-8a85-945bbd62b34b",
+   "name": "Attach Finished MP3",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    8448,
+    192
+   ],
+   "parameters": {
+    "jsCode": "// Bring the finished MP3 back so it can be emailed to Billy before release\nconst mp3 = $('Mix Episode MP3').first().binary;\nconst d = $('Build Done Message').first().json;\nreturn [{ json: { subject: d.subject, html: d.html }, binary: mp3 }];\n"
+   },
+   "onError": "continueRegularOutput"
+  },
+  {
+   "id": "503ac1d7-ccf5-45a7-99ef-2496cf2914e3",
+   "name": "Email Finished Episode",
+   "type": "n8n-nodes-base.gmail",
+   "typeVersion": 2.2,
+   "position": [
+    8672,
+    192
+   ],
+   "parameters": {
+    "emailType": "html",
+    "message": "={{ $json.html }}",
+    "operation": "send",
+    "options": {
+     "appendAttribution": false,
+     "attachmentsUi": {
+      "attachmentsBinary": [
+       {
+        "property": "data"
+       }
+      ]
+     }
+    },
+    "resource": "message",
+    "sendTo": "={{ $('Show Settings').first().json.approval_email }}",
+    "subject": "={{ $json.subject }}"
+   },
+   "onError": "continueRegularOutput",
+   "webhookId": "4cf0c65e-60a5-41c6-97df-a8cbb8066e32",
+   "credentials": {
+    "gmailOAuth2": {
+     "id": "D4w2VUlhj7K6bIES",
+     "name": "Gmail account"
+    }
+   }
+  },
+  {
+   "id": "1a1ec0f9-ea61-44ce-9e58-c2f6932a7bb5",
+   "name": "Could Read the Link?",
+   "type": "n8n-nodes-base.if",
+   "typeVersion": 2.2,
+   "position": [
+    560,
+    240
+   ],
+   "parameters": {
+    "conditions": {
+     "combinator": "and",
+     "conditions": [
+      {
+       "leftValue": "={{ $json.readable }}",
+       "operator": {
+        "operation": "true",
+        "singleValue": true,
+        "type": "boolean"
+       }
+      }
+     ],
+     "options": {
+      "caseSensitive": true,
+      "leftValue": "",
+      "typeValidation": "loose",
+      "version": 2
+     }
+    },
+    "options": {}
+   }
+  },
+  {
+   "id": "4dffba44-78d1-4da5-b879-001bf70979a1",
+   "name": "Tell Slack: Could Not Read Link",
+   "type": "n8n-nodes-base.slack",
+   "typeVersion": 2.7,
+   "position": [
+    784,
+    560
+   ],
+   "parameters": {
+    "channelId": {
+     "__rl": true,
+     "mode": "id",
+     "value": "={{ $('Show Settings').first().json.slack_channel }}"
+    },
+    "otherOptions": {
+     "includeLinkToWorkflow": false
+    },
+    "select": "channel",
+    "text": "={{ ':warning: *[Breakpoint] Could not read this source, so no episode was started:* ' + ($json.source_url || 'topic brief (too short: write at least a few sentences)') + '\\nNothing was spent.' }}"
+   },
+   "webhookId": "8ee43cf9-da02-4b58-bfde-36a54778bfca",
+   "credentials": {
+    "slackApi": {
+     "id": "4jLTmQxQFVzfybZX",
+     "name": "Slack account"
+    }
+   }
+  },
+  {
+   "id": "96c9868d-a93e-4602-bfec-0bec01afa30d",
+   "name": "Preview Air Date",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    3184,
+    560
+   ],
+   "parameters": {
+    "jsCode": "// ---- Breakpoint release rule ----\n// One episode per release day (Show Settings: release_days, release_time, Eastern time).\n// No date asked: the next release day with no episode. Date asked: that day if it is free and not passed\n// (any weekday is allowed on purpose), otherwise the next free release day after it.\n// \"after:YYYY-MM-DD\" (extra links in a dated batch): the first free release day on or after that date.\nconst S = $('Show Settings').first().json;\nconst SHOW_ID = String(S.transistor_show_id || '').trim();\nconst NY = 'America/New_York';\nconst DAY = { mon: 1, tue: 2, wed: 3, thu: 4, fri: 5, sat: 6, sun: 7 };\nconst days = String(S.release_days || 'Tue').split(/[\\s,]+/).map(d => DAY[d.trim().slice(0, 3).toLowerCase()]).filter(Boolean);\nconst releaseDays = days.length ? days : [2];\nconst tm = String(S.release_time || '09:00').match(/^(\\d{1,2}):(\\d{2})$/);\nconst HM = tm ? [Math.min(23, +tm[1]), Math.min(59, +tm[2])] : [9, 0];\nfunction pickSlot(rows, airDateRaw, now) {\n  const taken = new Set();\n  for (const r of rows) {\n    if (!r || !['published', 'scheduled'].includes(r.status)) continue;\n    const t = r.release_at || r.published_at;\n    if (!t) continue;\n    const dt = DateTime.fromISO(typeof t === 'string' ? t : new Date(t).toISOString(), { zone: NY });\n    if (dt.isValid) taken.add(dt.toFormat('yyyy-LL-dd'));\n  }\n  const at = d => d.setZone(NY).set({ hour: HM[0], minute: HM[1], second: 0, millisecond: 0 });\n  const soon = now.plus({ minutes: 30 });\n  const free = d => !taken.has(d.toFormat('yyyy-LL-dd')) && at(d) > soon;\n  const nextRelease = from => { let d = at(from); for (let i = 0; i < 730; i++, d = d.plus({ days: 1 })) if (releaseDays.includes(d.weekday) && free(d)) return at(d); return at(from.plus({ days: 1 })); };\n  const raw = String(airDateRaw || '').trim();\n  const after = /^after:/i.test(raw);\n  const ds = raw.replace(/^after:/i, '');\n  let slot = null, note = '';\n  if (/^\\d{4}-\\d{2}-\\d{2}$/.test(ds)) {\n    const day = DateTime.fromISO(ds, { zone: NY });\n    if (!day.isValid) note = 'The date asked for could not be read, so this takes the next release day.';\n    else if (after) slot = nextRelease(day < now ? now : day);\n    else if (free(day)) { slot = at(day); note = 'Airs on the date you asked for.'; }\n    else { slot = nextRelease(day < now ? now : day.plus({ days: 1 })); note = day.toFormat('LLL d') + ' is taken or has passed, so this airs on the next release day.'; }\n  } else if (raw) note = 'The date asked for could not be read, so this takes the next release day.';\n  if (!slot) slot = nextRelease(now);\n  return {\n    release_at_iso: slot.toISO(),\n    release_at_utc: slot.toUTC().toISO(),\n    release_label: slot.toFormat(\"cccc, LLL d 'at' h:mm a\") + ' ET',\n    publish_date_cms: slot.toFormat('yyyy-LL-dd') + 'T16:00:00.000Z',\n    air_note: note\n  };\n}\n\n// Preview the air date for the approval email (Plan Release re-checks it after approval)\nconst d = $('Read Episode Details').first().json;\nconst s = pickSlot($('Get Ledger').all().map(i => i.json), $('Episode Request').first().json.air_date, DateTime.now().setZone(NY));\nreturn [{ json: { ...d, ...s, show_id: SHOW_ID, show_name: S.show_name, show_ready: !!SHOW_ID } }];\n"
+   }
+  },
+  {
+   "id": "dba974f2-0486-4773-bad4-728a966762d6",
+   "name": "ElevenLabs Usage Before Approval",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    3408,
+    560
+   ],
+   "parameters": {
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "method": "GET",
+    "options": {
+     "response": {
+      "response": {
+       "neverError": true
+      }
+     }
+    },
+    "url": "https://api.elevenlabs.io/v1/user/subscription"
+   },
+   "onError": "continueRegularOutput",
+   "alwaysOutputData": true,
+   "credentials": {
+    "httpHeaderAuth": {
+     "id": "Xgc3CY90jcoBbC5v",
+     "name": "ElevenLabs API Key"
+    }
+   }
+  },
+  {
+   "id": "19610ea5-d035-4116-b20d-c30d4f32945e",
+   "name": "Script Gate",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    1600,
+    384
+   ],
+   "parameters": {
+    "jsCode": "// Breakpoint podcast script gate: format, brand and claims checks (never throws; reports).\n// The insurance shows' compliance rules do NOT apply to this show; it has its own rules below.\nconst script = $input.first().json.text || '';\nconst src = $('Build Script Input').first().json;\nconst S = $('Show Settings').first().json;\nconst CO = src.cohost_name;\nconst esc = s => s.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');\nconst LABEL = new RegExp('^(' + esc(CO) + '|Billy)\\\\s*:', 'i');\n// Words that are in the approved source never block; only words the writer ADDED are checked.\nconst approved = src.source_type !== 'article';\nconst post = String(src.compiled_content || '').toLowerCase().replace(/[‘’]/g, \"'\");\nconst added = p => (script.match(new RegExp(p.source, p.flags.includes('g') ? p.flags : p.flags + 'g')) || []).filter(m => !(approved && post.includes(m.toLowerCase().replace(/[‘’]/g, \"'\"))));\nconst words = script.trim().split(/\\s+/).filter(Boolean).length;\nconst v = [];\nif (words < 500) v.push('script_broken_too_short(' + words + ' words)');\nif (words > 2000) v.push('script_broken_too_long(' + words + ' words)');\nconst lengthNote = words < 750 ? 'Short: about ' + words + ' words, under 5 minutes' : words > 1550 ? 'OVER 10 MINUTES: about ' + words + ' words. Consider declining' : words > 1150 ? 'Long: about ' + words + ' words, over 7 minutes' : '';\nconst lines = script.split(/\\r?\\n/).map(l => l.trim()).filter(Boolean);\nif (!new RegExp('^' + esc(CO) + '\\\\s*:', 'i').test(lines[0] || '')) v.push('first_line_must_be_cohost_hook');\nif (lines.some(l => !LABEL.test(l))) v.push('every_line_must_start_with_a_speaker');\nif (!/^\\s*Billy\\s*:/im.test(script)) v.push('missing_billy_lines');\nif (!new RegExp(\"I['’]m \" + esc(CO), 'i').test(script)) v.push('missing_cohost_intro');\nif (lines.some(l => new RegExp('\\\\b(' + esc(CO) + '|Billy)\\\\s*:', 'i').test(l.replace(LABEL, '')))) v.push('speaker_name_inside_a_line_would_be_read_aloud');\nconst cta = String(S.cta_must_contain || '').trim();\nif (cta && !script.toLowerCase().includes(cta.toLowerCase())) v.push('missing_cta(' + cta + ')');\nif (src.spoken_ai_line && !script.includes(src.spoken_ai_line)) v.push('missing_spoken_ai_line');\n// Brand: \"Break Point\" with a space and initials are never used.\nconst brandBad = [/\\bBreak\\s+Point\\b/i, /\\bBPS\\b/];\nbrandBad.forEach(p => { if (p.test(script)) v.push('brand_name:' + p.toString()); });\n// Promised results and hype the writer added.\nconst forbidden = [/\\bguarantee[ds]?\\s+(?:results?|roi|returns?|savings|growth|leads|revenue|sales|success)\\b/i, /\\brisk[-\\s]?free\\b/i, /\\bovernight (?:success|results?)\\b/i, /\\bset it and forget it\\b/i, /\\bwill (?:double|triple|10x)\\b/i, /\\b(?:double|triple) your (?:revenue|sales|leads|profits?)\\b/i, /\\bnumber one\\b/i, /\\b#1\\b/];\nforbidden.forEach(p => { if (added(p).length) v.push('forbidden:' + p.toString()); });\n// Made-up numbers: a percentage or dollar figure in the script when the source has none at all.\n// (Spoken forms like \"forty percent\" can't be matched to \"40%\", so this only blocks when the source has no such figures.)\nconst srcHasPct = /%|percent/i.test(post), srcHasMoney = /\\$|dollar/i.test(post);\nif (!srcHasPct && /\\b\\d+(?:\\.\\d+)?\\s?%|\\bpercent\\b/i.test(script)) v.push('percentage_not_in_source');\nif (!srcHasMoney && /\\$\\s?\\d|\\bdollars?\\b/i.test(script)) v.push('dollar_figure_not_in_source');\nreturn [{ json: {\n  pass: v.length === 0,\n  violations: v,\n  final_script: script,\n  topic: src.topic,\n  word_count: words,\n  est_minutes: Math.round((words / 170 + 0.7) * 10) / 10,\n  length_note: lengthNote,\n  script_chars: script.length,\n  editor_issues: $input.first().json.editor_issues || []\n} }];\n"
+   }
+  },
+  {
+   "id": "df3a2dcd-946e-4b80-a60f-8af875d19bf3",
+   "name": "Edit Script",
+   "type": "@n8n/n8n-nodes-langchain.chainLlm",
+   "typeVersion": 1.7,
+   "position": [
+    1024,
+    384
+   ],
+   "parameters": {
+    "promptType": "define",
+    "text": "=## ROLE ##\nYou are the editor for \"{{ $('Build Script Input').first().json.show_name }}\", the podcast from {{ $('Build Script Input').first().json.brand_name }}. A writer drafted the two-person script below from the source. FIND and FIX problems with the smallest possible edits. You are strict and you do not rewrite for style.\n\n## CHECK EVERY LINE AGAINST THESE RULES ##\n{{ $('Build Script Input').first().json.editor_fact_rule }}\n2. The company name is always \"{{ $('Build Script Input').first().json.brand_name }}\". Never \"Break Point\", never initials.\n3. No promised results: remove \"guaranteed\", \"risk-free\", \"will double\", \"overnight\", \"set it and forget it\", and any specific saving, revenue or hours figure that is not in the source.\n4. Remove invented client names, testimonials and case-study results. A general TYPE of business (\"a five-person HVAC company\") is fine.\n5. Remove any claim that a named vendor is \"the best\" or \"number one\".\n6. The CTA line must be exactly: \"{{ $('Build Script Input').first().json.cta_line }}\" Billy's outro must be exactly: \"I'm Billy Jordan with {{ $('Build Script Input').first().json.brand_name }}. Go build something that runs without you. Until next time.\"{{ $('Build Script Input').first().json.spoken_ai_line ? ' Billy says this line exactly once, in his first line: \"' + $('Build Script Input').first().json.spoken_ai_line + '\"' : '' }}\n7. Format: every line starts with \"{{ $('Build Script Input').first().json.cohost_name }}:\" or \"Billy:\". A speaker name with a colon appears ONLY at the very start of a line. The recap is ONE {{ $('Build Script Input').first().json.cohost_name }} line: \"Three things to remember. One, ... Two, ... Three, ...\" Keep the hook as line one, and keep the verbatim intro, CTA, outro and close lines exactly as written.\n8. Length: do not cut anything to change the length. Length is Billy's call.\n9. Numbers are written the way they are spoken.\n10. Do not add disclaimers, caveats or hedges.\n\n## OUTPUT ##\nReturn ONLY a JSON object, no markdown fences:\n{\"issues\": [\"short plain-English note for each change you made, or [] if none\"], \"script\": \"the full corrected script, lines separated by \\n\"}\n\n## SOURCE ##\n{{ $('Build Script Input').first().json.compiled_content }}\n\n## DRAFT SCRIPT ##\n{{ $json.text }}"
+   }
+  },
+  {
+   "id": "e4f84100-ef08-4fdf-a267-64795df1642b",
+   "name": "OpenAI Editor Model",
+   "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+   "typeVersion": 1.2,
+   "position": [
+    1104,
+    608
+   ],
+   "parameters": {
+    "model": {
+     "__rl": true,
+     "mode": "list",
+     "value": "gpt-4.1"
+    },
+    "options": {
+     "temperature": 0.1
+    }
+   },
+   "credentials": {
+    "openAiApi": {
+     "id": "xxb6XjQBi63OdrkM",
+     "name": "OpenAi MCP Server"
+    }
+   }
+  },
+  {
+   "parameters": {
+    "jsCode": "// Breakpoint podcast settings. Billy (or Claude) changes the values here; nothing else needs editing.\n// Every Breakpoint workflow reads its settings from this one node. The insurance shows never read it.\nconst S = {\n  show_name: 'Work ON Your Business',              // DRAFT name from brands/breakpoint.md. Billy to confirm.\n  brand_name: 'Breakpoint Systems',                // How the company name is said and written.\n  host_name: 'Billy Jordan',\n  cohost_name: 'Tanya',                            // Speaker label in the script. Must match cohost_voice.\n  host_voice: '2dIruLdSTKfsYrmyR4YG',              // Billy's cloned ElevenLabs voice.\n  cohost_voice: 'Rv3wiuHHQq0rSS4QVaQ8',            // Tanya for now. Swap for a different stock voice if Billy wants the shows to sound different.\n  listener: 'owners and founders of service businesses with 5 to 50 people',\n  website: 'https://www.breakpointsystems.com',\n  own_domains: 'breakpointsystems.com',            // Links on these sites count as our own, already-approved content.\n  cta_line: 'If you want help putting this to work in your business, book an automation audit with Billy and his team at breakpointsystems.com.',\n  cta_must_contain: 'breakpointsystems.com',       // The gate blocks a script whose call to action is missing this.\n  spoken_ai_line: '',                              // Optional on-air line saying the voices are AI. Blank = disclosure lives in the show notes only.\n  transistor_show_id: '',                          // REQUIRED before any audio is made. Billy creates the show in Transistor, then paste its ID here.\n  apple_podcasts_url: '',\n  release_days: 'Tue',                             // Days episodes air, e.g. 'Tue' (weekly) or 'Mon,Wed,Fri'.\n  release_time: '09:00',                           // Eastern time.\n  use_music: 'no',                                 // 'yes' uses intro/outro music files (none made for Breakpoint yet).\n  music_intro_path: '',\n  music_outro_path: '',\n  approval_email: 'billy@agencyhlpc.com',\n  slack_channel: 'C0C8A3WRQA1',                    // Same channel as the insurance podcast. Messages start with [Breakpoint].\n  webflow_collection_id: '',                       // Breakpoint site has no Podcast collection yet. Blank = no website page is made.\n  ledger_table_id: 'fII8YCB84TQBpd5X',             // n8n table \"Breakpoint Podcast Ledger\" (created Oct 16).\n  episode_word_min: '850',\n  episode_word_max: '1050'\n};\nreturn [{ json: { ...S, ...($input.first().json || {}) } }];\n"
+   },
+   "name": "Show Settings",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    112,
+    384
+   ],
+   "id": "2b0761e4-c422-433a-8edd-f8d91ca918c9"
+  },
+  {
+   "parameters": {
+    "conditions": {
+     "options": {
+      "caseSensitive": true,
+      "leftValue": "",
+      "typeValidation": "loose",
+      "version": 2
+     },
+     "conditions": [
+      {
+       "leftValue": "={{ $json.source_url }}",
+       "operator": {
+        "type": "string",
+        "operation": "notEmpty",
+        "singleValue": true
+       }
+      }
+     ],
+     "combinator": "and"
+    },
+    "options": {}
+   },
+   "name": "Has a Link?",
+   "type": "n8n-nodes-base.if",
+   "typeVersion": 2.2,
+   "position": [
+    224,
+    384
+   ],
+   "id": "bf50eaf8-1825-4d3a-a32c-ca96260897c5"
+  },
+  {
+   "parameters": {
+    "conditions": {
+     "options": {
+      "caseSensitive": true,
+      "leftValue": "",
+      "typeValidation": "loose",
+      "version": 2
+     },
+     "conditions": [
+      {
+       "leftValue": "={{ $('Build Web Fields').first().json.make_web_page }}",
+       "operator": {
+        "type": "boolean",
+        "operation": "true",
+        "singleValue": true
+       }
+      }
+     ],
+     "combinator": "and"
+    },
+    "options": {}
+   },
+   "name": "Make Web Page?",
+   "type": "n8n-nodes-base.if",
+   "typeVersion": 2.2,
+   "position": [
+    7216,
+    384
+   ],
+   "id": "ec7936e7-05f8-4848-b2c2-53de12f94e8c"
+  }
+ ],
+ "connections": {
+  "Episode Request": {
+   "main": [
+    [
+     {
+      "node": "Show Settings",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Write Dialogue": {
+   "main": [
+    [
+     {
+      "node": "Edit Script",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "OpenAI Writer Model": {
+   "ai_languageModel": [
+    [
+     {
+      "node": "Write Dialogue",
+      "type": "ai_languageModel",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Read Editor Output": {
+   "main": [
+    [
+     {
+      "node": "Script Gate",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Gate Passed?": {
+   "main": [
+    [
+     {
+      "node": "Get Ledger",
+      "type": "main",
+      "index": 0
+     }
+    ],
+    [
+     {
+      "node": "Tell Slack: Gate Failed",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Get Ledger": {
+   "main": [
+    [
+     {
+      "node": "Ledger Questions",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Ledger Questions": {
+   "main": [
+    [
+     {
+      "node": "Write Episode Details",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Write Episode Details": {
+   "main": [
+    [
+     {
+      "node": "Read Episode Details",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "OpenAI Details Model": {
+   "ai_languageModel": [
+    [
+     {
+      "node": "Write Episode Details",
+      "type": "ai_languageModel",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Read Episode Details": {
+   "main": [
+    [
+     {
+      "node": "Already Answered?",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Already Answered?": {
+   "main": [
+    [
+     {
+      "node": "Tell Slack: Duplicate",
+      "type": "main",
+      "index": 0
+     }
+    ],
+    [
+     {
+      "node": "Preview Air Date",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Decide Approval": {
+   "main": [
+    [
+     {
+      "node": "Make It?",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Make It?": {
+   "main": [
+    [
+     {
+      "node": "Get Ledger Again",
+      "type": "main",
+      "index": 0
+     }
+    ],
+    [
+     {
+      "node": "Tell Slack: Not Made",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Get Ledger Again": {
+   "main": [
+    [
+     {
+      "node": "Plan Release",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Plan Release": {
+   "main": [
+    [
+     {
+      "node": "Split Dialogue",
+      "type": "main",
+      "index": 0
+     },
+     {
+      "node": "Music Parts List",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Split Dialogue": {
+   "main": [
+    [
+     {
+      "node": "One Chunk at a Time",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "All Voices Done": {
+   "main": [
+    [
+     {
+      "node": "Voices + Music",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Voices + Music": {
+   "main": [
+    [
+     {
+      "node": "Mix Episode MP3",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "ElevenLabs Dialogue v4": {
+   "main": [
+    [
+     {
+      "node": "One Chunk at a Time",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "One Chunk at a Time": {
+   "main": [
+    [
+     {
+      "node": "All Voices Done",
+      "type": "main",
+      "index": 0
+     }
+    ],
+    [
+     {
+      "node": "ElevenLabs Dialogue v4",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Music Parts List": {
+   "main": [
+    [
+     {
+      "node": "Download Music Part",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Download Music Part": {
+   "main": [
+    [
+     {
+      "node": "Voices + Music",
+      "type": "main",
+      "index": 1
+     }
+    ]
+   ]
+  },
+  "Mix Episode MP3": {
+   "main": [
+    [
+     {
+      "node": "Authorize Transistor Upload",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Authorize Transistor Upload": {
+   "main": [
+    [
+     {
+      "node": "Attach Audio",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Attach Audio": {
+   "main": [
+    [
+     {
+      "node": "Upload MP3 to Transistor",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Upload MP3 to Transistor": {
+   "main": [
+    [
+     {
+      "node": "Create Transistor Episode",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Create Transistor Episode": {
+   "main": [
+    [
+     {
+      "node": "Build Web Fields",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Build Web Fields": {
+   "main": [
+    [
+     {
+      "node": "Add Show Notes and Transcript",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Add Show Notes and Transcript": {
+   "main": [
+    [
+     {
+      "node": "Schedule Transistor Release",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Schedule Transistor Release": {
+   "main": [
+    [
+     {
+      "node": "Make Web Page?",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Create Website Episode (draft)": {
+   "main": [
+    [
+     {
+      "node": "Log to Ledger",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Log to Ledger": {
+   "main": [
+    [
+     {
+      "node": "Check ElevenLabs Usage",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Check ElevenLabs Usage": {
+   "main": [
+    [
+     {
+      "node": "Build Done Message",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Build Done Message": {
+   "main": [
+    [
+     {
+      "node": "Tell Slack: Scheduled",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Tell Slack: Gate Failed": {
+   "main": [
+    [
+     {
+      "node": "Log Not Made",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Tell Slack: Duplicate": {
+   "main": [
+    [
+     {
+      "node": "Log Not Made",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Tell Slack: Not Made": {
+   "main": [
+    [
+     {
+      "node": "Log Not Made",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Approve Episode by Email": {
+   "main": [
+    [
+     {
+      "node": "Decide Approval",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Tell Slack: Scheduled": {
+   "main": [
+    [
+     {
+      "node": "Attach Finished MP3",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Attach Finished MP3": {
+   "main": [
+    [
+     {
+      "node": "Email Finished Episode",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Get Source Page": {
+   "main": [
+    [
+     {
+      "node": "Build Script Input",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Build Script Input": {
+   "main": [
+    [
+     {
+      "node": "Could Read the Link?",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Could Read the Link?": {
+   "main": [
+    [
+     {
+      "node": "Write Dialogue",
+      "type": "main",
+      "index": 0
+     }
+    ],
+    [
+     {
+      "node": "Tell Slack: Could Not Read Link",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Preview Air Date": {
+   "main": [
+    [
+     {
+      "node": "Tell Slack: Script Emailed",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Tell Slack: Script Emailed": {
+   "main": [
+    [
+     {
+      "node": "ElevenLabs Usage Before Approval",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "ElevenLabs Usage Before Approval": {
+   "main": [
+    [
+     {
+      "node": "Approve Episode by Email",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Script Gate": {
+   "main": [
+    [
+     {
+      "node": "Gate Passed?",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Edit Script": {
+   "main": [
+    [
+     {
+      "node": "Read Editor Output",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "OpenAI Editor Model": {
+   "ai_languageModel": [
+    [
+     {
+      "node": "Edit Script",
+      "type": "ai_languageModel",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Show Settings": {
+   "main": [
+    [
+     {
+      "node": "Has a Link?",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Has a Link?": {
+   "main": [
+    [
+     {
+      "node": "Get Source Page",
+      "type": "main",
+      "index": 0
+     }
+    ],
+    [
+     {
+      "node": "Build Script Input",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Make Web Page?": {
+   "main": [
+    [
+     {
+      "node": "Create Website Episode (draft)",
+      "type": "main",
+      "index": 0
+     }
+    ],
+    [
+     {
+      "node": "Log to Ledger",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  }
+ },
+ "settings": {
+  "executionOrder": "v1",
+  "timezone": "America/New_York",
+  "callerPolicy": "workflowsFromSameOwner"
+ }
+}

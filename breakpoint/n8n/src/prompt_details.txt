@@ -1,0 +1,22 @@
+=You prepare the publishing details for one episode of "{{ $('Build Script Input').first().json.show_name }}", the podcast from {{ $('Build Script Input').first().json.brand_name }} (host Billy Jordan, founder; AI co-host {{ $('Build Script Input').first().json.cohost_name }}) for {{ $('Build Script Input').first().json.listener }}. Plain English, no hype, no promised results.
+
+Return ONLY a JSON object, no markdown fences, with exactly these keys:
+- "title": the episode title, 60 to 95 characters, question-first or answer-first, plain and specific. Example: "Why Your CRM Isn't Following Up on Leads (and the 3 Fixes That Do)"
+- "slug": lowercase words joined by hyphens, at most 80 characters, built from the title without filler words
+- "question": the ONE owner question this episode answers, as one plain sentence
+- "topic": exactly one of "Lead Follow-Up", "AI Receptionists", "CRM", "Workflow Automation", "AI Search", "Operations", "Case Study"
+- "quick_answer": 150 to 200 characters: the direct answer, then "Billy Jordan of {{ $('Build Script Input').first().json.brand_name }} explains."
+- "summary": 1 to 2 sentences, at most 280 characters, for the podcast apps
+- "seo_title": at most 60 characters, keyword first
+- "meta_description": at most 155 characters
+- "bullets": exactly 3 short "In this episode" bullet points, each under 110 characters
+- "duplicate_of": if the QUESTION is essentially the same question as one already answered below, the number of that episode; otherwise null. Same topic is NOT a duplicate.
+
+## EXISTING EPISODES (number, topic, question) ##
+{{ $('Ledger Questions').first().json.ledger_questions }}
+
+## SOURCE TITLE ##
+{{ $('Build Script Input').first().json.topic }}
+
+## SCRIPT ##
+{{ $('Script Gate').first().json.final_script }}
