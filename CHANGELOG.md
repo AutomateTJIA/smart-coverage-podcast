@@ -10,6 +10,17 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ## 2026-10-16
 
+### Fixed — both shows' Apple and Spotify links always visible on /podcast (Webflow)
+- **Billy's report (Oct 16):** at the bottom of /podcast, the Spotify link only went to the Medicare show, and nothing pointed to the Health Insurance show.
+- **Cause:** the "Listen on" links changed with the tab. The Health links only showed after clicking the Health Insurance tab, and nobody would think to do that.
+- **Now:** two lines that are always there, on either tab:
+  - **Medicare show:** Apple Podcasts · Spotify · RSS feed
+  - **Health Insurance show:** Apple Podcasts · Spotify · RSS feed
+- **Where:** the `podcast-show-tabs` script in the /podcast page footer code.
+- **Checked:**
+  - Before publishing: on a copy of the page in a test browser, with no errors.
+  - After publishing: on both thejordaninsuranceagency.com and www, which serve the new code with both shows' Spotify and Apple links.
+
 ### Added — Topic Radar, one for The Jordan Insurance Agency and a separate one for Breakpoint Systems LLC (n8n)
 - **What it does:** every Monday morning each radar collects what people are searching and reading about that week. It keeps the 8 strongest topic ideas and emails Billy each one with **Approve** and **Skip** buttons. Nothing is written until Billy approves.
 - **The Jordan Insurance Agency radar** (`The Jordan Insurance Agency Blog | 01c | Topic Radar`, `6IAzZMS5WVw4bqLx`, Mondays 6:40 AM)
