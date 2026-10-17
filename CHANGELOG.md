@@ -8,6 +8,12 @@ commits. Entries from Oct 13 on use this repository's own hashes.
 
 ---
 
+## 2026-10-17
+
+### Added — Breakpoint podcast: playbook draft, project rules and Episode 1 brief (commit 8a5c142, branch `breakpoint-podcast`)
+- Billy approved a separate `breakpoint-podcast` repo. GitHub refused to let Claude create it (no permission to create repos), so Billy creates the empty repo and Claude moves everything in. This branch holds a backup until then.
+- Episode 1 "Start Here" brief drafted from Billy's guide "Found. Called. Booked." (`breakpoint/episodes/001-start-here/brief.md`).
+
 ## 2026-10-16
 
 ### Added — Breakpoint Systems podcast: its own production system (commits 51180e9, 03d918a; branch `breakpoint-podcast`)
